@@ -47,7 +47,7 @@
 
 ### **Summary**
 
-In the year 2047, Nexus - an evil corporation led by a hyper-smart AI - conquered the world. The shadow collective, a group of rebels, has been hiding in the shadows trying to overthrow Nexus' rule of surveillance and injustice, but to no avail. The world's last hope rests in the hands of our hero, a cyborg who wishes to use technology for the greater good.
+In the year 2053, Nexus - an evil corporation led by a hyper-smart AI - conquered the world. The shadow collective, a group of rebels, has been hiding in the shadows trying to overthrow Nexus' rule of surveillance and injustice, but to no avail. The world's last hope rests in the hands of our hero, a cyborg who wishes to use technology for the greater good.
 
 ### **Gameplay**
 
