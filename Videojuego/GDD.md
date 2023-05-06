@@ -10,8 +10,6 @@
 
 ## _Index_
 
----
-
 1. [Index](#index)
 2. [Game Design](#game-design)
    1. [Summary](#summary)
@@ -23,11 +21,6 @@
    3. [Mechanics](#mechanics)
 4. [Level Design](#level-design)
    1. [Themes](#themes)
-      1. Ambience
-      2. Objects
-         1. Ambient
-         2. Interactive
-      3. Challenges
    2. [Game Flow](#game-flow)
 5. [Development](#development)
    1. [Abstract Classes](#abstract-classes--components)
@@ -51,7 +44,7 @@ In the year 2053, Nexus - an evil corporation led by a hyper-smart AI - conquere
 
 ### **Gameplay**
 
-Shadow Collective will be a rogue-lite top-down RPG. The player will choose at the beginning one of three cyborg classes: Cybergladiator, Codebreaker, and Ghostwalker. The Cybergladiator class will give the player super-human strength and fighting skill. The Codebreaker class will give the player the ability to control some of the technology remotely. And finally, the Ghsotwalker will have technology that allows them to go undetected.
+Shadow Collective will be a rogue-lite top-down RPG. The player will choose at the beginning one of three cyborg classes: Cybergladiator, Codebreaker, and Ghostwalker. The Cybergladiator class will give the player super-human strength and fighting skill. The Codebreaker class will give the player the ability to control some of the technology remotely. And finally, the Ghostwalker will have technology that allows them to go undetected.
 
 The gameplay will focus on the player inflitrating the Nexus building, a tall tower with the final boss in the top floor. Each floor will be a level with different objectives and mechanics. As the level progresses, or climbs the building, they will be given rewards like gadgets or upgrades from which they can choose and build their own character, simulating leveling-up. The boss will have different stages, with different mechanics, and the goal is to disconnect the power supply that keeps Nexus alive. (This gives a window for a sequel, since maybe before being disconnected, Nexus transfered itself into another computer). If the player dies, they will be allowed to keep their gadgets but they will have to start again from the first level.
 
@@ -66,69 +59,151 @@ Shadow Collective wants to make the player feel like there is a lot at stake. Th
 ### **Screens**
 
 1. Title Screen
-   1. Options
-2. Level Select
+   1. Welcome Screen
+2. Character Select
+   1. Choose your class
 3. Game
-   1. Inventory
-   2. Assessment / Next Level
+   1. Level 1-2
+   2. Boss Level
+   3. Death - Game over screen
 4. End Credits
+   1. Credits roll
 
-_(example)_
+Examples:
+![](https://i.imgur.com/1v3AbP1.jpeg)
+![](https://i.imgur.com/2Yo0DFx.jpeg)
+![](https://i.imgur.com/Ka1K3Mg.jpeg)
 
 ### **Controls**
 
-How will the player interact with the game? Will they be able to choose the controls? What kind of in-game events are they going to be able to trigger, and how? (e.g. pressing buttons, opening doors, etc.)
+The player will control their character using the WASD keys. As it is a top-down game, they will be able to go in all four directions. To attack, the player will aim using their mouse, and when they click, a projectile will shoot from the player in the direction of the mouse position, until it hits a wall or an enemy. Some gadgets will require player input, so they will be assigned in order a number key.
 
 ### **Mechanics**
 
-Are there any interesting mechanics? If so, how are you going to accomplish them? Physics, algorithms, etc.
+There are a number of interesting mechanics, and this is how they will be achieved:
+
+- When a player is seen by a camera or a guard, the rest of the guards will be notified and they will go towards the player. The path the enemies will use will be calculated using the A\* algorithm. This will trigger a state of alarm for the guards. If after a certain time the guards haven't seen the player, the state of alert will drop and the guards will again pathfind their way to their original outpost.
+- There is a cone of vision for cameras and guards, where if the player is inside they can be seen. This will be implemented with a Polygon 2d Collider, where if the player goes in, a ray will be thrown towards it. If the ray does not hit an obstacle before, the camera or enemy will call a public function from the player if it can be seen (since there are gadgets and ability that could manipulate this), which will return if the player was seen or not.
+- The passive gadgets will modify the player class when instantiated, while the active gadgets will have a method called each frame in order to check for input in order to perform an action if necessary.
+- The different playable classes will be defined by derived classes from a base abstract class.
+
+Each class has passive abilities and unique gadgets that modify their behaviour and abilities. Here are brief descriptions for each:
+
+Cybergladiator: Has more HP and does more damage.
+
+- Cyber Rush: A dash ability.
+- Plasma Shield: A shield that blocks all damage briefly.
+- Overcharge: Briefly doubles all damage.
+
+Codebreaker: Can hack (disable for 5 seconds) nearby enemies.
+
+- Shadow Veil: A cloak that when seen hacks the enemy that saw you.
+- Circuit Breaker: An EMP surge that hacks enemies inside a range for 5 seconds.
+- Phantom Signal: A fake decoy that sends an alarm with the wrong coordinates.
+
+Ghostwalker: Can go invisible for 5 seconds.
+
+- Ghost Vision: The player can see vision cones.
+- Phantom Step: Dash when stealthing.
+- Ghost Blade: One-hit takedown while stealthing. One use only.
 
 ## _Level Design_
 
 ---
 
-_(Note : These sections can safely be skipped if they&#39;re not relevant, or you&#39;d rather go about it another way. For most games, at least one of them should be useful. But I&#39;ll understand if you don&#39;t want to use them. It&#39;ll only hurt my feelings a little bit.)_
-
 ### **Themes**
 
-1. Forest
+1. Tutorial Level
+
    1. Mood
-      1. Dark, calm, foreboding
+      1. Easy, interactive, intuitive
    2. Objects
       1. _Ambient_
-         1. Fireflies
-         2. Beams of moonlight
-         3. Tall grass
+         1. Long aile
+         2. Tech trash (obstacle)
       2. _Interactive_
-         1. Wolves
-         2. Goblins
-         3. Rocks
-2. Castle
+         1. Cameras
+         2. Guards
+
+2. First Level
+
    1. Mood
-      1. Dangerous, tense, active
+      1. Active, easy, tense, surprising
    2. Objects
       1. _Ambient_
-         1. Rodents
-         2. Torches
-         3. Suits of armor
+         1. Office cubicles
+         2. Dark aisles
+         3. Abandoned computers (obstacles)
+         4. Tech trash (obstacles)
+         5. Desks and chairs (obstacles)
+      2. _Interactive_
+         1. Cameras
+         2. Guards
+
+3. Second level
+
+   1. Mood
+      1. Challenging, tense, curious
+   2. Objects
+      1. _Ambient_
+         1. Dark spots
+         2. Dark aisles
+         3. Office cubicles
+         4. Small offices
+         5. Abandoned computers (obstacles)
+         6. Tech trash (obstacles)
+         7. Desk and chairs (obstacles)
       2. _Interactive_
          1. Guards
-         2. Giant rats
-         3. Chests
+         2. Cameras
 
-_(example)_
+4. Final Level
+   1. Mood
+      1. Tense, tricky, dangerous, hard
+   2. Objects
+      1. _Ambient_
+         1. Narrow and dark aisles
+         2. Office cubicles
+         3. Small offices
+         4. Obstacles arranged as a maze
+         5. Desks and chairs (obstacles)
+         6. Tech trash (obstacles)
+         7. Abandoned computers
+      2. _Interactive_
+         1. Guards
+         2. Cameras
 
 ### **Game Flow**
 
-1. Player starts in forest
-2. Pond to the left, must move right
-3. To the right is a hill, player jumps to traverse it (&quot;jump&quot; taught)
-4. Player encounters castle - door&#39;s shut and locked
-5. There&#39;s a window within jump height, and a rock on the ground
-6. Player picks up rock and throws at glass (&quot;throw&quot; taught)
-7. … etc.
+TUTORIAL LEVEL:
 
-_(example)_
+1. Player starts the tutorial level, where he learns how to move forward, back, left, and right.
+2. Player gets seen by a camera, so he knows how it works.
+3. Player passes along a guard and kills it to understand the dynamic.
+
+ALL LEVELS:
+
+1. Player starts at the entrance.
+2. PLayer explores the level map.
+3. Enters office cubicles, gets seen by cameras, and followed by guards.
+4. Player finds the exit door hidden in the map.
+5. Player exits the level and gets to the next one.
+
+FINAL LEVEL:
+
+1. Player starts at the entrance.
+2. Player gets to explore the map which divides into two sections.
+3. If the player chooses the first section, it will go through a path full of cameras.
+4. If the player chooses the second path they will have to fight lots of guards.
+5. The player needs to find the winner's room.
+6. The player needs to enter the winner's room.
+
+### **Examples**
+
+![](https://i.imgur.com/uFxb48E.jpg)
+![](https://i.imgur.com/dN4BIHK.jpg)
+![](https://i.imgur.com/PNvEDPs.jpg)
+![](https://i.imgur.com/MtMbNyj.jpg)
 
 ## _Development_
 
@@ -136,39 +211,34 @@ _(example)_
 
 ### **Abstract Classes / Components**
 
-1. BasePhysics
-   1. BasePlayer
-   2. BaseEnemy
-   3. BaseObject
-2. BaseObstacle
-3. BaseInteractable
-
-_(example)_
+1. BasePlayer
+2. BaseEnemy
+3. BaseGadget
+4. BaseTile
 
 ### **Derived Classes / Component Compositions**
 
 1. BasePlayer
-   1. PlayerMain
-   2. PlayerUnlockable
+   1. Cybergladiator
+   2. Codebreaker
+   3. GhostWalker
 2. BaseEnemy
-   1. EnemyWolf
-   2. EnemyGoblin
-   3. EnemyGuard (may drop key)
-   4. EnemyGiantRat
-   5. EnemyPrisoner
-3. BaseObject
-   1. ObjectRock (pick-up-able, throwable)
-   2. ObjectChest (pick-up-able, throwable, spits gold coins with key)
-   3. ObjectGoldCoin (cha-ching!)
-   4. ObjectKey (pick-up-able, throwable)
-4. BaseObstacle
-   1. ObstacleWindow (destroyed with rock)
-   2. ObstacleWall
-   3. ObstacleGate (watches to see if certain buttons are pressed)
-5. BaseInteractable
-   1. InteractableButton
-
-_(example)_
+   1. Guard
+   2. Camera
+3. BaseGadget
+   1. CyberRush
+   2. PlasmaShield
+   3. Overcharge
+   4. ShadowVeil
+   5. CircuitBreaker
+   6. PhantomSignal
+   7. GhostVision
+   8. PhantomStep
+   9. GhostBlade
+4. BaseTile
+   1. GroundTile
+   2. WallTile
+   3. DamagingTile
 
 ## _Graphics_
 
@@ -176,84 +246,99 @@ _(example)_
 
 ### **Style Attributes**
 
-What kinds of colors will you be using? Do you have a limited palette to work with? A post-processed HSV map/image? Consistency is key for immersion.
+For this game, we will be choosing a neon color pallet. We are including some grays and blacks to give a tech ambient. Because the theme is cyberpunk, colors such as purple, green, and blue are popular between the tiles and the characters.
 
-What kind of graphic style are you going for? Cartoony? Pixel-y? Cute? How, specifically? Solid, thick outlines with flat hues? Non-black outlines with limited tints/shades? Emphasize smooth curvatures over sharp angles? Describe a set of general rules depicting your style here.
+We are implementing a pixel-y aesthetic, choosing 32 x 32-bit tiles. Because of this selection, the visual may include sharp angles and solid and thick outlines. Because we need obstacles, we include sprites such as tech trash or computers, that will give the ambient a sense of a tech abandoned company.
 
-Well-designed feedback, both good (e.g. leveling up) and bad (e.g. being hit), are great for teaching the player how to play through trial and error, instead of scripting a lengthy tutorial. What kind of visual feedback are you going to use to let the player know they&#39;re interacting with something? That they \*can\* interact with something?
+We are going to implement a tutorial level for the player to learn how different dynamics work. This level will show how he can move and interact with the enemies. We are also providing visual feedback every time a player gets seen by the cameras or shot by the guards. This will give the game a more interactive sense.
 
 ### **Graphics Needed**
 
 1. Characters
-   1. Human-like
-      1. Goblin (idle, walking, throwing)
-      2. Guard (idle, walking, stabbing)
-      3. Prisoner (walking, running)
+   1. Human-like, same graphic
+      1. Cybergladiator (idle, attack, death)
+      2. Codebreaker
+      3. Ghostwalker
    2. Other
-      1. Wolf (idle, walking, running)
-      2. Giant Rat (idle, scurrying)
+      1. Camera (surveilance animation)
+      2. Guard (idle, attack)
+      3. Boss (idle, attack, death)
 2. Blocks
-   1. Dirt
-   2. Dirt/Grass
-   3. Stone Block
-   4. Stone Bricks
-   5. Tiled Floor
-   6. Weathered Stone Block
-   7. Weathered Stone Bricks
+   1. Tile floor
+   2. Detailed tile
+   3. Vent
+   4. Vent to grass
+   5. Grass
+   6. Walls
 3. Ambient
-   1. Tall Grass
-   2. Rodent (idle, scurrying)
-   3. Torch
-   4. Armored Suit
-   5. Chains (matching Weathered Stone Bricks)
-   6. Blood stains (matching Weathered Stone Bricks)
-4. Other
-   1. Chest
-   2. Door (matching Stone Bricks)
-   3. Gate
-   4. Button (matching Weathered Stone Bricks)
+   1. Projectiles
+   2. Tanks
+   3. Wet floor
+   4. Computer
+4. Gadgets
+   1. CyberRush
+   2. PlasmaShield
+   3. Overcharge
+   4. ShadowVeil
+   5. CircuitBreaker
+   6. PhantomSignal
+   7. GhostVision
+   8. PhantomStep
+   9. GhostBlade
 
-_(example)_
+## Examples:
 
-## _Sounds/Music_
+![](https://i.imgur.com/BHKwhv6.jpeg)
+![](https://i.imgur.com/YxLgwwG.jpeg)
+![](https://i.imgur.com/VmzLfIV.jpeg)
+![](https://i.imgur.com/ra03weW.jpeg)
+![](https://i.imgur.com/OK3N6W7.jpeg)
+
+## Sounds/Music
 
 ---
 
 ### **Style Attributes**
 
-Again, consistency is key. Define that consistency here. What kind of instruments do you want to use in your music? Any particular tempo, key? Influences, genre? Mood?
+Futuristic, somewhat sci-fi sounds. However, it is important to keep everything relatively grounded, given that out theme isn't a space opera, it most likely resembles cyberpunk, which tends to be mostly grounded in a reality slightly ahead of its time.
 
-Stylistically, what kind of sound effects are you looking for? Do you want to exaggerate actions with lengthy, cartoony sounds (e.g. mario&#39;s jump), or use just enough to let the player know something happened (e.g. mega man&#39;s landing)? Going for realism? You can use the music style as a bit of a reference too.
+A perfect example of the grounded nature of the genre we are exploring is the book Neuromancer, where every technological aspect of the world that William Gibson builds, is based off of his contemporary reality in the 80s.
 
-Remember, auditory feedback should stand out from the music and other sound effects so the player hears it well. Volume, panning, and frequency/pitch are all important aspects to consider in both music _and_ sounds - so plan accordingly!
+The production of our music should closely resemble production from the 80s, where drums had immense reverbs, and synthesizer were used above all else to convey a futuristic, yet nostalgic sound. This is the basis of the genres of synthwave and cyberpunk. Synthesizers such as the Juno-6 are great synthesizers for lead sounds within less intense tracks. A Prophet synthesizer might be close to what we need for more intense versions, such as higher levels.
 
 ### **Sounds Needed**
 
 1. Effects
-   1. Soft Footsteps (dirt floor)
-   2. Sharper Footsteps (stone floor)
-   3. Soft Landing (low vertical velocity)
-   4. Hard Landing (high vertical velocity)
-   5. Glass Breaking
-   6. Chest Opening
-   7. Door Opening
+   1. Steps (Only one type of step is needed in our case, for the main character).
+   2. Steps of enemies.
+   3. Gunshot with the pulse gun.
+   4. Alarm.
+   5. Camera sounds when one is nearby.
+   6. Hacking sounds (R2D2-like, can be made with an ARP 2600).
 2. Feedback
-   1. Relieved &quot;Ahhhh!&quot; (health)
-   2. Shocked &quot;Ooomph!&quot; (attacked)
-   3. Happy chime (extra life)
-   4. Sad chime (died)
-
-_(example)_
+   1. Hacking success.
+   2. Level success.
+   3. Low Health or hits.
+   4. No more MP.
+   5. Disabled enemies / cameras.
 
 ### **Music Needed**
 
-1. Slow-paced, nerve-racking &quot;forest&quot; track
-2. Exciting &quot;castle&quot; track
-3. Creepy, slow &quot;dungeon&quot; track
-4. Happy ending credits track
-5. Rick Astley&#39;s hit #1 single &quot;Never Gonna Give You Up&quot;
+1. Intro track, main menu screen music.
+2. Intro sound for every level, short 10 second track for loading.
+3. One track for every level:
+   1. Tutorial level: More relaxed track, mostly ambient.
+   2. Level 1: Track with lead synth/guitar a bit more intense.
+   3. Level 2: Dubstep inspired bass might enter. Higher pace.
+   4. Level 3: Intense music. Heavy saw basses, maybe heavy distorted guitars.
+4. Boss music: Most intense one yet, phrygian dominant mode could be used to give it a sinister feeling.
 
-_(example)_
+_Inspirations_
+[Perturbator - Future Club](https://youtu.be/RY66fdMt4vc)
+[Carpenter Brut - Roller Mobster](https://youtu.be/qFfybn_W8Ak)
+[Kavinsky - Nightcall](https://youtu.be/MV_3Dpw-BRY)
+**Boss Music**
+[Caprenter Brut - Turbo Killer](https://youtu.be/wy9r2qeouiQ)
 
 ## _Schedule_
 
@@ -261,32 +346,28 @@ _(example)_
 
 _(define the main activities and the expected dates when they should be finished. This is only a reference, and can change as the project is developed)_
 
-1. develop base classes
-   1. base entity
-      1. base player
-      2. base enemy
-      3. base block
-2. base app state
-   1. game world
-   2. menu world
-3. develop player and basic block classes
-   1. physics / collisions
-4. find some smooth controls/physics
-5. develop other derived classes
-   1. blocks
-      1. moving
-      2. falling
-      3. breaking
-      4. cloud
-   2. enemies
-      1. soldier
-      2. rat
-      3. etc.
-6. design levels
-   1. introduce motion/jumping
-   2. introduce throwing
-   3. mind the pacing, let the player play between lessons
-7. design sounds
-8. design music
+1. WEEK ONE
+   1. Develop base classes
+   2. Develop characters
+      1. Cybergladiator
+      2. Codebreaker
+      3. GhostWalker
+      4. Guard
+      5. Camera
+2. WEEK TWO
+   1. Develop music
+   2. Develop sprites
+   3. Develop assets
+3. WEEK THREE
+   1. Develop levels
+      1. Level 0
+      2. Level 1
+      3. Level 2
+      4. Final Level
+4. WEEK FOUR
 
-_(example)_
+   1. Testing for Final Week
+   2. Error Modifications
+
+5. WEEK FIVE
+   1. Presentation
