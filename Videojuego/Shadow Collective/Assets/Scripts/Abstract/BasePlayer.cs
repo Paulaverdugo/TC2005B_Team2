@@ -28,7 +28,6 @@ abstract public class BasePlayer : MonoBehaviour
     {
         isVisible = true;
         gadgets = new List<Gadget>();
-        pos = transform.position;
     }
 
     // Update is called once per frame
