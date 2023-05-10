@@ -10,22 +10,28 @@ using UnityEngine;
 
 abstract public class BaseEnemy : MonoBehaviour
 {
-    // radius that defines the max distance to alert another enemy when the player is seen
     [SerializeField] GameObject player; 
-    [SerializeField] float alertingRadius; 
-    [SerializeField] float alertedTimeLimit; 
-    [SerializeField] float hackedTimeLimit; 
     
+    // radius that defines the max distance to alert another enemy when the player is seen
+    [SerializeField] float alertingRadius; 
+
+    [SerializeField] float alertedTimeLimit; 
+    [SerializeField] float hackedTimeLimit = 5f; 
+    
+    // attributes related to the state of the enemy being alerted of the enemies position
     private bool isAlerted = false;
     private float alertedTime = 0f;
 
+    // attributes related to the state of the enemy being hacked 
     private bool isHacked = false;
     private float hackedTime = 0f;
 
+    // list that stores the gameobjects that are inside the alerting radius of the enemy
     private List<GameObject> inRadius = new List<GameObject>();
 
     virtual protected void start() 
     {
+        // the circle collider helps to know which enemies are inside the alerting radius
         gameObject.GetComponent<CircleCollider2D>().radius = alertingRadius;
     }
 
@@ -46,6 +52,11 @@ abstract public class BaseEnemy : MonoBehaviour
         }
     }
 
+    /* 
+        function that checks if the gameobject that entered the vision cone is the player
+        if it is, then it asks through the playercontroller if it can be seen 
+        if it can be seen, we alert ourselves, aswell as other enemies within the radius
+    */ 
     private void OnCollisionEnter2D(Collision2D collision) 
     {
         if (GameObject.ReferenceEquals(player, collision.gameObject)) 
@@ -58,6 +69,7 @@ abstract public class BaseEnemy : MonoBehaviour
         }
     }
 
+    // on trigger enter and exit keep track and update the list with gameobjects that are within the radius
     private void OnTriggerEnter2D(Collider2D col) 
     {
         if (!inRadius.Contains(col.gameObject)) 
@@ -74,6 +86,7 @@ abstract public class BaseEnemy : MonoBehaviour
         }
     }
 
+    // function to be alerted that the player has been seen
     private void Alert() 
     {
         isAlerted = true;
@@ -84,6 +97,7 @@ abstract public class BaseEnemy : MonoBehaviour
     {
         for (int i = 0; i < inRadius.Count; i++) 
         {
+            // if the gameobject is an enemy, alert it through the enemyController
             if (inRadius[i].CompareTag("enemy"))
             {
                 inRadius[i].GetComponent<EnemyController>().enemyInstance.Alert();
@@ -91,6 +105,7 @@ abstract public class BaseEnemy : MonoBehaviour
         }
     }
 
+    // function to be hacked by the player or by a gadget
     private void Hack()
     {
         isHacked = true;
