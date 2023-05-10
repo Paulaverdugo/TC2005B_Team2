@@ -18,7 +18,7 @@ abstract public class BasePlayer : MonoBehaviour
     private bool canSeeVisionCones;
 
     // Base player position
-    public Vector3 pos;
+    [SerializeField] Vector3 pos;
     
     // Base player gadgets
     private List<Gadget> gadgets;
@@ -26,7 +26,7 @@ abstract public class BasePlayer : MonoBehaviour
     // Start is called before the first frame update
     virtual protected void Start()
     {
-        isVisible = false;
+        isVisible = true;
         gadgets = new List<Gadget>();
         pos = transform.position;
     }
