@@ -21,13 +21,13 @@ abstract public class BasePlayer : MonoBehaviour
     [SerializeField] Vector3 pos;
     
     // Base player gadgets
-    private List<Gadget> gadgets;
+    // private List<Gadget> gadgets; TO DO -> uncomment when Gadget exists
 
     // Start is called before the first frame update
     virtual protected void Start()
     {
         isVisible = true;
-        gadgets = new List<Gadget>();
+        // gadgets = new List<Gadget>(); TO DO -> uncomment when Gadget exists
     }
 
     // Update is called once per frame
