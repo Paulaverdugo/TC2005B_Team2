@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 176523460}
   - component: {fileID: 176523462}
   - component: {fileID: 176523461}
+  - component: {fileID: 176523463}
   m_Layer: 0
   m_Name: Tilemap_ToxicTile
   m_TagString: Untagged
@@ -154,7 +155,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1019413329}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &176523461
 TilemapRenderer:
@@ -513,6 +514,22 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &176523463
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176523459}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
 --- !u!1 &480961458
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,6 +541,7 @@ GameObject:
   - component: {fileID: 480961459}
   - component: {fileID: 480961461}
   - component: {fileID: 480961460}
+  - component: {fileID: 480961462}
   m_Layer: 0
   m_Name: Tilemap_Walls
   m_TagString: Untagged
@@ -544,7 +562,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1019413329}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &480961460
 TilemapRenderer:
@@ -2071,6 +2089,22 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &480961462
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480961458}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
 --- !u!1 &487573746
 GameObject:
   m_ObjectHideFlags: 0
@@ -8019,8 +8053,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 487573747}
-  - {fileID: 480961459}
   - {fileID: 176523460}
+  - {fileID: 480961459}
   - {fileID: 1298031427}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -8036,6 +8070,7 @@ GameObject:
   - component: {fileID: 1298031427}
   - component: {fileID: 1298031429}
   - component: {fileID: 1298031428}
+  - component: {fileID: 1298031430}
   m_Layer: 0
   m_Name: Tilemap_Obstacles
   m_TagString: Untagged
@@ -8535,3 +8570,19 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &1298031430
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298031426}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
