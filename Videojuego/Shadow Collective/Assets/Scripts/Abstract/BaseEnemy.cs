@@ -33,7 +33,6 @@ abstract public class BaseEnemy : MonoBehaviour
     {
         // the circle collider helps to know which enemies are inside the alerting radius
         gameObject.GetComponent<CircleCollider2D>().radius = alertingRadius;
-        print("Did the start in base enemy");
     }
 
     virtual protected void Update() 
@@ -62,7 +61,7 @@ abstract public class BaseEnemy : MonoBehaviour
     {
         if (GameObject.ReferenceEquals(player, collision.gameObject)) 
         {
-            // if (player.GetComponent<PlayerController>().playerInstance.CanBeSeen(gameObject)) 
+            // if (player.GetComponent<PlayerController>().playerScript.CanBeSeen(gameObject)) 
             // {
             //     Alert();
             //     AlertOthers();
@@ -102,7 +101,7 @@ abstract public class BaseEnemy : MonoBehaviour
             // if the gameobject is an enemy, alert it through the enemyController
             // if (inRadius[i].CompareTag("enemy"))
             // {
-            //     inRadius[i].GetComponent<EnemyController>().enemyInstance.Alert();
+            //     inRadius[i].GetComponent<EnemyController>().enemyScript.Alert();
             // } TO DO -> uncomment when EnemyController exists
         }
     }
