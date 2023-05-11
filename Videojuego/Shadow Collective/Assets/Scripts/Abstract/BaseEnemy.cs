@@ -13,11 +13,17 @@ abstract public class BaseEnemy : MonoBehaviour
     [SerializeField] GameObject player; 
     
     // radius that defines the max distance to alert another enemy when the player is seen
-    [SerializeField] float alertingRadius; 
+    [SerializeField] float alertingRadius = 10f; 
 
-    [SerializeField] float alertedTimeLimit; 
+    [SerializeField] float alertedTimeLimit = 10f; 
     [SerializeField] float hackedTimeLimit = 5f; 
+
+    [SerializeField] ContactFilter2D enemyFilter = new ContactFilter2D();
     
+    [SerializeField] LayerMask playerLayer;
+    [SerializeField] float sightDistance = 3f;
+
+
     // attributes related to the state of the enemy being alerted of the enemies position
     private bool isAlerted = false;
     private float alertedTime = 0f;
@@ -26,16 +32,13 @@ abstract public class BaseEnemy : MonoBehaviour
     private bool isHacked = false;
     private float hackedTime = 0f;
 
-    // list that stores the gameobjects that are inside the alerting radius of the enemy
-    private List<GameObject> inRadius = new List<GameObject>();
 
-    virtual protected void start() 
+    virtual protected void Start() 
     {
-        // the circle collider helps to know which enemies are inside the alerting radius
-        gameObject.GetComponent<CircleCollider2D>().radius = alertingRadius;
+
     }
 
-    virtual protected void update() 
+    virtual protected void Update() 
     {
         if (isAlerted) 
         {
@@ -56,57 +59,52 @@ abstract public class BaseEnemy : MonoBehaviour
         function that checks if the gameobject that entered the vision cone is the player
         if it is, then it asks through the playercontroller if it can be seen 
         if it can be seen, we alert ourselves, aswell as other enemies within the radius
+
+        consider adding the same procedure but for OnTriggerStay2D to avoid any potential bugs,
+        but this might be performance heavy. 
     */ 
-    private void OnCollisionEnter2D(Collision2D collision) 
+    private void OnTriggerEnter2D(Collider2D collision) 
     {
         if (GameObject.ReferenceEquals(player, collision.gameObject)) 
         {
-            if (player.GetComponent<PlayerController>().playerInstance.CanBeSeen(gameObject)) 
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance, playerLayer);
+            
+            if (hit.collider != null)
             {
-                Alert();
-                AlertOthers();
+                print("I can see the player!");
+                // if (player.GetComponent<PlayerController>().playerScript.CanBeSeen(gameObject)) 
+                // {
+                //     AlertOthers();
+                // } TO DO -> uncomment when PlayerController exists
             }
         }
     }
 
-    // on trigger enter and exit keep track and update the list with gameobjects that are within the radius
-    private void OnTriggerEnter2D(Collider2D col) 
-    {
-        if (!inRadius.Contains(col.gameObject)) 
-        {
-            inRadius.Add(col.gameObject);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D col) 
-    {
-        if (inRadius.Contains(col.gameObject)) 
-        {
-            inRadius.Remove(col.gameObject);
-        }
-    }
-
     // function to be alerted that the player has been seen
-    private void Alert() 
+    public void Alert() 
     {
         isAlerted = true;
         alertedTime = 0f;
     }
 
-    private void AlertOthers() 
+    public void AlertOthers() 
     {
-        for (int i = 0; i < inRadius.Count; i++) 
+        // overlap circle returns a list of colliders within a radius
+        List<Collider2D> colsInRadius = new List<Collider2D>();
+
+        int results = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y), alertingRadius, enemyFilter, colsInRadius);
+
+        foreach (var col in colsInRadius)
         {
-            // if the gameobject is an enemy, alert it through the enemyController
-            if (inRadius[i].CompareTag("enemy"))
+            if (col.gameObject.CompareTag("Enemy"))
             {
-                inRadius[i].GetComponent<EnemyController>().enemyInstance.Alert();
+                col.gameObject.GetComponent<EnemyController>().enemyScript.Alert();
             }
         }
     }
 
     // function to be hacked by the player or by a gadget
-    private void Hack()
+    public void Hack()
     {
         isHacked = true;
         hackedTime = 0f;
