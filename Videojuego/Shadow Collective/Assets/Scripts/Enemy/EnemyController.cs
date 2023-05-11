@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] BaseEnemy enemyScript;
+    [SerializeField] public BaseEnemy enemyScript;
 
     public void Alert()
     {
