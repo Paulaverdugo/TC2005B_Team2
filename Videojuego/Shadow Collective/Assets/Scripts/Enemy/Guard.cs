@@ -19,11 +19,15 @@ public class Guard : BaseEnemy
     [SerializeField] float speed = 1;
     [SerializeField] float health = 1;
 
+    // to control the animations
+    [SerializeField] Animator animator;
+
     // bool that stores if the guard is going to the target or to the startingPos
     bool goingToTarget = true;
 
     override protected void Start() 
     {
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
         startingPos = transform.position;
         base.Start();
     }
@@ -48,17 +52,43 @@ public class Guard : BaseEnemy
         // function that moves the guard in a patrol
         if (patrols)
         {
-            Vector3 direction;
+            animator.SetBool("isRunning", true);
+            Vector3 direction, movement;
 
             if (goingToTarget)
             {
-                direction = (patrolTarget - transform.position).normalized;
+                direction = patrolTarget - transform.position;
+                movement = direction.normalized * speed * Time.deltaTime;
+
+
+                // check if we are going to pass the target this tick
+                if (direction.magnitude < (movement).magnitude)
+                {
+                    transform.position = patrolTarget;
+                    direction = Vector3.zero;
+
+                    goingToTarget = !goingToTarget;
+                }
+
             } else
             {
-                direction = (startingPos - transform.position).normalized;
+                direction = startingPos - transform.position;
+                movement = direction.normalized * speed * Time.deltaTime;
+
+                // check if we are going to pass the startingPos this tick
+                if (direction.magnitude < (movement).magnitude)
+                {
+                    transform.position = startingPos;
+                    direction = Vector3.zero;
+
+                    goingToTarget = !goingToTarget;
+                }
             }
 
-            transform.position += direction * speed * Time.deltaTime;
+            transform.position += movement;
+        } else
+        {
+            animator.SetBool("isRunning", false);
         }
     }
 
@@ -66,6 +96,8 @@ public class Guard : BaseEnemy
     {
         // function that moves the guard to the last known player position
         // TO DO -> IMPLEMENT A* PATH FINDING
+        animator.SetBool("isRunning", true);
+
         Vector3 direction = (playerLastPos - transform.position).normalized;
 
         transform.position += direction * speed * Time.deltaTime;
@@ -74,10 +106,16 @@ public class Guard : BaseEnemy
     void Shoot()
     {
         // TO DO -> IMPLEMENT THE GUARD SHOOTING THE PLAYER
+        animator.SetTrigger("shoot");
     }
 
     void GetDamaged(float damage)
     {
         health -= damage;
+
+        if (health < 0)
+        {
+            animator.SetTrigger("death");
+        }
     }
 }
