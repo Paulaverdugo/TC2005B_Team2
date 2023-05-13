@@ -22,6 +22,9 @@ public class Guard : BaseEnemy
     // to control the animations
     [SerializeField] Animator animator;
 
+    // keeps track of where the guard is looking
+    private bool lookingRight = true; 
+
     // bool that stores if the guard is going to the target or to the startingPos
     bool goingToTarget = true;
 
@@ -85,6 +88,14 @@ public class Guard : BaseEnemy
                 }
             }
 
+            if (direction.x > 0)
+            {
+                lookRight();
+            } else
+            {
+                lookLeft();
+            }
+
             transform.position += movement;
         } else
         {
@@ -116,6 +127,24 @@ public class Guard : BaseEnemy
         if (health < 0)
         {
             animator.SetTrigger("death");
+        }
+    }
+
+    private void lookRight()
+    {
+        if (!lookingRight)
+        {
+            lookingRight = true;
+            transform.Rotate(new Vector3(0f, 180f, 0f));
+        }
+    }
+
+    private void lookLeft()
+    {
+        if (lookingRight)
+        {
+            lookingRight = false;
+            transform.Rotate(new Vector3(0f, 180f, 0f));
         }
     }
 }
