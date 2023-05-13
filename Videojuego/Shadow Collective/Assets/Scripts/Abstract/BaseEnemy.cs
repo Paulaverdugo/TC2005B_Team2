@@ -73,7 +73,7 @@ abstract public class BaseEnemy : MonoBehaviour
             
             if (hit.collider != null)
             {
-                print("I can see the player!");
+                AlertOthers();
                 // if (player.GetComponent<PlayerController>().playerScript.CanBeSeen(gameObject)) 
                 // {
                 //     AlertOthers();
@@ -83,7 +83,7 @@ abstract public class BaseEnemy : MonoBehaviour
     }
 
     // function to be alerted that the player has been seen
-    public void Alert() 
+    virtual public void Alert() 
     {
         isAlerted = true;
         alertedTime = 0f;

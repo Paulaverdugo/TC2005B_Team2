@@ -36,6 +36,7 @@ public class Guard : BaseEnemy
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
         startingPos = transform.position;
+
     }
 
     override protected void Update()
@@ -130,6 +131,14 @@ public class Guard : BaseEnemy
         {
             animator.SetTrigger("death");
         }
+    }
+
+    override public void Alert()
+    {
+        base.Alert();
+
+        // so that when the alert mode runs out, the player goes back to it's original spot
+        goingToTarget = false;
     }
 
     private void lookRight()
