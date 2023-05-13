@@ -12,19 +12,19 @@ using UnityEngine;
 public class Guard : BaseEnemy
 {
     // to control how the guard will move when not alerted
-    [SerializeField] Vector3 startingPos;
+    Vector3 startingPos;
     [SerializeField] Vector3 patrolTarget;
+    [SerializeField] bool patrols;
     
     [SerializeField] float speed = 1;
     [SerializeField] float health = 1;
 
     // bool that stores if the guard is going to the target or to the startingPos
     bool goingToTarget = true;
-    bool patrols;
 
     override protected void Start() 
     {
-        patrols = startingPos != patrolTarget;
+        startingPos = transform.position;
         base.Start();
     }
 
