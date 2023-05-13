@@ -30,9 +30,12 @@ public class Guard : BaseEnemy
 
     override protected void Start() 
     {
-        gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        startingPos = transform.position;
         base.Start();
+
+        // make the sprite used to see the gameobject invisible, since we have animations
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
+
+        startingPos = transform.position;
     }
 
     override protected void Update()
@@ -47,7 +50,6 @@ public class Guard : BaseEnemy
         {
             MovePatrol();
         }
-
     }
 
     void MovePatrol() 
@@ -88,12 +90,12 @@ public class Guard : BaseEnemy
                 }
             }
 
-            if (direction.x > 0)
-            {
-                lookRight();
-            } else
+            if (direction.x < 0)
             {
                 lookLeft();
+            } else
+            {
+                lookRight();
             }
 
             transform.position += movement;
