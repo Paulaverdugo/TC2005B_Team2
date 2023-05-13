@@ -25,12 +25,14 @@ abstract public class BaseEnemy : MonoBehaviour
 
 
     // attributes related to the state of the enemy being alerted of the enemies position
-    private bool isAlerted = false;
-    private float alertedTime = 0f;
+    protected bool isAlerted = false;
+    protected float alertedTime = 0f;
+    // when alerted, the guard will try to move to the player's position
+    protected Vector3 playerLastPos;
 
     // attributes related to the state of the enemy being hacked 
-    private bool isHacked = false;
-    private float hackedTime = 0f;
+    protected bool isHacked = false;
+    protected float hackedTime = 0f;
 
 
     virtual protected void Start() 
@@ -63,7 +65,7 @@ abstract public class BaseEnemy : MonoBehaviour
         consider adding the same procedure but for OnTriggerStay2D to avoid any potential bugs,
         but this might be performance heavy. 
     */ 
-    private void OnTriggerEnter2D(Collider2D collision) 
+    protected void OnTriggerEnter2D(Collider2D collision) 
     {
         if (GameObject.ReferenceEquals(player, collision.gameObject)) 
         {
@@ -85,6 +87,7 @@ abstract public class BaseEnemy : MonoBehaviour
     {
         isAlerted = true;
         alertedTime = 0f;
+        playerLastPos = player.transform.position;
     }
 
     public void AlertOthers() 
