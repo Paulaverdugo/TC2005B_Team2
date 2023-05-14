@@ -8,6 +8,16 @@ public class PlayerInput : MonoBehaviour
     // Main camera.
     private Camera mainCamera;
 
+    // Shooting input.
+    private bool shootButtonPressed = false;
+
+    // Shooting Events
+    [field: SerializeField]
+    public UnityEvent OnShootButtonPressed { get; set; }
+
+    [field: SerializeField]
+    public UnityEvent OnShootButtonReleased { get; set; }
+
     // Events that aid in getting player input.
     [field: SerializeField]
     public UnityEvent<Vector2> OnMovementKeyPressed { get; set; }
@@ -25,6 +35,7 @@ public class PlayerInput : MonoBehaviour
     {
         GetMovementInput();
         GetPointerInput();
+        GetShootingInput();
     }
 
     private void GetMovementInput()
@@ -37,4 +48,25 @@ public class PlayerInput : MonoBehaviour
         var mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         OnPointerPositionChange?.Invoke(mousePos);
     }
+
+    private void GetShootingInput()
+    {
+        if (Input.GetAxisRaw("Fire1") > 0)
+        {
+            if (!shootButtonPressed)
+            {
+                shootButtonPressed = true;
+                OnShootButtonPressed?.Invoke();
+            }
+        }
+        else
+        {
+            if (shootButtonPressed)
+            {
+                shootButtonPressed = false;
+                OnShootButtonReleased?.Invoke();
+            }
+        }
+    }
+
 }
