@@ -21,7 +21,7 @@ abstract public class BaseEnemy : MonoBehaviour
     [SerializeField] ContactFilter2D enemyFilter = new ContactFilter2D();
     
     [SerializeField] LayerMask playerLayer;
-    [SerializeField] float sightDistance = 3f;
+    [SerializeField] public float sightDistance = 3f;
 
 
     // attributes related to the state of the enemy being alerted of the enemies position

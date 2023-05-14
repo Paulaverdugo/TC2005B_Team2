@@ -8872,10 +8872,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   sightDistance: 3
-  patrolTarget: {x: 7.01, y: 9.79, z: 0}
+  patrolTarget: {x: 5, y: 1.59, z: 0}
   patrols: 1
   speed: 1
   health: 1
+  fov: 0.5235988
   animator: {fileID: 1395042555}
 --- !u!4 &1395042554
 Transform:
@@ -8885,7 +8886,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1395042551}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.03, y: 5.03, z: 0.034919035}
+  m_LocalPosition: {x: 0.7, y: 4.59, z: 0.034919035}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -9114,7 +9115,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2005324605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.14, y: 2.24, z: 0.07328642}
+  m_LocalPosition: {x: -4.44, y: 2.6, z: 0.07328642}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

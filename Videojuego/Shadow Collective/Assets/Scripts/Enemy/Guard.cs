@@ -19,11 +19,18 @@ public class Guard : BaseEnemy
     [SerializeField] float speed = 1;
     [SerializeField] float health = 1;
 
+    // angle in radians, measured from the direction, that defines the vision cone's aperture
+    [SerializeField] float fov;
+
     // to control the animations
     [SerializeField] Animator animator;
 
+    // to flip the sprites when going left
+    private SpriteRenderer spriteRenderer;
+
     // keeps track of where the guard is looking
     private bool lookingRight = true; 
+
 
     // bool that stores if the guard is going to the target or to the startingPos
     bool goingToTarget = true;
@@ -37,6 +44,7 @@ public class Guard : BaseEnemy
 
         startingPos = transform.position;
 
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     override protected void Update()
@@ -93,12 +101,12 @@ public class Guard : BaseEnemy
 
             if (direction.x < 0)
             {
-                lookLeft();
+                LookLeft();
             } else
             {
-                lookRight();
+                LookRight();
             }
-
+            UpdateVisionCone(direction.normalized);
             transform.position += movement;
         } else
         {
@@ -141,21 +149,43 @@ public class Guard : BaseEnemy
         goingToTarget = false;
     }
 
-    private void lookRight()
+    private void LookRight()
     {
         if (!lookingRight)
         {
             lookingRight = true;
-            transform.Rotate(new Vector3(0f, 180f, 0f));
+            spriteRenderer.flipX = false;
         }
     }
 
-    private void lookLeft()
+    private void LookLeft()
     {
         if (lookingRight)
         {
             lookingRight = false;
-            transform.Rotate(new Vector3(0f, 180f, 0f));
+            spriteRenderer.flipX = true;
         }
+    }
+
+    private void UpdateVisionCone(Vector3 direction)
+    {
+        
+        direction = new Vector2(direction.x, direction.y).normalized;
+        float directionAngle = Mathf.Acos(Vector2.Dot(direction, Vector2.right));
+
+        if (direction.y < 0) directionAngle = 2 * Mathf.PI - directionAngle;
+
+        PolygonCollider2D col = gameObject.GetComponent<PolygonCollider2D>();
+
+        col.enabled = false;
+
+        col.points = new[]
+        {
+            Vector2.zero,
+            sightDistance * new Vector2(Mathf.Cos(directionAngle + fov), Mathf.Sin(directionAngle + fov)),
+            sightDistance * new Vector2(Mathf.Cos(directionAngle - fov), Mathf.Sin(directionAngle - fov))
+        };
+
+        col.enabled = true;
     }
 }
