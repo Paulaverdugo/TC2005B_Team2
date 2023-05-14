@@ -20,10 +20,10 @@ abstract public class BasePlayer : MonoBehaviour
     [SerializeField] public Animator animator;
 
     // to flip the sprites when going left
-    private SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
 
     // keeps track of where the guard is looking
-    private bool lookingRight = true; 
+    protected bool lookingRight = true; 
 
     
     // Base player gadgets

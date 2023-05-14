@@ -14,9 +14,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        ChooseCybergladiator();
+        // ChooseCybergladiator();
         // ChooseCodebreaker();
-        // ChooseGhostwalker();
+        ChooseGhostwalker();
     }
 
     public bool CheckVisibility(GameObject obj)

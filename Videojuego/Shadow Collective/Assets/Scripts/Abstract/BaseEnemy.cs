@@ -73,11 +73,10 @@ abstract public class BaseEnemy : MonoBehaviour
             
             if (hit.collider != null)
             {
-                AlertOthers();
-                // if (player.GetComponent<PlayerController>().playerScript.CanBeSeen(gameObject)) 
-                // {
-                //     AlertOthers();
-                // } TO DO -> uncomment when PlayerController exists
+                if (player.GetComponent<PlayerController>().playerScript.CheckVisibility(gameObject)) 
+                {
+                    AlertOthers();
+                }
             }
         }
     }
