@@ -11,6 +11,13 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] public BasePlayer playerScript;
 
+    void Start()
+    {
+        ChooseCybergladiator();
+        // ChooseCodebreaker();
+        // ChooseGhostwalker();
+    }
+
     public bool CheckVisibility(GameObject obj)
     {
         return playerScript.CheckVisibility(obj);
