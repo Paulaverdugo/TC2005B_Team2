@@ -14,9 +14,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        // make the sprite used to see the gameobject invisible, since we have animations
-        gameObject.transform.GetChild(0).gameObject.SetActive(false);
-
         ChooseCybergladiator();
         // ChooseCodebreaker();
         // ChooseGhostwalker();

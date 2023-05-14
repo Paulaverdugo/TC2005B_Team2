@@ -18,6 +18,13 @@ abstract public class BasePlayer : MonoBehaviour
     protected bool canSeeVisionCones = false;
 
     [SerializeField] public Animator animator;
+
+    // to flip the sprites when going left
+    private SpriteRenderer spriteRenderer;
+
+    // keeps track of where the guard is looking
+    private bool lookingRight = true; 
+
     
     // Base player gadgets
     // protected List<Gadget> gadgets; TO DO -> uncomment when Gadget exists
@@ -26,6 +33,11 @@ abstract public class BasePlayer : MonoBehaviour
     virtual protected void Start()
     {
         // gadgets = new List<Gadget>(); TO DO -> uncomment when Gadget exists
+
+        // make the sprite used to see the gameobject invisible, since we have animations
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
+
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -33,6 +45,16 @@ abstract public class BasePlayer : MonoBehaviour
     {
         // Move the player
         Move();
+
+        if (Input.GetKey(KeyCode.P))
+        {
+            animator.SetTrigger("shoot");
+        }
+
+        if (Input.GetKey(KeyCode.O))
+        {
+            animator.SetTrigger("death");
+        }
     }
 
     protected void Move()
@@ -53,14 +75,23 @@ abstract public class BasePlayer : MonoBehaviour
             movement += Vector3.right;
         }
 
+        // animate if moving
         if (movement == Vector3.zero)
         {
             animator.SetBool("isRunning", false);
         } else
         {
             animator.SetBool("isRunning", true);
+            
+            // if we are moving, check if it's to the left or right
+            if (movement.x < 0) 
+            {
+                LookLeft();
+            } else if (movement.x > 0)
+            {
+                LookRight();
+            }
         }
-
 
         gameObject.transform.position += movement.normalized * speed * Time.deltaTime;
     }   
@@ -79,4 +110,21 @@ abstract public class BasePlayer : MonoBehaviour
         health -= damage;
     }
 
+    private void LookRight()
+    {
+        if (!lookingRight)
+        {
+            lookingRight = true;
+            spriteRenderer.flipX = false;
+        }
+    }
+
+    private void LookLeft()
+    {
+        if (lookingRight)
+        {
+            lookingRight = false;
+            spriteRenderer.flipX = true;
+        }
+    }
 }
