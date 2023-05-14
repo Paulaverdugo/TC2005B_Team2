@@ -5,10 +5,16 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class PlayerRenderer : MonoBehaviour
 {
+    // Init cursor texture
+    public Texture2D cursorTexture;
+
+    // Init sprite renderer
     protected SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
+        // Set cursor texture
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 

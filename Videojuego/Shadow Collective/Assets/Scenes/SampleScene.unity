@@ -8893,3 +8893,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda9f373ea604411489b1bf03f972f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursorTexture: {fileID: 2800000, guid: 8ea795c067613354898068091ffc7130, type: 3}
