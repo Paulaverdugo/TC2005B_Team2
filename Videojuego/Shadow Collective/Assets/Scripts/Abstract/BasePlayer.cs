@@ -11,7 +11,6 @@ abstract public class BasePlayer : MonoBehaviour
 {
     // Base attributes
     [SerializeField] float health;
-    [SerializeField] float speed;
 
     // Base player states
     private bool isVisible;
@@ -19,7 +18,7 @@ abstract public class BasePlayer : MonoBehaviour
 
     // Base player position
     [SerializeField] Vector3 pos;
-    
+
     // Base player gadgets
     // private List<Gadget> gadgets; TO DO -> uncomment when Gadget exists
 
@@ -33,28 +32,7 @@ abstract public class BasePlayer : MonoBehaviour
     // Update is called once per frame
     virtual protected void Update()
     {
-        // Move the player
-        Move();
     }
-
-    private void Move()
-    {
-        // Move the player based on the input
-        if (Input.GetKey(KeyCode.W))
-        {
-            pos += Vector3.up * speed * Time.deltaTime;
-        } else if (Input.GetKey(KeyCode.S))
-        {
-            pos += Vector3.down * speed * Time.deltaTime;
-        } else if (Input.GetKey(KeyCode.A))
-        {
-            pos += Vector3.left * speed * Time.deltaTime;
-        } else if (Input.GetKey(KeyCode.D))
-        {
-            pos += Vector3.right * speed * Time.deltaTime;
-        }
-
-    }   
 
     public bool CheckVisibility(GameObject obj)
     {
@@ -64,7 +42,8 @@ abstract public class BasePlayer : MonoBehaviour
         return isVisible;
     }
 
-    public void GetDamaged(float damage) {
+    public void GetDamaged(float damage)
+    {
         // Reduce the player's health by the amount of damage taken
         // If the player's health is 0, call the GameOver() function
         health -= damage;

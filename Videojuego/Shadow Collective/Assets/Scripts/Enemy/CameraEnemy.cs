@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera : BaseEnemy
+public class CameraEnemy : BaseEnemy
 {
     float flipTimer = 3f;
 
