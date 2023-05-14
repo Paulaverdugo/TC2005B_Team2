@@ -10,9 +10,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] public BasePlayer playerScript;
+    [SerializeField] public Animator animator;
 
     void Start()
     {
+        // make the sprite used to see the gameobject invisible, since we have animations
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
+
         ChooseCybergladiator();
         // ChooseCodebreaker();
         // ChooseGhostwalker();
@@ -36,6 +40,7 @@ public class PlayerController : MonoBehaviour
 
         BasePlayer codebreakerScript = gameObject.GetComponent<Codebreaker>();
         codebreakerScript.enabled = true;
+        codebreakerScript.animator = animator;
         playerScript = codebreakerScript;
     }
 
@@ -46,6 +51,7 @@ public class PlayerController : MonoBehaviour
 
         BasePlayer cybergladiatorScript = gameObject.GetComponent<Cybergladiator>();
         cybergladiatorScript.enabled = true;
+        cybergladiatorScript.animator = animator;
         playerScript = cybergladiatorScript;
     }
 
@@ -56,6 +62,7 @@ public class PlayerController : MonoBehaviour
 
         BasePlayer ghostwalkerScript = gameObject.GetComponent<Ghostwalker>();
         ghostwalkerScript.enabled = true;
+        ghostwalkerScript.animator = animator;
         playerScript = ghostwalkerScript;
     }
 

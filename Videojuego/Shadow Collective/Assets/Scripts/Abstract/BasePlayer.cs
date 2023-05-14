@@ -17,6 +17,7 @@ abstract public class BasePlayer : MonoBehaviour
     protected bool isVisible = true;
     protected bool canSeeVisionCones = false;
 
+    [SerializeField] public Animator animator;
     
     // Base player gadgets
     // protected List<Gadget> gadgets; TO DO -> uncomment when Gadget exists
@@ -40,19 +41,28 @@ abstract public class BasePlayer : MonoBehaviour
         // Move the player based on the input
         if (Input.GetKey(KeyCode.W))
         {
-            movement += Vector3.up * speed * Time.deltaTime;
-        } else if (Input.GetKey(KeyCode.S))
+            movement += Vector3.up;
+        } if (Input.GetKey(KeyCode.S))
         {
-            movement += Vector3.down * speed * Time.deltaTime;
-        } else if (Input.GetKey(KeyCode.A))
+            movement += Vector3.down;
+        } if (Input.GetKey(KeyCode.A))
         {
-            movement += Vector3.left * speed * Time.deltaTime;
-        } else if (Input.GetKey(KeyCode.D))
+            movement += Vector3.left;
+        } if (Input.GetKey(KeyCode.D))
         {
-            movement += Vector3.right * speed * Time.deltaTime;
+            movement += Vector3.right;
         }
 
-        gameObject.transform.position += movement;
+        if (movement == Vector3.zero)
+        {
+            animator.SetBool("isRunning", false);
+        } else
+        {
+            animator.SetBool("isRunning", true);
+        }
+
+
+        gameObject.transform.position += movement.normalized * speed * Time.deltaTime;
     }   
 
     public bool CheckVisibility(GameObject obj)
