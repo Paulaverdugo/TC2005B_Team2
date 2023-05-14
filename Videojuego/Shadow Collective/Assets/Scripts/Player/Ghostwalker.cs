@@ -1,29 +1,25 @@
 /*
-    Script that defines the behavior of the player Cybergladiator.
-
-    This class inherits from the abstract class BasePlayer.
+    Script to define the player Ghostwalker
 */
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//We are inheriting from abstrcat class BasePlayer
-
-public class Cybergladiator : BasePlayer
+public class Ghostwalker : BasePlayer
 {
-     //Attributes
+    // Attributes
     [SerializeField] float health = 1;
-    [SerializeField] float speed =1 ;
+    [SerializeField] float speed = 1;
 
-    //Player states
+    // Player States
     private bool isVisible = true;
     private bool canSeeVisionCones = false;
 
-    //Player position
+    // Player Position
     [SerializeField] Vector3 pos;
-    
-    // Base player gadgets
+
+    // Gadgets
     // private List<Gadget> gadgets; TO DO -> uncomment when Gadget exists
 
     // Start is called before the first frame update
@@ -37,5 +33,4 @@ public class Cybergladiator : BasePlayer
     {
         base.Update();
     }
-   
 }
