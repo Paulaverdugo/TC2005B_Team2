@@ -12,23 +12,13 @@ using UnityEngine;
 
 public class Cybergladiator : BasePlayer
 {
-     //Attributes
-    [SerializeField] float health = 1;
-    [SerializeField] float speed =1 ;
-
-    //Player states
-    private bool isVisible = true;
-    private bool canSeeVisionCones = false;
-
-    //Player position
-    [SerializeField] Vector3 pos;
-    
-    // Base player gadgets
-    // private List<Gadget> gadgets; TO DO -> uncomment when Gadget exists
-
     // Start is called before the first frame update
     override protected void Start()
     {
+        //Attributes
+        health = 1;
+        speed = 1;
+
         base.Start();
     }
 

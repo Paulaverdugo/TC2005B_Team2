@@ -10,23 +10,20 @@ using UnityEngine;
 abstract public class BasePlayer : MonoBehaviour
 {
     // Base attributes
-    [SerializeField] float health;
-    [SerializeField] float speed;
+    protected float health;
+    protected float speed;
 
     // Base player states
-    private bool isVisible;
-    private bool canSeeVisionCones;
+    protected bool isVisible = true;
+    protected bool canSeeVisionCones = false;
 
-    // Base player position
-    [SerializeField] Vector3 pos;
     
     // Base player gadgets
-    // private List<Gadget> gadgets; TO DO -> uncomment when Gadget exists
+    // protected List<Gadget> gadgets; TO DO -> uncomment when Gadget exists
 
     // Start is called before the first frame update
     virtual protected void Start()
     {
-        isVisible = true;
         // gadgets = new List<Gadget>(); TO DO -> uncomment when Gadget exists
     }
 
@@ -37,23 +34,25 @@ abstract public class BasePlayer : MonoBehaviour
         Move();
     }
 
-    private void Move()
+    protected void Move()
     {
+        Vector3 movement = Vector3.zero;
         // Move the player based on the input
         if (Input.GetKey(KeyCode.W))
         {
-            pos += Vector3.up * speed * Time.deltaTime;
+            movement += Vector3.up * speed * Time.deltaTime;
         } else if (Input.GetKey(KeyCode.S))
         {
-            pos += Vector3.down * speed * Time.deltaTime;
+            movement += Vector3.down * speed * Time.deltaTime;
         } else if (Input.GetKey(KeyCode.A))
         {
-            pos += Vector3.left * speed * Time.deltaTime;
+            movement += Vector3.left * speed * Time.deltaTime;
         } else if (Input.GetKey(KeyCode.D))
         {
-            pos += Vector3.right * speed * Time.deltaTime;
+            movement += Vector3.right * speed * Time.deltaTime;
         }
 
+        gameObject.transform.position += movement;
     }   
 
     public bool CheckVisibility(GameObject obj)
