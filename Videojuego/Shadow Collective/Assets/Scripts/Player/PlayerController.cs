@@ -10,20 +10,27 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] public BasePlayer playerScript;
+    [SerializeField] public GameObject enemyHandler; // to populate the enemies list
     [SerializeField] public Animator animator;
     [SerializeField] public Texture2D cursorTexture;
 
     [SerializeField] float acceleration;
     [SerializeField] float deceleration;
 
+    private List<GameObject> enemies = new List<GameObject>();
 
     void Start()
     {
-        ChooseCybergladiator();
-        // ChooseCodebreaker();
+        // ChooseCybergladiator();
+        ChooseCodebreaker();
         // ChooseGhostwalker();
 
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+
+        foreach (Transform child in enemyHandler.transform)
+        {
+            enemies.Add(child.gameObject);
+        }
     }
 
     public bool CheckVisibility(GameObject obj)
@@ -36,6 +43,11 @@ public class PlayerController : MonoBehaviour
         playerScript.GetDamaged(damage);
     }
 
+    public BasePlayer GetPlayerScript()
+    {
+        return playerScript;
+    }
+
     // functions to choose a class 
     public void ChooseCodebreaker()
     {
@@ -43,11 +55,9 @@ public class PlayerController : MonoBehaviour
         gameObject.GetComponent<Ghostwalker>().enabled = false;
 
         BasePlayer codebreakerScript = gameObject.GetComponent<Codebreaker>();
-        codebreakerScript.enabled = true;
-        codebreakerScript.animator = animator;
-        codebreakerScript.acceleration = acceleration;
-        codebreakerScript.deceleration = deceleration;
         playerScript = codebreakerScript;
+
+        PopulatePlayerScript();
     }
 
     public void ChooseCybergladiator()
@@ -56,11 +66,9 @@ public class PlayerController : MonoBehaviour
         gameObject.GetComponent<Ghostwalker>().enabled = false;
 
         BasePlayer cybergladiatorScript = gameObject.GetComponent<Cybergladiator>();
-        cybergladiatorScript.enabled = true;
-        cybergladiatorScript.animator = animator;
-        cybergladiatorScript.acceleration = acceleration;
-        cybergladiatorScript.deceleration = deceleration;
         playerScript = cybergladiatorScript;
+        
+        PopulatePlayerScript();
     }
 
     public void ChooseGhostwalker()
@@ -69,12 +77,17 @@ public class PlayerController : MonoBehaviour
         gameObject.GetComponent<Cybergladiator>().enabled = false;
 
         BasePlayer ghostwalkerScript = gameObject.GetComponent<Ghostwalker>();
-        ghostwalkerScript.enabled = true;
-        ghostwalkerScript.animator = animator;
-        ghostwalkerScript.acceleration = acceleration;
-        ghostwalkerScript.deceleration = deceleration;
         playerScript = ghostwalkerScript;
+        
+        PopulatePlayerScript();
     }
 
-    
+    void PopulatePlayerScript()
+    {
+        playerScript.enabled = true;
+        playerScript.animator = animator;
+        playerScript.acceleration = acceleration;
+        playerScript.deceleration = deceleration;
+        playerScript.enemies = enemies;
+    }
 }

@@ -23,6 +23,13 @@ public class EnemyController : MonoBehaviour
 
     public void Hack()
     {
+        print("Hacked");
         enemyScript.Hack();
+    }
+
+    public void UnHack()
+    {
+        print("Unhacked");
+        enemyScript.UnHack();
     }
 }

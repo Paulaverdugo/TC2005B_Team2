@@ -39,6 +39,9 @@ abstract public class BasePlayer : MonoBehaviour
     protected Camera mainCamera;
     protected bool lookingRight = true; 
 
+    // some gadgets and classes need to know where nearby enemies are
+    public List<GameObject> enemies = new List<GameObject>();
+
     
     // Base player gadgets
     // protected List<Gadget> gadgets; TO DO -> uncomment when Gadget exists
