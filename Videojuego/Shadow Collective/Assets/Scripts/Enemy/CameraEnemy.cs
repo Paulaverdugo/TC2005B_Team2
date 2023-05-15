@@ -8,14 +8,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera : BaseEnemy
+public class CameraEnemy : BaseEnemy
 {
     float flipTimer = 3f;
 
     override protected void Start()
     {
         base.Start();
+        StartFlipping();
+    }
 
+    private void StartFlipping()
+    {
         InvokeRepeating("Flip", Random.Range(0f, flipTimer), flipTimer);
     }
 
@@ -23,5 +27,17 @@ public class Camera : BaseEnemy
     {
         // flip the camera to make it look like it's looking around
         transform.Rotate(new Vector3(0f, 180f, 0f));
+    }
+
+    override public void Hack()
+    {
+        base.Hack();
+        CancelInvoke();
+    }
+
+    override public void UnHack()
+    {
+        base.UnHack();
+        StartFlipping();
     }
 }

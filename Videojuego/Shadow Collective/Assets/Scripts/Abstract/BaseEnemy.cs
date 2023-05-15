@@ -10,13 +10,13 @@ using UnityEngine;
 
 abstract public class BaseEnemy : MonoBehaviour
 {
-    [SerializeField] GameObject player; 
+    [System.NonSerialized]
+    public GameObject player; 
     
     // radius that defines the max distance to alert another enemy when the player is seen
     [SerializeField] float alertingRadius = 10f; 
 
     [SerializeField] float alertedTimeLimit = 10f; 
-    [SerializeField] float hackedTimeLimit = 5f; 
 
     [SerializeField] ContactFilter2D enemyFilter = new ContactFilter2D();
     
@@ -32,7 +32,6 @@ abstract public class BaseEnemy : MonoBehaviour
 
     // attributes related to the state of the enemy being hacked 
     protected bool isHacked = false;
-    protected float hackedTime = 0f;
 
 
     virtual protected void Start() 
@@ -48,13 +47,6 @@ abstract public class BaseEnemy : MonoBehaviour
 
             if (alertedTime > alertedTimeLimit) isAlerted = false;            
         }
-
-        if (isHacked) 
-        {
-            hackedTime += Time.deltaTime;
-
-            if (hackedTime > hackedTimeLimit) isHacked = false;
-        }
     }
 
     /* 
@@ -67,17 +59,18 @@ abstract public class BaseEnemy : MonoBehaviour
     */ 
     protected void OnTriggerEnter2D(Collider2D collision) 
     {
+        if (isHacked) return;
+
         if (GameObject.ReferenceEquals(player, collision.gameObject)) 
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance, playerLayer);
             
             if (hit.collider != null)
             {
-                AlertOthers();
-                // if (player.GetComponent<PlayerController>().playerScript.CanBeSeen(gameObject)) 
-                // {
-                //     AlertOthers();
-                // } TO DO -> uncomment when PlayerController exists
+                if (player.GetComponent<PlayerController>().playerScript.CheckVisibility(gameObject)) 
+                {
+                    AlertOthers();
+                }
             }
         }
     }
@@ -107,9 +100,13 @@ abstract public class BaseEnemy : MonoBehaviour
     }
 
     // function to be hacked by the player or by a gadget
-    public void Hack()
+    virtual public void Hack()
     {
         isHacked = true;
-        hackedTime = 0f;
+    }
+
+    virtual public void UnHack()
+    {
+        isHacked = false;
     }
 }

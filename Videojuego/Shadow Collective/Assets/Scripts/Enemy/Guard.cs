@@ -49,6 +49,8 @@ public class Guard : BaseEnemy
 
     override protected void Update()
     {
+        if (isHacked) return;
+
         base.Update();
         
         if (isAlerted)
@@ -169,7 +171,6 @@ public class Guard : BaseEnemy
 
     private void UpdateVisionCone(Vector3 direction)
     {
-        
         direction = new Vector2(direction.x, direction.y).normalized;
         float directionAngle = Mathf.Acos(Vector2.Dot(direction, Vector2.right));
 
@@ -187,5 +188,11 @@ public class Guard : BaseEnemy
         };
 
         col.enabled = true;
+    }
+
+    override public void Hack()
+    {
+        base.Hack();
+        animator.SetBool("isRunning", false);
     }
 }

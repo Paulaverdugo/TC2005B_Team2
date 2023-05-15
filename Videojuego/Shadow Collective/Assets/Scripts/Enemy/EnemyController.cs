@@ -25,4 +25,9 @@ public class EnemyController : MonoBehaviour
     {
         enemyScript.Hack();
     }
+
+    public void UnHack()
+    {
+        enemyScript.UnHack();
+    }
 }
