@@ -16,7 +16,7 @@ public class Codebreaker : BasePlayer
     override protected void Start()
     {
         health = 1;
-        maxSpeed = 7;
+        maxSpeed = 5;
         base.Start();
     }
 

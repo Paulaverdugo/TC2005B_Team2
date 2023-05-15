@@ -19,9 +19,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        // ChooseCybergladiator();
+        ChooseCybergladiator();
         // ChooseCodebreaker();
-        ChooseGhostwalker();
+        // ChooseGhostwalker();
 
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }

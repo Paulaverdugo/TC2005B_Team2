@@ -94,7 +94,6 @@ abstract public class BasePlayer : MonoBehaviour
             if (!shootButtonPressed)
             {
                 shootButtonPressed = true;
-                print("Shot!");
             }
         }
         else
@@ -114,7 +113,7 @@ abstract public class BasePlayer : MonoBehaviour
         return isVisible;
     }
 
-    public void GetDamaged(float damage) {
+    virtual public void GetDamaged(float damage) {
         // Reduce the player's health by the amount of damage taken
         // If the player's health is 0, call the GameOver() function
         health -= damage;
