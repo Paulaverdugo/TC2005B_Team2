@@ -9,10 +9,12 @@ public class Codebreaker : BasePlayer
 {
     [SerializeField] float hackCooldown = 7;
     [SerializeField] float hackingRadius = 5;
+    [SerializeField] float hackingDuration = 5;
     [SerializeField] GameObject visualHackTarget;
 
     private float cooldownTimer;
     private EnemyController hackedEnemy;
+    private bool unHacked = true;
 
 
     // Base player gadgets
@@ -46,7 +48,8 @@ public class Codebreaker : BasePlayer
         {
             float closestDistance = float.MaxValue;
             GameObject closest = null; 
-
+            
+            // check the distance of all enemies and find the nearest
             foreach (GameObject enemy in enemies)
             {
                 float distance = (enemy.transform.position - gameObject.transform.position).magnitude;
@@ -57,27 +60,36 @@ public class Codebreaker : BasePlayer
                 }
             }
 
+            // if the nearest is within the hackingRadius
             if (closestDistance < hackingRadius)
             {
+                // set the visual aid to the closest target's position
                 visualHackTarget.SetActive(true);
                 visualHackTarget.transform.position = closest.transform.position;
 
+                // if the player presses space, then hack
                 if (Input.GetKey(KeyCode.Space))
                 {
                     hackedEnemy = closest.GetComponent<EnemyController>();
                     hackedEnemy.Hack();
                     cooldownTimer = 0f;
+                    unHacked = false;
                 }
             } else
             {
+                // nothing near, then there is no visual aid
                 visualHackTarget.SetActive(false);
             }
         } else
         {
             cooldownTimer += Time.deltaTime;
 
-            if (cooldownTimer >= hackCooldown)
+            // if the enemy hasn't been unhacked yet and the time since hacking is 
+            // more than the duration then unhack
+            if (!unHacked && cooldownTimer >= hackingDuration)
             {
+                unHacked = true;
+                visualHackTarget.SetActive(false);
                 hackedEnemy.UnHack();
             }
         }

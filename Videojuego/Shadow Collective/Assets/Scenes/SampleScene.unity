@@ -160,8 +160,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
-  hackCooldown: 5
+  hackCooldown: 7
   hackingRadius: 5
+  hackingDuration: 5
   visualHackTarget: {fileID: 8593680323351227858, guid: 59b3488af18954b888aacdc19f6f01a0, type: 3}
 --- !u!114 &155457518
 MonoBehaviour:
