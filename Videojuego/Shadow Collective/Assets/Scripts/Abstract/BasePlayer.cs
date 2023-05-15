@@ -1,8 +1,10 @@
 /*
     Script to define the base player class 
 
-
+    it defines movement, animations, shooting, and other default behaviors
 */
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
