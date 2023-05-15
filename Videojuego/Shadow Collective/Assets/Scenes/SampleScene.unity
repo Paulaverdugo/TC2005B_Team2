@@ -159,7 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e77c37b71a576494fa02907a0a44d67a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
   hackCooldown: 1
 --- !u!114 &155457518
 MonoBehaviour:
@@ -173,7 +172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2429111f5337a4a928f8df47e8d61545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
 --- !u!114 &155457519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,7 +184,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac7a07516c6d4430881b8c172a4d1e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
   invisibilityDuration: 7
   invisibilityCooldown: 7
 --- !u!114 &155457520
@@ -203,6 +200,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerScript: {fileID: 0}
   animator: {fileID: 155457523}
+  cursorTexture: {fileID: 2800000, guid: bec38194bbca14ec4b073f1da4b2c407, type: 3}
+  acceleration: 50
+  deceleration: 50
 --- !u!4 &155457521
 Transform:
   m_ObjectHideFlags: 0

@@ -11,18 +11,30 @@ abstract public class BasePlayer : MonoBehaviour
 {
     // Base attributes
     protected float health;
-    protected float speed;
+    protected float maxSpeed;
+
+    [System.NonSerialized]
+    public float acceleration, deceleration;
+
+    // used for movement
+    protected float currentSpeed;
+    protected Rigidbody2D rigidbody2d;
+
+    // used for shooting
+    protected bool shootButtonPressed;
 
     // Base player states
     protected bool isVisible = true;
     protected bool canSeeVisionCones = false;
 
-    [SerializeField] public Animator animator;
+    [System.NonSerialized] 
+    public Animator animator;
 
     // to flip the sprites when going left
     protected SpriteRenderer spriteRenderer;
 
     // keeps track of where the guard is looking
+    protected Camera mainCamera;
     protected bool lookingRight = true; 
 
     
@@ -38,6 +50,8 @@ abstract public class BasePlayer : MonoBehaviour
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
+        mainCamera = Camera.main;
     }
 
     // Update is called once per frame
@@ -45,56 +59,50 @@ abstract public class BasePlayer : MonoBehaviour
     {
         // Move the player
         Move();
-
-        if (Input.GetKey(KeyCode.P))
-        {
-            animator.SetTrigger("shoot");
-        }
-
-        if (Input.GetKey(KeyCode.O))
-        {
-            animator.SetTrigger("death");
-        }
+        Shoot();
+        FaceMouse();
     }
 
     protected void Move()
     {
-        Vector3 movement = Vector3.zero;
-        // Move the player based on the input
-        if (Input.GetKey(KeyCode.W))
-        {
-            movement += Vector3.up;
-        } if (Input.GetKey(KeyCode.S))
-        {
-            movement += Vector3.down;
-        } if (Input.GetKey(KeyCode.A))
-        {
-            movement += Vector3.left;
-        } if (Input.GetKey(KeyCode.D))
-        {
-            movement += Vector3.right;
-        }
+        // get player's input
+        Vector3 movementDirection = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
 
-        // animate if moving
-        if (movement == Vector3.zero)
-        {
-            animator.SetBool("isRunning", false);
-        } else
+        // with the player's input, calculate the speed
+        if (movementDirection.magnitude > 0) // if we are moving
         {
             animator.SetBool("isRunning", true);
-            
-            // if we are moving, check if it's to the left or right
-            if (movement.x < 0) 
+            currentSpeed += acceleration * Time.deltaTime;
+        }
+        else // not moving
+        {
+            animator.SetBool("isRunning", false);
+            currentSpeed -= deceleration * Time.deltaTime;
+        }
+        // speed can't be lower than zero or bigger than the max
+        currentSpeed = Mathf.Clamp(currentSpeed, 0, maxSpeed);
+
+        rigidbody2d.velocity = currentSpeed * movementDirection.normalized;
+    }
+
+    protected void Shoot()
+    {
+        if (Input.GetAxisRaw("Fire1") > 0)
+        {
+            if (!shootButtonPressed)
             {
-                LookLeft();
-            } else if (movement.x > 0)
-            {
-                LookRight();
+                shootButtonPressed = true;
+                print("Shot!");
             }
         }
-
-        gameObject.transform.position += movement.normalized * speed * Time.deltaTime;
-    }   
+        else
+        {
+            if (shootButtonPressed)
+            {
+                shootButtonPressed = false;
+            }
+        }
+    }
 
     public bool CheckVisibility(GameObject obj)
     {
@@ -110,20 +118,16 @@ abstract public class BasePlayer : MonoBehaviour
         health -= damage;
     }
 
-    private void LookRight()
+    private void FaceMouse()
     {
-        if (!lookingRight)
-        {
-            lookingRight = true;
-            spriteRenderer.flipX = false;
-        }
-    }
+        Vector3 mousePosition = (Vector3) mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
-    private void LookLeft()
-    {
-        if (lookingRight)
+        // if mouse is to the right of us
+        if ((mousePosition - transform.position).x > 0)
         {
-            lookingRight = false;
+            spriteRenderer.flipX = false;
+        } else
+        {
             spriteRenderer.flipX = true;
         }
     }

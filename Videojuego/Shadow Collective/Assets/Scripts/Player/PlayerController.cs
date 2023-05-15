@@ -11,12 +11,19 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] public BasePlayer playerScript;
     [SerializeField] public Animator animator;
+    [SerializeField] public Texture2D cursorTexture;
+
+    [SerializeField] float acceleration;
+    [SerializeField] float deceleration;
+
 
     void Start()
     {
         // ChooseCybergladiator();
         // ChooseCodebreaker();
         ChooseGhostwalker();
+
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }
 
     public bool CheckVisibility(GameObject obj)
@@ -38,6 +45,8 @@ public class PlayerController : MonoBehaviour
         BasePlayer codebreakerScript = gameObject.GetComponent<Codebreaker>();
         codebreakerScript.enabled = true;
         codebreakerScript.animator = animator;
+        codebreakerScript.acceleration = acceleration;
+        codebreakerScript.deceleration = deceleration;
         playerScript = codebreakerScript;
     }
 
@@ -49,6 +58,8 @@ public class PlayerController : MonoBehaviour
         BasePlayer cybergladiatorScript = gameObject.GetComponent<Cybergladiator>();
         cybergladiatorScript.enabled = true;
         cybergladiatorScript.animator = animator;
+        cybergladiatorScript.acceleration = acceleration;
+        cybergladiatorScript.deceleration = deceleration;
         playerScript = cybergladiatorScript;
     }
 
@@ -60,6 +71,8 @@ public class PlayerController : MonoBehaviour
         BasePlayer ghostwalkerScript = gameObject.GetComponent<Ghostwalker>();
         ghostwalkerScript.enabled = true;
         ghostwalkerScript.animator = animator;
+        ghostwalkerScript.acceleration = acceleration;
+        ghostwalkerScript.deceleration = deceleration;
         playerScript = ghostwalkerScript;
     }
 

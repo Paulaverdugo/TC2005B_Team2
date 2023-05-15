@@ -17,7 +17,7 @@ public class Cybergladiator : BasePlayer
     {
         //Attributes
         health = 1;
-        speed = 3;
+        maxSpeed = 7;
 
         base.Start();
     }
