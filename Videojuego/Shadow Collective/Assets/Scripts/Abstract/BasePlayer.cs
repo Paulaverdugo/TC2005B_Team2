@@ -13,13 +13,13 @@ abstract public class BasePlayer : MonoBehaviour
 {
     // Base attributes
     protected float health;
-    protected float maxSpeed;
+    public float maxSpeed;
 
     [System.NonSerialized]
     public float acceleration, deceleration;
 
     // used for movement
-    protected float currentSpeed;
+    public float currentSpeed;
     protected Rigidbody2D rigidbody2d;
 
     // used for shooting
@@ -44,12 +44,12 @@ abstract public class BasePlayer : MonoBehaviour
 
     
     // Base player gadgets
-    // protected List<Gadget> gadgets; TO DO -> uncomment when Gadget exists
+    protected List<BaseGadget> gadgets;
 
     // Start is called before the first frame update
     virtual protected void Start()
     {
-        // gadgets = new List<Gadget>(); TO DO -> uncomment when Gadget exists
+        gadgets = new List<BaseGadget>();
 
         // make the sprite used to see the gameobject invisible, since we have animations
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
@@ -66,6 +66,11 @@ abstract public class BasePlayer : MonoBehaviour
         Move();
         Shoot();
         FaceMouse();
+
+        foreach (BaseGadget gadget in gadgets)
+        {
+            gadget.UpdateGadget(Time.deltaTime);
+        }
     }
 
     protected void Move()

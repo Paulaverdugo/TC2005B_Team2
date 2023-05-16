@@ -39,6 +39,9 @@ public class Cybergladiator : BasePlayer
         cooldownTimer = shieldCooldown;
 
         shieldAnimation = gameObject.transform.Find("Shield").gameObject;
+
+        // to test gadgets
+        gadgets.Add(new CyberDash(this, KeyCode.LeftShift, 2f));
     }
 
     // Update is called once per frame
