@@ -41,7 +41,7 @@ public class Cybergladiator : BasePlayer
         shieldAnimation = gameObject.transform.Find("Shield").gameObject;
 
         // to test gadgets
-        gadgets.Add(new CyberDash(this, KeyCode.LeftShift, 2f));
+        gadgets.Add(new CyberDash(this));
     }
 
     // Update is called once per frame

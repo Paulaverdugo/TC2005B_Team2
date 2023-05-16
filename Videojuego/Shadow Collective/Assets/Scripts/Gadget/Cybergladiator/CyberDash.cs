@@ -10,11 +10,11 @@ using UnityEngine;
 
 public class CyberDash : BaseGadget
 {
-    public CyberDash(BasePlayer player_, KeyCode keyBinded_, float dashCooldown_) : base(player_, keyBinded_)
+    public CyberDash(BasePlayer player_) : base(player_)
     {
-        dashCooldown = dashCooldown_;
-
-        dashDuration = 0.12f;
+        keyBinded = KeyCode.LeftShift;
+        dashCooldown = 2f;
+        dashDuration = 0.1f;
         dashSpeed = 30f;
         cooldownTimer = dashCooldown;
         regularSpeed = player.maxSpeed;
@@ -35,8 +35,8 @@ public class CyberDash : BaseGadget
 
     public override void UpdateGadget(float deltaTime)
     {
-        // if cooldown is over
-        if (!dashing && cooldownTimer >= dashCooldown)
+        // if cooldown is over and player is moving
+        if (!dashing && cooldownTimer >= dashCooldown && player.currentSpeed != 0)
         {
             if (Input.GetKey(keyBinded))
             {

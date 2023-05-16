@@ -7,12 +7,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class BaseGadget : MonoBehaviour
+abstract public class BaseGadget
 {
-    public BaseGadget(BasePlayer player_, KeyCode keyBinded_)
+    public BaseGadget(BasePlayer player_)
     {
         player = player_;
-        keyBinded = keyBinded_;
     }
 
     protected BasePlayer player;
