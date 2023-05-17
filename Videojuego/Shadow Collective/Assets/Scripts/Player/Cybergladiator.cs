@@ -35,6 +35,7 @@ public class Cybergladiator : BasePlayer
         //Attributes
         health = 1;
         maxSpeed = 5;
+        damage = 1;
 
         cooldownTimer = shieldCooldown;
 
@@ -42,6 +43,7 @@ public class Cybergladiator : BasePlayer
 
         // to test gadgets
         gadgets.Add(new CyberDash(this));
+        gadgets.Add(new Overcharge(this));
     }
 
     // Update is called once per frame
@@ -49,6 +51,12 @@ public class Cybergladiator : BasePlayer
     {
         base.Update();
         ActivateShield();
+
+        // DELETE
+        if (Input.GetKey(KeyCode.F))
+        {
+
+        }
     }
    
     void ActivateShield()

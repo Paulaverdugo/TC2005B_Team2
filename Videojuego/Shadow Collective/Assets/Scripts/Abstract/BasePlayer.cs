@@ -14,6 +14,7 @@ abstract public class BasePlayer : MonoBehaviour
     // Base attributes
     protected float health;
     public float maxSpeed;
+    protected float damage;
 
     [System.NonSerialized]
     public float acceleration, deceleration;
@@ -102,6 +103,15 @@ abstract public class BasePlayer : MonoBehaviour
             if (!shootButtonPressed)
             {
                 shootButtonPressed = true;
+
+                float tmpDamage = damage;
+                
+                foreach (BaseGadget gadget in gadgets)
+                {
+                    tmpDamage *= gadget.DamageMultiplier();
+                }
+
+                print(tmpDamage);
             }
         }
         else

@@ -24,6 +24,7 @@ public class Ghostwalker : BasePlayer
         // Attributes
         health = 1;
         maxSpeed = 5;
+        damage = 1;
 
         cooldownTimer = invisibilityCooldown;
 

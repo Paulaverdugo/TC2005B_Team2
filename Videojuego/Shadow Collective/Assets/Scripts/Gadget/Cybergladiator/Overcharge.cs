@@ -8,17 +8,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Overcharge : MonoBehaviour
+public class Overcharge : BaseGadget
 {
-    // Start is called before the first frame update
-    void Start()
+    // TO DO -> CONSIDER ALSO SHORTENING THE PLAYER'S FIRE RATE
+    public Overcharge(BasePlayer player_) : base(player_)
+    {
+        keyBinded = KeyCode.E;
+
+        damageMultiplier = 2f;
+        overchargeCooldown = 15f;
+        overchargeDuration = 5f;
+        cooldownTimer = overchargeCooldown;
+        isActive = false; 
+    }
+
+    private float damageMultiplier;
+    private float overchargeCooldown;
+    private float overchargeDuration;
+    private float cooldownTimer;
+    private bool isActive;
+
+    override public void ResetGadget()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    override public void UpdateGadget(float deltaTime)
     {
-        
+        if (!isActive && cooldownTimer >= overchargeCooldown)
+        {
+            if (Input.GetKey(keyBinded))
+            {
+                isActive = true;
+                cooldownTimer = 0f;
+            }
+        } else
+        {
+            cooldownTimer += deltaTime;
+
+            if (isActive && cooldownTimer >= overchargeDuration)
+            {
+                isActive = false;
+            }
+        }
     }
+
+    override public float DamageMultiplier()
+    {
+        return (isActive) ? damageMultiplier : 1f;
+    } 
 }

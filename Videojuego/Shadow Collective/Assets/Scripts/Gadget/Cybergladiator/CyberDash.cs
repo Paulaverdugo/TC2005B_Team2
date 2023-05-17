@@ -13,6 +13,7 @@ public class CyberDash : BaseGadget
     public CyberDash(BasePlayer player_) : base(player_)
     {
         keyBinded = KeyCode.LeftShift;
+        
         dashCooldown = 2f;
         dashDuration = 0.1f;
         dashSpeed = 30f;

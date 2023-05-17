@@ -27,17 +27,17 @@ abstract public class BaseGadget
 
 
     // functions that will work with the gadgets
-    public bool CanBeSeen(BaseEnemy enemy) 
+    virtual public bool CanBeSeen(BaseEnemy enemy) 
     {
         return true;
     }    
 
-    public bool CanBeDamaged()
+    virtual public bool CanBeDamaged()
     {
         return true;
     }
 
-    public float DamageMultiplier()
+    virtual public float DamageMultiplier()
     {
         return 1;
     }
