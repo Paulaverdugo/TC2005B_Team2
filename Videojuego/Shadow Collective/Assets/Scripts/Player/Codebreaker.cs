@@ -14,11 +14,7 @@ public class Codebreaker : BasePlayer
 
     private float cooldownTimer;
     private EnemyController hackedEnemy;
-    private bool unHacked = true;
-
-
-    // Base player gadgets
-    // private List<Gadget> gadgets; TO DO -> uncomment when Gadget exists
+    private bool unHacked = true; // keeps track if the enemy has been unhacked after hacking it
 
     // Start is called before the first frame update
     override protected void Start()

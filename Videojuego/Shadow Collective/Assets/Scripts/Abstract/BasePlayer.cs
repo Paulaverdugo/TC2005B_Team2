@@ -12,7 +12,7 @@ using UnityEngine;
 abstract public class BasePlayer : MonoBehaviour
 {
     // Base attributes
-    protected float health;
+    public float health;
     public float maxSpeed;
     protected float damage;
 
@@ -110,8 +110,6 @@ abstract public class BasePlayer : MonoBehaviour
                 {
                     tmpDamage *= gadget.DamageMultiplier();
                 }
-
-                print(tmpDamage);
             }
         }
         else

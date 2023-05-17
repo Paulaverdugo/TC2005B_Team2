@@ -13,7 +13,7 @@ public class Overcharge : BaseGadget
     // TO DO -> CONSIDER ALSO SHORTENING THE PLAYER'S FIRE RATE
     public Overcharge(BasePlayer player_) : base(player_)
     {
-        keyBinded = KeyCode.E;
+        keyBinded = KeyCode.Q;
 
         damageMultiplier = 2f;
         overchargeCooldown = 15f;
