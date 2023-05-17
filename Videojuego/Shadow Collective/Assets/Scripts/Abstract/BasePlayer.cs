@@ -34,7 +34,7 @@ abstract public class BasePlayer : MonoBehaviour
     public Animator animator;
 
     // to flip the sprites when going left
-    protected SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
 
     // keeps track of where the guard is looking
     protected Camera mainCamera;

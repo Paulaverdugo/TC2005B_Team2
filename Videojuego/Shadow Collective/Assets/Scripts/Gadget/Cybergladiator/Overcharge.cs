@@ -45,9 +45,11 @@ public class Overcharge : BaseGadget
         } else
         {
             cooldownTimer += deltaTime;
+            player.spriteRenderer.color = new Color(1, 1, Mathf.Lerp(0, 1, cooldownTimer / overchargeDuration),1);
 
             if (isActive && cooldownTimer >= overchargeDuration)
             {
+                player.spriteRenderer.color = new Color(1, 1, 1, 1);
                 isActive = false;
             }
         }
