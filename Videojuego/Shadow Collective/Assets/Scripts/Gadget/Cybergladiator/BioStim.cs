@@ -34,7 +34,7 @@ public class BioStim : BaseGadget
 
     public override void UpdateGadget(float deltaTime)
     {
-        if (!hasBeenUsed && Input.GetKey(keyBinded))
+        if (!hasBeenUsed && Input.GetKey(keyBinded) && player.health != maxHealth)
         {
             hasBeenUsed = true;
             // player can't have more hps than the hp amount they start with
