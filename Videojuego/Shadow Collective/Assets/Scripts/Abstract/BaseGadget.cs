@@ -3,42 +3,42 @@
 */
 
 
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class BaseGadget : MonoBehaviour
+abstract public class BaseGadget
 {
+    public BaseGadget(BasePlayer player_)
+    {
+        player = player_;
+    }
 
-    private GameObject player;
+    protected BasePlayer player;
 
     // Enter Key to activate gadget
-    private KeyCode keyBinded;
+    protected KeyCode keyBinded;
 
 
     //functions every gadget must have to reset in every level
-    public abstract void ResetGadget();
+    abstract public void ResetGadget();
 
-    public abstract void UpdateGadget();
+    abstract public void UpdateGadget(float deltaTime);
 
 
     // functions that will work with the gadgets
-    public bool CanBeSeen(GameObject player) 
+    virtual public bool CanBeSeen(BaseEnemy enemy) 
     {
         return true;
     }    
 
-    public bool CanBeDamaged()
+    virtual public bool CanBeDamaged()
     {
         return true;
     }
 
-    public float DamageMultiplier()
+    virtual public float DamageMultiplier()
     {
         return 1;
     }
-
-
-
 }

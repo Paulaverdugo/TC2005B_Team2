@@ -35,10 +35,16 @@ public class Cybergladiator : BasePlayer
         //Attributes
         health = 1;
         maxSpeed = 5;
+        damage = 1;
 
         cooldownTimer = shieldCooldown;
 
         shieldAnimation = gameObject.transform.Find("Shield").gameObject;
+
+        // to test gadgets
+        gadgets.Add(new CyberDash(this));
+        gadgets.Add(new Overcharge(this));
+        gadgets.Add(new BioStim(this));
     }
 
     // Update is called once per frame
