@@ -27,7 +27,7 @@ abstract public class BaseGadget
 
 
     // functions that will work with the gadgets
-    virtual public bool CanBeSeen(BaseEnemy enemy) 
+    virtual public bool CheckVisibility(GameObject enemy) 
     {
         return true;
     }    

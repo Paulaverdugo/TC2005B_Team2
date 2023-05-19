@@ -15,6 +15,8 @@ public class CameraEnemy : BaseEnemy
     override protected void Start()
     {
         base.Start();
+
+        spriteRenderer = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
         StartFlipping();
     }
 

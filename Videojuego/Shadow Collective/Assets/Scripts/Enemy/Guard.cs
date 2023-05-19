@@ -25,9 +25,6 @@ public class Guard : BaseEnemy
     // to control the animations
     [SerializeField] Animator animator;
 
-    // to flip the sprites when going left
-    private SpriteRenderer spriteRenderer;
-
     // keeps track of where the guard is looking
     private bool lookingRight = true; 
 
@@ -43,8 +40,6 @@ public class Guard : BaseEnemy
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
         startingPos = transform.position;
-
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     override protected void Update()

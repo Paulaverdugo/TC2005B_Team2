@@ -159,6 +159,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e77c37b71a576494fa02907a0a44d67a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  maxSpeed: 0
+  currentSpeed: 0
+  spriteRenderer: {fileID: 0}
   enemies: []
   hackCooldown: 7
   hackingRadius: 5
@@ -176,6 +180,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2429111f5337a4a928f8df47e8d61545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  maxSpeed: 0
+  currentSpeed: 0
+  spriteRenderer: {fileID: 0}
   enemies: []
   shieldDuration: 7
   shieldCooldown: 7
@@ -191,6 +199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac7a07516c6d4430881b8c172a4d1e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  maxSpeed: 0
+  currentSpeed: 0
+  spriteRenderer: {fileID: 0}
   enemies: []
   invisibilityDuration: 7
   invisibilityCooldown: 7
@@ -9235,6 +9247,18 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 155457516}
+    - target: {fileID: 4841284020764429415, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841284020764429415, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841284020764429415, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8611559552619184782, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
       propertyPath: m_Name
       value: Guard

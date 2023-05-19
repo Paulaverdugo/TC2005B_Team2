@@ -24,9 +24,11 @@ abstract public class BaseEnemy : MonoBehaviour
     [SerializeField] public float sightDistance = 3f;
 
 
+    protected SpriteRenderer spriteRenderer;
     // attributes related to the state of the enemy being alerted of the enemies position
     protected bool isAlerted = false;
     protected float alertedTime = 0f;
+
     // when alerted, the guard will try to move to the player's position
     protected Vector3 playerLastPos;
 
@@ -36,7 +38,7 @@ abstract public class BaseEnemy : MonoBehaviour
 
     virtual protected void Start() 
     {
-
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     virtual protected void Update() 
@@ -102,11 +104,13 @@ abstract public class BaseEnemy : MonoBehaviour
     // function to be hacked by the player or by a gadget
     virtual public void Hack()
     {
+        spriteRenderer.color = new Color(0.258544f,0.4632035f,0.6603774f,1);
         isHacked = true;
     }
 
     virtual public void UnHack()
     {
+        spriteRenderer.color = new Color(1,1,1,1);
         isHacked = false;
     }
 }
