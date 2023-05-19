@@ -9247,6 +9247,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 155457516}
+    - target: {fileID: 3857246097604423087, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: patrols
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4841284020764429415, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
       propertyPath: m_Color.b
       value: 1

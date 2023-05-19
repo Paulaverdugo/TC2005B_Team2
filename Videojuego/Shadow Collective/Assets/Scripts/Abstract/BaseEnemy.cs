@@ -55,11 +55,26 @@ abstract public class BaseEnemy : MonoBehaviour
         function that checks if the gameobject that entered the vision cone is the player
         if it is, then it asks through the playercontroller if it can be seen 
         if it can be seen, we alert ourselves, aswell as other enemies within the radius
-
-        consider adding the same procedure but for OnTriggerStay2D to avoid any potential bugs,
-        but this might be performance heavy. 
     */ 
     protected void OnTriggerEnter2D(Collider2D collision) 
+    {
+        if (isHacked) return;
+
+        if (GameObject.ReferenceEquals(player, collision.gameObject)) 
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance, playerLayer);
+            
+            if (hit.collider != null)
+            {
+                if (player.GetComponent<PlayerController>().playerScript.CheckVisibility(gameObject)) 
+                {
+                    AlertOthers();
+                }
+            }
+        }
+    }
+
+    protected void OnTriggerStay2D(Collider2D collision)
     {
         if (isHacked) return;
 

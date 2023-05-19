@@ -98,14 +98,10 @@ public class Codebreaker : BasePlayer
         hackedEnemy.Hack();
         cooldownTimer = 0f;
 
-        print("Hacked!");
-
         yield return new WaitForSeconds(hackingDuration);
 
-        
         DestroyImmediate(visualHackTargetHacked);
         hackedEnemy.UnHack();
-        print("Unhacked!");
     }
 
     override public bool CheckVisibility(GameObject enemy)
