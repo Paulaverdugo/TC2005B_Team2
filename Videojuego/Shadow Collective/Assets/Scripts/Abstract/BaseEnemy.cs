@@ -17,8 +17,6 @@ abstract public class BaseEnemy : MonoBehaviour
     [SerializeField] float alertingRadius = 10f; 
 
     [SerializeField] float alertedTimeLimit = 10f; 
-
-    [SerializeField] ContactFilter2D enemyFilter = new ContactFilter2D();
     
     [SerializeField] LayerMask playerLayer;
     [SerializeField] public float sightDistance = 3f;
@@ -103,9 +101,7 @@ abstract public class BaseEnemy : MonoBehaviour
     public void AlertOthers() 
     {
         // overlap circle returns a list of colliders within a radius
-        List<Collider2D> colsInRadius = new List<Collider2D>();
-
-        int results = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y), alertingRadius, enemyFilter, colsInRadius);
+        Collider2D[] colsInRadius = Physics2D.OverlapCircleAll(gameObject.transform.position, alertingRadius, LayerMask.GetMask("Enemy"));
 
         foreach (var col in colsInRadius)
         {

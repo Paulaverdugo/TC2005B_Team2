@@ -31,6 +31,7 @@ public class Codebreaker : BasePlayer
 
         // to test gadgets
         gadgets.Add(new ShadowVeil(this));
+        gadgets.Add(new CircuitBreaker(this));
     }
 
     // Update is called once per frame

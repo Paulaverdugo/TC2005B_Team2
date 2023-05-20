@@ -779,6 +779,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 9207586469060652807, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 9207586469060652921, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
       propertyPath: player
       value: 
@@ -830,6 +834,10 @@ PrefabInstance:
     - target: {fileID: 9207586469060652922, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9207586470816671505, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9207586470816671507, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
       propertyPath: m_SortingOrder
@@ -8956,7 +8964,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1339935889}
   - component: {fileID: 1339935888}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9243,6 +9251,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2478561907489177704, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3857246097604423087, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
       propertyPath: player
       value: 
@@ -9266,6 +9278,10 @@ PrefabInstance:
     - target: {fileID: 8611559552619184782, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
       propertyPath: m_Name
       value: Guard
+      objectReference: {fileID: 0}
+    - target: {fileID: 8611559552619184782, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}

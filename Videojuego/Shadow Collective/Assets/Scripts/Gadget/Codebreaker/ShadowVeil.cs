@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class ShadowVeil : BaseGadget
 {
-    public ShadowVeil(Codebreaker player_) : base(player_)
+    public ShadowVeil(BasePlayer player_) : base(player_)
     {
         hasBeenUsed = false;
     }
@@ -35,7 +35,7 @@ public class ShadowVeil : BaseGadget
 
             Codebreaker codebreaker = (Codebreaker) player;
             codebreaker.Hack(enemy);
-            
+
             
             // the enemy won't see the player 
             return false;
