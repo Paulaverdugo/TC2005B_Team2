@@ -31,9 +31,9 @@ public class CameraEnemy : BaseEnemy
         transform.Rotate(new Vector3(0f, 180f, 0f));
     }
 
-    override public void Hack()
+    override public void Hack(float hackDuration_)
     {
-        base.Hack();
+        base.Hack(hackDuration_);
         CancelInvoke();
     }
 

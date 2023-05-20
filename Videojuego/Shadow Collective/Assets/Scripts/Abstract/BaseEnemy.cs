@@ -32,6 +32,8 @@ abstract public class BaseEnemy : MonoBehaviour
 
     // attributes related to the state of the enemy being hacked 
     protected bool isHacked = false;
+    protected float hackDuration;
+    protected float hackTimer;
 
 
     virtual protected void Start() 
@@ -41,7 +43,13 @@ abstract public class BaseEnemy : MonoBehaviour
 
     virtual protected void Update() 
     {
-        if (isAlerted) 
+        if (isHacked) 
+        {
+            hackTimer += Time.deltaTime;
+
+            if (hackTimer > hackDuration) UnHack();
+        }
+        else if (isAlerted) 
         {
             alertedTime += Time.deltaTime;
 
@@ -66,7 +74,7 @@ abstract public class BaseEnemy : MonoBehaviour
             {
                 if (player.GetComponent<PlayerController>().playerScript.CheckVisibility(gameObject)) 
                 {
-                    AlertOthers();
+                    AlertOthers(player.transform.position);
                 }
             }
         }
@@ -84,21 +92,21 @@ abstract public class BaseEnemy : MonoBehaviour
             {
                 if (player.GetComponent<PlayerController>().playerScript.CheckVisibility(gameObject)) 
                 {
-                    AlertOthers();
+                    AlertOthers(player.transform.position);
                 }
             }
         }
     }
 
     // function to be alerted that the player has been seen
-    virtual public void Alert() 
+    virtual public void Alert(Vector3 playerPos) 
     {
         isAlerted = true;
         alertedTime = 0f;
-        playerLastPos = player.transform.position;
+        playerLastPos = playerPos;
     }
 
-    public void AlertOthers() 
+    public void AlertOthers(Vector3 playerPos) 
     {
         // overlap circle returns a list of colliders within a radius
         Collider2D[] colsInRadius = Physics2D.OverlapCircleAll(gameObject.transform.position, alertingRadius, LayerMask.GetMask("Enemy"));
@@ -107,15 +115,18 @@ abstract public class BaseEnemy : MonoBehaviour
         {
             if (col.gameObject.CompareTag("Enemy"))
             {
-                col.gameObject.GetComponent<EnemyController>().enemyScript.Alert();
+                col.gameObject.GetComponent<EnemyController>().enemyScript.Alert(playerPos);
             }
         }
     }
 
     // function to be hacked by the player or by a gadget
-    virtual public void Hack()
+    virtual public void Hack(float hackDuration_) 
     {
         spriteRenderer.color = new Color(0.258544f,0.4632035f,0.6603774f,1);
+
+        hackDuration = hackDuration_;
+        hackTimer = 0f;
         isHacked = true;
     }
 

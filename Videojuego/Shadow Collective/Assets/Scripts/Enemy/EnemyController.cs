@@ -11,19 +11,19 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] public BaseEnemy enemyScript;
 
-    public void Alert()
+    public void Alert(Vector3 playerPos)
     {
-        enemyScript.Alert();
+        enemyScript.Alert(playerPos);
     }
 
-    public void AlertOthers()
+    public void AlertOthers(Vector3 playerPos)
     {
-        enemyScript.AlertOthers();
+        enemyScript.AlertOthers(playerPos);
     }
 
-    public void Hack()
+    public void Hack(float hackDuration_)
     {
-        enemyScript.Hack();
+        enemyScript.Hack(hackDuration_);
     }
 
     public void UnHack()

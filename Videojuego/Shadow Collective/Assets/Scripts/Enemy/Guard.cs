@@ -30,7 +30,7 @@ public class Guard : BaseEnemy
 
 
     // bool that stores if the guard is going to the target or to the startingPos
-    bool goingToTarget = true;
+    bool goingToPatrolTarget = true;
 
     override protected void Start() 
     {
@@ -44,9 +44,10 @@ public class Guard : BaseEnemy
 
     override protected void Update()
     {
+        base.Update();
+        
         if (isHacked) return;
 
-        base.Update();
         
         if (isAlerted)
         {
@@ -66,7 +67,7 @@ public class Guard : BaseEnemy
             animator.SetBool("isRunning", true);
             Vector3 direction, movement;
 
-            if (goingToTarget)
+            if (goingToPatrolTarget)
             {
                 direction = patrolTarget - transform.position;
                 movement = direction.normalized * speed * Time.deltaTime;
@@ -78,7 +79,7 @@ public class Guard : BaseEnemy
                     transform.position = patrolTarget;
                     direction = Vector3.zero;
 
-                    goingToTarget = !goingToTarget;
+                    goingToPatrolTarget = !goingToPatrolTarget;
                 }
 
             } else
@@ -92,7 +93,7 @@ public class Guard : BaseEnemy
                     transform.position = startingPos;
                     direction = Vector3.zero;
 
-                    goingToTarget = !goingToTarget;
+                    goingToPatrolTarget = !goingToPatrolTarget;
                 }
             }
 
@@ -138,12 +139,12 @@ public class Guard : BaseEnemy
         }
     }
 
-    override public void Alert()
+    override public void Alert(Vector3 playerPos)
     {
-        base.Alert();
+        base.Alert(playerPos);
 
         // so that when the alert mode runs out, the player goes back to it's original spot
-        goingToTarget = false;
+        goingToPatrolTarget = false;
     }
 
     private void LookRight()
@@ -185,9 +186,9 @@ public class Guard : BaseEnemy
         col.enabled = true;
     }
 
-    override public void Hack()
+    override public void Hack(float hackDuration_)
     {
-        base.Hack();
+        base.Hack(hackDuration_);
         animator.SetBool("isRunning", false);
     }
 }

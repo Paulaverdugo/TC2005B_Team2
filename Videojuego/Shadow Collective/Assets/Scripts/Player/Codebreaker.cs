@@ -32,6 +32,7 @@ public class Codebreaker : BasePlayer
         // to test gadgets
         gadgets.Add(new ShadowVeil(this));
         gadgets.Add(new CircuitBreaker(this));
+        gadgets.Add(new PhantomSignal(this));
     }
 
     // Update is called once per frame
@@ -91,18 +92,18 @@ public class Codebreaker : BasePlayer
 
     public IEnumerator HackCoroutine(GameObject enemy)
     {
+        EnemyController hackedEnemy = enemy.GetComponent<EnemyController>();
+
+        hackedEnemy.Hack(hackingDuration);
+        cooldownTimer = 0f;
+        
         GameObject visualHackTargetHacked = Instantiate(visualHackTarget, Vector3.zero,  Quaternion.identity);
         visualHackTargetHacked.SetActive(true);   
         visualHackTargetHacked.transform.position = enemy.transform.position; 
 
-        EnemyController hackedEnemy = enemy.GetComponent<EnemyController>();
-        hackedEnemy.Hack();
-        cooldownTimer = 0f;
-
         yield return new WaitForSeconds(hackingDuration);
 
         DestroyImmediate(visualHackTargetHacked);
-        hackedEnemy.UnHack();
     }
 
     override public bool CheckVisibility(GameObject enemy)
