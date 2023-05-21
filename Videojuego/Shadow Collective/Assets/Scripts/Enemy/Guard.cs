@@ -205,7 +205,7 @@ public class Guard : BaseEnemy
 
     IEnumerator DieCoroutine()
     {
-        animator.SetTrigger("death");
+        animator.SetTrigger("die");
         yield return new WaitForSeconds(0.7f);
         Destroy(gameObject);
     }
