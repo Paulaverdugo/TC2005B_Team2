@@ -121,7 +121,7 @@ abstract public class BasePlayer : MonoBehaviour
         }
     }
 
-    public bool CheckVisibility(GameObject obj)
+    virtual public bool CheckVisibility(GameObject enemy)
     {
         // Check if the player is visible to the enemy
         // If the player is visible, set isVisible to true

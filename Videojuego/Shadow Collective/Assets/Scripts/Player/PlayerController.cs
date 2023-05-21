@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        ChooseCybergladiator();
-        // ChooseCodebreaker();
+        // ChooseCybergladiator();
+        ChooseCodebreaker();
         // ChooseGhostwalker();
 
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
@@ -33,9 +33,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public bool CheckVisibility(GameObject obj)
+    virtual public bool CheckVisibility(GameObject enemy)
     {
-        return playerScript.CheckVisibility(obj);
+        return playerScript.CheckVisibility(enemy);
     }
 
     public void GetDamaged(float damage) 
