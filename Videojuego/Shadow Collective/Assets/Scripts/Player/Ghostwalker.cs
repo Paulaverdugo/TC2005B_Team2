@@ -32,6 +32,7 @@ public class Ghostwalker : BasePlayer
 
         // to test gadgets
         gadgets.Add(new PhantomStep(this));
+        gadgets.Add(new GhostBlade(this));
     }
 
     // Update is called once per frame

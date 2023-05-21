@@ -135,4 +135,9 @@ abstract public class BaseEnemy : MonoBehaviour
         spriteRenderer.color = new Color(1,1,1,1);
         isHacked = false;
     }
+
+    virtual public void Die()
+    {
+        Destroy(gameObject);
+    }
 }

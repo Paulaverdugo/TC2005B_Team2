@@ -18,6 +18,8 @@ public class EnemyHandler : MonoBehaviour
         foreach (Transform child in transform)
         {
             child.gameObject.GetComponent<EnemyController>().enemyScript.player = player;
+            child.gameObject.tag = "Enemy";
+            child.gameObject.layer = LayerMask.NameToLayer("Enemy");
         }
 
     }

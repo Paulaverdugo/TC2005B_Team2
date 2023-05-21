@@ -2,6 +2,11 @@
     Script for defining the ghostwalker's phantom step gadget
 
     phantom step allows the player to dash when they are invisible
+
+    balancing ideas:
+     - make it a passive gadget that just makes the player faster when invisible
+     - make the player be able to dash whenever they want
+     
 */
 
 using System.Collections;

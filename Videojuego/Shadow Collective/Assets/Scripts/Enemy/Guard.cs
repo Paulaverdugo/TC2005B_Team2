@@ -27,6 +27,9 @@ public class Guard : BaseEnemy
 
     // keeps track of where the guard is looking
     private bool lookingRight = true; 
+    
+    // to not do anything if the guard is dying
+    private bool isDying = false;
 
 
     // bool that stores if the guard is going to the target or to the startingPos
@@ -44,6 +47,8 @@ public class Guard : BaseEnemy
 
     override protected void Update()
     {
+        if (isDying) return;
+
         base.Update();
         
         if (isHacked) return;
@@ -135,7 +140,7 @@ public class Guard : BaseEnemy
 
         if (health < 0)
         {
-            animator.SetTrigger("death");
+            Die();
         }
     }
 
@@ -190,5 +195,18 @@ public class Guard : BaseEnemy
     {
         base.Hack(hackDuration_);
         animator.SetBool("isRunning", false);
+    }
+
+    override public void Die()
+    {
+        isDying = true;
+        StartCoroutine(DieCoroutine());
+    }
+
+    IEnumerator DieCoroutine()
+    {
+        animator.SetTrigger("death");
+        yield return new WaitForSeconds(0.7f);
+        Destroy(gameObject);
     }
 }
