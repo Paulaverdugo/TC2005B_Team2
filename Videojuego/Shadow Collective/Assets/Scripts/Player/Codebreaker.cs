@@ -12,9 +12,8 @@ public class Codebreaker : BasePlayer
     [SerializeField] float hackingDuration = 5;
     [SerializeField] GameObject visualHackTarget;
 
-    private float cooldownTimer;
-    private EnemyController hackedEnemy;
-    private bool unHacked = true; // keeps track if the enemy has been unhacked after hacking it
+    float cooldownTimer;
+    GameObject visualHackTargetAim;
 
     // Start is called before the first frame update
     override protected void Start()
@@ -27,8 +26,13 @@ public class Codebreaker : BasePlayer
 
         cooldownTimer = hackCooldown;
 
-        visualHackTarget = Instantiate(visualHackTarget, Vector3.zero,  Quaternion.identity);
-        visualHackTarget.SetActive(false);
+        visualHackTargetAim = Instantiate(visualHackTarget, Vector3.zero,  Quaternion.identity);
+        visualHackTargetAim.SetActive(false);
+
+        // to test gadgets
+        gadgets.Add(new ShadowVeil(this));
+        gadgets.Add(new CircuitBreaker(this));
+        gadgets.Add(new PhantomSignal(this));
     }
 
     // Update is called once per frame
@@ -36,10 +40,10 @@ public class Codebreaker : BasePlayer
     {
         base.Update();
 
-        HackAbility();
+        HackAbilityUpdate();
     }
 
-    private void HackAbility()
+    private void HackAbilityUpdate()
     {
         if (cooldownTimer >= hackCooldown)
         {
@@ -61,37 +65,59 @@ public class Codebreaker : BasePlayer
             if (closestDistance < hackingRadius)
             {
                 // set the visual aid to the closest target's position
-                visualHackTarget.SetActive(true);
-                visualHackTarget.transform.position = closest.transform.position;
+                visualHackTargetAim.SetActive(true);
+                visualHackTargetAim.transform.position = closest.transform.position;
 
                 // if the player presses space, then hack
                 if (Input.GetKey(KeyCode.Space))
                 {
-                    hackedEnemy = closest.GetComponent<EnemyController>();
-                    hackedEnemy.Hack();
-                    cooldownTimer = 0f;
-                    unHacked = false;
+                    Hack(closest);
                 }
             } else
             {
                 // nothing near, then there is no visual aid
-                visualHackTarget.SetActive(false);
+                visualHackTargetAim.SetActive(false);
             }
         } else
         {
             cooldownTimer += Time.deltaTime;
-
-            // if the enemy hasn't been unhacked yet and the time since hacking is 
-            // more than the duration then unhack
-            if (!unHacked && cooldownTimer >= hackingDuration)
-            {
-                unHacked = true;
-                visualHackTarget.SetActive(false);
-                hackedEnemy.UnHack();
-            }
         }
     }
 
+    public void Hack(GameObject enemy)
+    {
+        visualHackTargetAim.SetActive(false);
+        StartCoroutine(HackCoroutine(enemy));
+    }
+
+    public IEnumerator HackCoroutine(GameObject enemy)
+    {
+        EnemyController hackedEnemy = enemy.GetComponent<EnemyController>();
+
+        hackedEnemy.Hack(hackingDuration);
+        cooldownTimer = 0f;
+        
+        GameObject visualHackTargetHacked = Instantiate(visualHackTarget, Vector3.zero,  Quaternion.identity);
+        visualHackTargetHacked.SetActive(true);   
+        visualHackTargetHacked.transform.position = enemy.transform.position; 
+
+        yield return new WaitForSeconds(hackingDuration);
+
+        DestroyImmediate(visualHackTargetHacked);
+    }
+
+    override public bool CheckVisibility(GameObject enemy)
+    {
+        // only check if a gadget can save the player from being seen if it is visible
+        if (!isVisible) return false;
+
+        foreach (BaseGadget gadget in gadgets)
+        {
+            if (!gadget.CheckVisibility(enemy)) return false;
+        }
+
+        return true;
+    }
 }
 
     

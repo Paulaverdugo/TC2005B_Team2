@@ -159,6 +159,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e77c37b71a576494fa02907a0a44d67a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  maxSpeed: 0
+  currentSpeed: 0
+  spriteRenderer: {fileID: 0}
   enemies: []
   hackCooldown: 7
   hackingRadius: 5
@@ -176,6 +180,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2429111f5337a4a928f8df47e8d61545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  maxSpeed: 0
+  currentSpeed: 0
+  spriteRenderer: {fileID: 0}
   enemies: []
   shieldDuration: 7
   shieldCooldown: 7
@@ -191,6 +199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac7a07516c6d4430881b8c172a4d1e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  maxSpeed: 0
+  currentSpeed: 0
+  spriteRenderer: {fileID: 0}
   enemies: []
   invisibilityDuration: 7
   invisibilityCooldown: 7
@@ -767,6 +779,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 9207586469060652807, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 9207586469060652921, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
       propertyPath: player
       value: 
@@ -818,6 +834,10 @@ PrefabInstance:
     - target: {fileID: 9207586469060652922, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9207586470816671505, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9207586470816671507, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
       propertyPath: m_SortingOrder
@@ -8545,7 +8565,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 14
-      m_TileSpriteIndex: 14
+      m_TileSpriteIndex: 17
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -8655,7 +8675,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 14
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -8837,9 +8857,11 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 407fc6382f64a479499785da02c5dfcb, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 129b731be02304f839a46f76f06a1849, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
-  - m_RefCount: 1
-    m_Data: {fileID: 964084676, guid: 6f50c3c27992a420798eed2bba9c239b, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: -1755789317, guid: 6f50c3c27992a420798eed2bba9c239b, type: 3}
   - m_RefCount: 1
@@ -8867,11 +8889,13 @@ Tilemap:
   - m_RefCount: 3
     m_Data: {fileID: -1972620952, guid: 6f50c3c27992a420798eed2bba9c239b, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: -2133791627, guid: 6f50c3c27992a420798eed2bba9c239b, type: 3}
+    m_Data: {fileID: 964084676, guid: 6f50c3c27992a420798eed2bba9c239b, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 702100479, guid: 6f50c3c27992a420798eed2bba9c239b, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 1274804609, guid: 6f50c3c27992a420798eed2bba9c239b, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: -2133791627, guid: 6f50c3c27992a420798eed2bba9c239b, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 35
     m_Data:
@@ -8944,7 +8968,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1339935889}
   - component: {fileID: 1339935888}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9231,13 +9255,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2478561907489177704, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3857246097604423087, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 155457516}
+    - target: {fileID: 3857246097604423087, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: patrols
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841284020764429415, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841284020764429415, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841284020764429415, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8611559552619184782, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
       propertyPath: m_Name
       value: Guard
+      objectReference: {fileID: 0}
+    - target: {fileID: 8611559552619184782, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}

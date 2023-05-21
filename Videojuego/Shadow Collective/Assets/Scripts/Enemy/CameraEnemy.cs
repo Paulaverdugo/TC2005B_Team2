@@ -15,6 +15,8 @@ public class CameraEnemy : BaseEnemy
     override protected void Start()
     {
         base.Start();
+
+        spriteRenderer = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
         StartFlipping();
     }
 
@@ -29,9 +31,9 @@ public class CameraEnemy : BaseEnemy
         transform.Rotate(new Vector3(0f, 180f, 0f));
     }
 
-    override public void Hack()
+    override public void Hack(float hackDuration_)
     {
-        base.Hack();
+        base.Hack(hackDuration_);
         CancelInvoke();
     }
 

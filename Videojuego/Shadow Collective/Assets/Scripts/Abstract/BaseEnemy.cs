@@ -17,31 +17,39 @@ abstract public class BaseEnemy : MonoBehaviour
     [SerializeField] float alertingRadius = 10f; 
 
     [SerializeField] float alertedTimeLimit = 10f; 
-
-    [SerializeField] ContactFilter2D enemyFilter = new ContactFilter2D();
     
     [SerializeField] LayerMask playerLayer;
     [SerializeField] public float sightDistance = 3f;
 
 
+    protected SpriteRenderer spriteRenderer;
     // attributes related to the state of the enemy being alerted of the enemies position
     protected bool isAlerted = false;
     protected float alertedTime = 0f;
+
     // when alerted, the guard will try to move to the player's position
     protected Vector3 playerLastPos;
 
     // attributes related to the state of the enemy being hacked 
     protected bool isHacked = false;
+    protected float hackDuration;
+    protected float hackTimer;
 
 
     virtual protected void Start() 
     {
-
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     virtual protected void Update() 
     {
-        if (isAlerted) 
+        if (isHacked) 
+        {
+            hackTimer += Time.deltaTime;
+
+            if (hackTimer > hackDuration) UnHack();
+        }
+        else if (isAlerted) 
         {
             alertedTime += Time.deltaTime;
 
@@ -53,9 +61,6 @@ abstract public class BaseEnemy : MonoBehaviour
         function that checks if the gameobject that entered the vision cone is the player
         if it is, then it asks through the playercontroller if it can be seen 
         if it can be seen, we alert ourselves, aswell as other enemies within the radius
-
-        consider adding the same procedure but for OnTriggerStay2D to avoid any potential bugs,
-        but this might be performance heavy. 
     */ 
     protected void OnTriggerEnter2D(Collider2D collision) 
     {
@@ -69,44 +74,65 @@ abstract public class BaseEnemy : MonoBehaviour
             {
                 if (player.GetComponent<PlayerController>().playerScript.CheckVisibility(gameObject)) 
                 {
-                    AlertOthers();
+                    AlertOthers(player.transform.position);
+                }
+            }
+        }
+    }
+
+    protected void OnTriggerStay2D(Collider2D collision)
+    {
+        if (isHacked) return;
+
+        if (GameObject.ReferenceEquals(player, collision.gameObject)) 
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance, playerLayer);
+            
+            if (hit.collider != null)
+            {
+                if (player.GetComponent<PlayerController>().playerScript.CheckVisibility(gameObject)) 
+                {
+                    AlertOthers(player.transform.position);
                 }
             }
         }
     }
 
     // function to be alerted that the player has been seen
-    virtual public void Alert() 
+    virtual public void Alert(Vector3 playerPos) 
     {
         isAlerted = true;
         alertedTime = 0f;
-        playerLastPos = player.transform.position;
+        playerLastPos = playerPos;
     }
 
-    public void AlertOthers() 
+    public void AlertOthers(Vector3 playerPos) 
     {
         // overlap circle returns a list of colliders within a radius
-        List<Collider2D> colsInRadius = new List<Collider2D>();
-
-        int results = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y), alertingRadius, enemyFilter, colsInRadius);
+        Collider2D[] colsInRadius = Physics2D.OverlapCircleAll(gameObject.transform.position, alertingRadius, LayerMask.GetMask("Enemy"));
 
         foreach (var col in colsInRadius)
         {
             if (col.gameObject.CompareTag("Enemy"))
             {
-                col.gameObject.GetComponent<EnemyController>().enemyScript.Alert();
+                col.gameObject.GetComponent<EnemyController>().enemyScript.Alert(playerPos);
             }
         }
     }
 
     // function to be hacked by the player or by a gadget
-    virtual public void Hack()
+    virtual public void Hack(float hackDuration_) 
     {
+        spriteRenderer.color = new Color(0.258544f,0.4632035f,0.6603774f,1);
+
+        hackDuration = hackDuration_;
+        hackTimer = 0f;
         isHacked = true;
     }
 
     virtual public void UnHack()
     {
+        spriteRenderer.color = new Color(1,1,1,1);
         isHacked = false;
     }
 }
