@@ -21,15 +21,19 @@ public class PhantomSignal : BaseGadget
 
         countdownTotal = 5f;
         countdownTimer = 0f;
+
+        beacon = UnityEngine.Object.Instantiate(Resources.Load("PhantomSignalBeacon") as GameObject);
+        beacon.SetActive(false);
     }
-    private bool hasBeenUsed;
+    bool hasBeenUsed;
 
-    private float abilityRadius;
-    private Vector3 abilityPosition;
+    float abilityRadius;
+    Vector3 abilityPosition;
 
-    private float countdownTotal;
-    private float countdownTimer;
+    float countdownTotal;
+    float countdownTimer;
 
+    GameObject beacon;
 
     override public void ResetGadget()
     {
@@ -42,6 +46,10 @@ public class PhantomSignal : BaseGadget
         {
             hasBeenUsed = true;
             abilityPosition = player.transform.position;
+
+            beacon.SetActive(true);
+            beacon.transform.position = abilityPosition;
+
             countdownTimer = 0f;
         }
 
@@ -49,8 +57,10 @@ public class PhantomSignal : BaseGadget
         {
             countdownTimer += deltaTime;
 
+            // alert enemies
             if (countdownTimer >= countdownTotal)
             {
+                beacon.GetComponent<PhantomSignalBeacon>().WaitAndDestroy(5f);
                 // could do it iterating through player's list of enemies
                 // dont know which is faster
                 Collider2D[] enemies = Physics2D.OverlapCircleAll(abilityPosition, abilityRadius, LayerMask.GetMask("Enemy"));

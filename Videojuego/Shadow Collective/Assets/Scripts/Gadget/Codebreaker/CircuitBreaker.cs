@@ -25,12 +25,16 @@ public class CircuitBreaker : BaseGadget
         abilityCooldown = 10f;
         abilityRadius = 7f;
         cooldownTimer = abilityCooldown;
-    }
 
+        soundPlayer = UnityEngine.Object.Instantiate(Resources.Load("CircuitBreakerPlayer") as GameObject).GetComponent<CircuitBreakerPlayer>();
+    }
+    
     float abilityCooldown;
     float abilityRadius;
     float cooldownTimer;
     
+    CircuitBreakerPlayer soundPlayer;
+
     override public void ResetGadget()
     {
         
@@ -42,6 +46,7 @@ public class CircuitBreaker : BaseGadget
         {
             if (Input.GetKey(keyBinded))
             {
+                soundPlayer.Play();
                 cooldownTimer = 0f;
 
                 Collider2D[] enemies = Physics2D.OverlapCircleAll(player.transform.position, abilityRadius, LayerMask.GetMask("Enemy"));
