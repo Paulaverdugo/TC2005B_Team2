@@ -11,7 +11,10 @@ using UnityEngine;
 abstract public class BaseEnemy : MonoBehaviour
 {
     [System.NonSerialized]
-    public GameObject player; 
+    public GameObject player; // set by enemy handler
+    
+    [System.NonSerialized]
+    public PlayerController playerController; // set by enemy handler
     
     // radius that defines the max distance to alert another enemy when the player is seen
     [SerializeField] float alertingRadius = 10f; 
@@ -44,6 +47,7 @@ abstract public class BaseEnemy : MonoBehaviour
 
     virtual protected void Start() 
     {
+
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
         visionConeVisual = gameObject.transform.GetChild(1).gameObject;
@@ -89,7 +93,7 @@ abstract public class BaseEnemy : MonoBehaviour
             
             if (hit.collider != null)
             {
-                if (player.GetComponent<PlayerController>().playerScript.CheckVisibility(gameObject)) 
+                if (playerController.CheckVisibility(gameObject)) 
                 {
                     AlertOthers(player.transform.position);
                 }
@@ -107,7 +111,7 @@ abstract public class BaseEnemy : MonoBehaviour
             
             if (hit.collider != null)
             {
-                if (player.GetComponent<PlayerController>().playerScript.CheckVisibility(gameObject)) 
+                if (playerController.CheckVisibility(gameObject)) 
                 {
                     AlertOthers(player.transform.position);
                 }

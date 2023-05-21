@@ -40,4 +40,9 @@ public class EnemyController : MonoBehaviour
     {
         enemyScript.Die();
     }
+
+    public void ShowVisionCone()
+    {
+        enemyScript.ShowVisionCone();
+    }
 }
