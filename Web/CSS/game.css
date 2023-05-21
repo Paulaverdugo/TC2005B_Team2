@@ -1,6 +1,24 @@
 *{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: #0a0a1f;
+  background-color: #0a0a1f;
+}
+
+@font-face {
+  font-family: cyberbold;
+  src: url("../fonts/Cyber-Bold.ttf");
+}
+
+@font-face {
+  font-family: cyber;
+  src: url("../fonts/Cyber.ttf");
+}
+
+.gameInstructions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80px;
+  width: 700px;
+  margin: auto;
 }
 
 .game {
@@ -31,6 +49,14 @@ header {
   
   .white {
     color: white;
+  }
+  
+  .bold {
+    font-family: cyberbold;
+  }
+  
+  .cyber{
+    font-family: cyber;
   }
   
   .nav-links {
