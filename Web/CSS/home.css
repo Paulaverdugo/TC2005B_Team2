@@ -1,11 +1,47 @@
 *{
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   background-color: #0a0a1f;
 }
 
+@font-face {
+  font-family: cyberbold;
+  src: url("../fonts/Cyber-Bold.ttf");
+}
+
+@font-face {
+  font-family: cyber;
+  src: url("../fonts/Cyber.ttf");
+}
+
 .shadow {
-  align-content: center;
+  position: relative;
+  width: 1430px;
+  height: 650px;
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.shadow img {
+  width: 1430px;
+  height: 650px;
+  object-fit: cover;
+}
+
+.image-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
   color: white;
+}
+
+.image-text h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.image-text p {
+  font-size: 18px;
 }
 
 header {
@@ -23,6 +59,14 @@ header {
 
 .white {
   color: white;
+}
+
+.bold {
+  font-family: cyberbold;
+}
+
+.cyber{
+  font-family: cyber;
 }
 
 .nav-links {
