@@ -133,6 +133,22 @@ abstract public class BasePlayer : MonoBehaviour
         // Reduce the player's health by the amount of damage taken
         // If the player's health is 0, call the GameOver() function
         health -= damage;
+
+        if (health <= 0)
+        {
+            GameOver();
+        } else if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+    }
+
+    private void GameOver() {
+        // Create a function that plays the death animation and then respawns the player at the first level.
+
+        animator.SetTrigger("death");
+        gameObject.transform.position = new Vector3(0, 0, 0);
+
     }
 
     private void FaceMouse()
