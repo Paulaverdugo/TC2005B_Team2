@@ -21,7 +21,6 @@ public class Guard : BaseEnemy
     [SerializeField] float health = 1;
 
     [SerializeField] float chaseCountDown;
-    int caseCountDownSeconds = 3;
 
     // to control the animations
     [SerializeField] Animator animator;
@@ -62,6 +61,7 @@ public class Guard : BaseEnemy
 
         startingPos = transform.position;
         timeSinceLastShot = 1;
+        chaseCountDown = 3;
 
         // Get the Rigidbody2D component
         rb = GetComponent<Rigidbody2D>();
@@ -75,6 +75,13 @@ public class Guard : BaseEnemy
         
         if (isHacked) return;
 
+        if (rb.velocity.x <= 0.1f)
+        {
+            LookLeft();
+        } else if (rb.velocity.x >= 0.1f)
+        {
+            LookRight();
+        }
         
         if (isAlerted)
         {
@@ -91,7 +98,6 @@ public class Guard : BaseEnemy
     void MovePatrol() 
     {
         //function that moves the guard in a patrol
-        guardAI.enabled = false;
         if (patrols)
         {
             animator.SetBool("isRunning", true);
@@ -127,13 +133,6 @@ public class Guard : BaseEnemy
                 }
             }
 
-            if (rb.velocity.x <= 0.1f)
-            {
-                LookLeft();
-            } else if (rb.velocity.x >= 0.1f)
-            {
-                LookRight();
-            }
             UpdateVisionCone(direction.normalized);
             transform.position += movement;
         } else
@@ -149,6 +148,18 @@ public class Guard : BaseEnemy
         animator.SetBool("isRunning", true);
 
         guardAI.enabled = true;
+        goingToPatrolTarget = false;
+
+        if(chaseCountDown > 0)
+        {
+            chaseCountDown -= Time.deltaTime;
+        } else
+        {
+            isAlerted = false;
+            guardAI.enabled = false;
+            chaseCountDown = 3;
+            goingToPatrolTarget = true;
+        }
         // Vector3 direction = (playerLastPos - transform.position).normalized;
 
         // UpdateVisionCone(direction);
@@ -184,7 +195,6 @@ public class Guard : BaseEnemy
 
         if(timeSinceLastShot > 1)
         {
-            Debug.Log(timeSinceLastShot);
             animator.SetTrigger("shoot");
             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             timeSinceLastShot = 0;
