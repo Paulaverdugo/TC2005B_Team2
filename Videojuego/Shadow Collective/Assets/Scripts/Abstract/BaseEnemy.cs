@@ -11,7 +11,10 @@ using UnityEngine;
 abstract public class BaseEnemy : MonoBehaviour
 {
     [System.NonSerialized]
-    public GameObject player; 
+    public GameObject player; // set by enemy handler
+    
+    [System.NonSerialized]
+    public PlayerController playerController; // set by enemy handler
     
     // radius that defines the max distance to alert another enemy when the player is seen
     [SerializeField] float alertingRadius = 10f; 
@@ -19,7 +22,13 @@ abstract public class BaseEnemy : MonoBehaviour
     [SerializeField] float alertedTimeLimit = 10f; 
     
     [SerializeField] LayerMask playerLayer;
-    [SerializeField] public float sightDistance = 3f;
+
+    [SerializeField] Vector3 startingVisionConeDirection = Vector3.down;
+    
+    public float sightDistance;
+    protected float fov;
+    protected PolygonCollider2D visionConeCollider;
+    protected GameObject visionConeVisual;
 
 
     protected SpriteRenderer spriteRenderer;
@@ -38,7 +47,19 @@ abstract public class BaseEnemy : MonoBehaviour
 
     virtual protected void Start() 
     {
+
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        visionConeVisual = gameObject.transform.GetChild(1).gameObject;
+        visionConeVisual.SetActive(false);
+
+        visionConeCollider = gameObject.GetComponent<PolygonCollider2D>();
+
+        // set sight distance to the vision cone's distance
+        sightDistance = Mathf.Sqrt(Mathf.Pow(visionConeCollider.points[1].y,2) + Mathf.Pow(visionConeCollider.points[1].x,2));
+        fov = Mathf.Atan(Mathf.Abs(visionConeCollider.points[1].x) / visionConeCollider.points[1].y);
+
+        UpdateVisionCone(startingVisionConeDirection);
     }
 
     virtual protected void Update() 
@@ -72,7 +93,7 @@ abstract public class BaseEnemy : MonoBehaviour
             
             if (hit.collider != null)
             {
-                if (player.GetComponent<PlayerController>().playerScript.CheckVisibility(gameObject)) 
+                if (playerController.CheckVisibility(gameObject)) 
                 {
                     AlertOthers(player.transform.position);
                 }
@@ -90,12 +111,36 @@ abstract public class BaseEnemy : MonoBehaviour
             
             if (hit.collider != null)
             {
-                if (player.GetComponent<PlayerController>().playerScript.CheckVisibility(gameObject)) 
+                if (playerController.CheckVisibility(gameObject)) 
                 {
                     AlertOthers(player.transform.position);
                 }
             }
         }
+    }
+
+    virtual protected void UpdateVisionCone(Vector3 direction)
+    {
+        direction = new Vector2(direction.x, direction.y).normalized;
+        float directionAngle = Mathf.Acos(Vector2.Dot(direction, Vector2.right));
+
+        if (direction.y < 0) directionAngle = 2 * Mathf.PI - directionAngle;
+
+        // + 90 because of its starting position
+        visionConeVisual.transform.rotation = Quaternion.Euler(0f, 0f, directionAngle * Mathf.Rad2Deg + 90);
+
+        PolygonCollider2D col = gameObject.GetComponent<PolygonCollider2D>();
+
+        col.enabled = false;
+
+        col.points = new[]
+        {
+            Vector2.zero,
+            sightDistance * new Vector2(Mathf.Cos(directionAngle + fov), Mathf.Sin(directionAngle + fov)),
+            sightDistance * new Vector2(Mathf.Cos(directionAngle - fov), Mathf.Sin(directionAngle - fov))
+        };
+
+        col.enabled = true;
     }
 
     // function to be alerted that the player has been seen
@@ -134,5 +179,15 @@ abstract public class BaseEnemy : MonoBehaviour
     {
         spriteRenderer.color = new Color(1,1,1,1);
         isHacked = false;
+    }
+
+    virtual public void Die()
+    {
+        Destroy(gameObject);
+    }
+
+    virtual public void ShowVisionCone()
+    {
+        visionConeVisual.SetActive(true);
     }
 }

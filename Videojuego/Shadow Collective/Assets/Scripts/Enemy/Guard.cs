@@ -19,14 +19,14 @@ public class Guard : BaseEnemy
     [SerializeField] float speed = 1;
     [SerializeField] float health = 1;
 
-    // angle in radians, measured from the direction, that defines the vision cone's aperture
-    [SerializeField] float fov;
-
     // to control the animations
     [SerializeField] Animator animator;
 
     // keeps track of where the guard is looking
     private bool lookingRight = true; 
+    
+    // to not do anything if the guard is dying
+    private bool isDying = false;
 
 
     // bool that stores if the guard is going to the target or to the startingPos
@@ -44,6 +44,8 @@ public class Guard : BaseEnemy
 
     override protected void Update()
     {
+        if (isDying) return;
+
         base.Update();
         
         if (isHacked) return;
@@ -120,6 +122,16 @@ public class Guard : BaseEnemy
 
         Vector3 direction = (playerLastPos - transform.position).normalized;
 
+        UpdateVisionCone(direction);
+
+        if (direction.x < 0)
+        {
+            LookLeft();
+        } else
+        {
+            LookRight();
+        }
+
         transform.position += direction * speed * Time.deltaTime;
     }
 
@@ -135,7 +147,7 @@ public class Guard : BaseEnemy
 
         if (health < 0)
         {
-            animator.SetTrigger("death");
+            Die();
         }
     }
 
@@ -165,30 +177,22 @@ public class Guard : BaseEnemy
         }
     }
 
-    private void UpdateVisionCone(Vector3 direction)
-    {
-        direction = new Vector2(direction.x, direction.y).normalized;
-        float directionAngle = Mathf.Acos(Vector2.Dot(direction, Vector2.right));
-
-        if (direction.y < 0) directionAngle = 2 * Mathf.PI - directionAngle;
-
-        PolygonCollider2D col = gameObject.GetComponent<PolygonCollider2D>();
-
-        col.enabled = false;
-
-        col.points = new[]
-        {
-            Vector2.zero,
-            sightDistance * new Vector2(Mathf.Cos(directionAngle + fov), Mathf.Sin(directionAngle + fov)),
-            sightDistance * new Vector2(Mathf.Cos(directionAngle - fov), Mathf.Sin(directionAngle - fov))
-        };
-
-        col.enabled = true;
-    }
-
     override public void Hack(float hackDuration_)
     {
         base.Hack(hackDuration_);
         animator.SetBool("isRunning", false);
+    }
+
+    override public void Die()
+    {
+        isDying = true;
+        StartCoroutine(DieCoroutine());
+    }
+
+    IEnumerator DieCoroutine()
+    {
+        animator.SetTrigger("die");
+        yield return new WaitForSeconds(0.7f);
+        Destroy(gameObject);
     }
 }

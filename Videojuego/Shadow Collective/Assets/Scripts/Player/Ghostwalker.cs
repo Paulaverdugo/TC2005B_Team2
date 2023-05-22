@@ -21,6 +21,8 @@ public class Ghostwalker : BasePlayer
     // Start is called before the first frame update
     override protected void Start()
     {
+        base.Start();
+
         // Attributes
         health = 1;
         maxSpeed = 5;
@@ -28,7 +30,10 @@ public class Ghostwalker : BasePlayer
 
         cooldownTimer = invisibilityCooldown;
 
-        base.Start();
+        // to test gadgets
+        gadgets.Add(new PhantomStep(this));
+        gadgets.Add(new GhostBlade(this));
+        gadgets.Add(new GhostVision(this));
     }
 
     // Update is called once per frame

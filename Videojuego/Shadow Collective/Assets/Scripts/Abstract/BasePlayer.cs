@@ -27,8 +27,8 @@ abstract public class BasePlayer : MonoBehaviour
     protected bool shootButtonPressed;
 
     // Base player states
-    protected bool isVisible = true;
-    protected bool canSeeVisionCones = false;
+    [System.NonSerialized] 
+    public bool isVisible = true;
 
     [System.NonSerialized] 
     public Animator animator;

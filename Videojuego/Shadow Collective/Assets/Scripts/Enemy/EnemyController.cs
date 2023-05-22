@@ -30,4 +30,19 @@ public class EnemyController : MonoBehaviour
     {
         enemyScript.UnHack();
     }
+
+    public bool IsGuard()
+    {
+        return enemyScript.GetType() == typeof(Guard);
+    }
+
+    public void Die()
+    {
+        enemyScript.Die();
+    }
+
+    public void ShowVisionCone()
+    {
+        enemyScript.ShowVisionCone();
+    }
 }
