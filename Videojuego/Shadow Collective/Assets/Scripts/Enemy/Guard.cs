@@ -29,6 +29,9 @@ public class Guard : BaseEnemy
     // to not do anything if the guard is dying
     private bool isDying = false;
 
+    private float timeSinceLastShot = 0;
+
+    private GuardAI guardAI;
 
     // bool that stores if the guard is going to the target or to the startingPos
     bool goingToPatrolTarget = true;
@@ -40,8 +43,12 @@ public class Guard : BaseEnemy
         // make the sprite used to see the gameobject invisible, since we have animations
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
-        startingPos = transform.position;
+        // Get the guardAI component
+        guardAI = GetComponent<GuardAI>();
+        guardAI.enabled = false;
 
+        startingPos = transform.position;
+        timeSinceLastShot = 0;
     }
 
     override protected void Update()
@@ -56,7 +63,11 @@ public class Guard : BaseEnemy
         if (isAlerted)
         {
             MoveToPlayer();
-            Shoot();
+            if (timeSinceLastShot > 1)
+            {
+                Shoot();
+                timeSinceLastShot = 0;
+            }
         } else
         {
             MovePatrol();
@@ -65,55 +76,55 @@ public class Guard : BaseEnemy
 
     void MovePatrol() 
     {
-        // function that moves the guard in a patrol
-        // if (patrols)
-        // {
-        //     animator.SetBool("isRunning", true);
-        //     Vector3 direction, movement;
+        //function that moves the guard in a patrol
+        if (patrols)
+        {
+            animator.SetBool("isRunning", true);
+            Vector3 direction, movement;
 
-        //     if (goingToPatrolTarget)
-        //     {
-        //         direction = patrolTarget - transform.position;
-        //         movement = direction.normalized * speed * Time.deltaTime;
+            if (goingToPatrolTarget)
+            {
+                direction = patrolTarget - transform.position;
+                movement = direction.normalized * speed * Time.deltaTime;
 
 
-        //         // check if we are going to pass the target this tick
-        //         if (direction.magnitude < (movement).magnitude)
-        //         {
-        //             transform.position = patrolTarget;
-        //             direction = Vector3.zero;
+                // check if we are going to pass the target this tick
+                if (direction.magnitude < (movement).magnitude)
+                {
+                    transform.position = patrolTarget;
+                    direction = Vector3.zero;
 
-        //             goingToPatrolTarget = !goingToPatrolTarget;
-        //         }
+                    goingToPatrolTarget = !goingToPatrolTarget;
+                }
 
-        //     } else
-        //     {
-        //         direction = startingPos - transform.position;
-        //         movement = direction.normalized * speed * Time.deltaTime;
+            } else
+            {
+                direction = startingPos - transform.position;
+                movement = direction.normalized * speed * Time.deltaTime;
 
-        //         // check if we are going to pass the startingPos this tick
-        //         if (direction.magnitude < (movement).magnitude)
-        //         {
-        //             transform.position = startingPos;
-        //             direction = Vector3.zero;
+                // check if we are going to pass the startingPos this tick
+                if (direction.magnitude < (movement).magnitude)
+                {
+                    transform.position = startingPos;
+                    direction = Vector3.zero;
 
-        //             goingToPatrolTarget = !goingToPatrolTarget;
-        //         }
-        //     }
+                    goingToPatrolTarget = !goingToPatrolTarget;
+                }
+            }
 
-        //     if (direction.x < 0)
-        //     {
-        //         LookLeft();
-        //     } else
-        //     {
-        //         LookRight();
-        //     }
-        //     UpdateVisionCone(direction.normalized);
-        //     transform.position += movement;
-        // } else
-        // {
-        //     animator.SetBool("isRunning", false);
-        // }
+            if (direction.x < 0)
+            {
+                LookLeft();
+            } else
+            {
+                LookRight();
+            }
+            UpdateVisionCone(direction.normalized);
+            transform.position += movement;
+        } else
+        {
+            animator.SetBool("isRunning", false);
+        }
     }
 
     void MoveToPlayer()
@@ -122,25 +133,27 @@ public class Guard : BaseEnemy
         // TO DO -> IMPLEMENT A* PATH FINDING
         animator.SetBool("isRunning", true);
 
-        Vector3 direction = (playerLastPos - transform.position).normalized;
+        guardAI.enabled = true;
+        // Vector3 direction = (playerLastPos - transform.position).normalized;
 
-        UpdateVisionCone(direction);
+        // UpdateVisionCone(direction);
 
-        if (direction.x < 0)
-        {
-            LookLeft();
-        } else
-        {
-            LookRight();
-        }
+        // if (direction.x < 0)
+        // {
+        //     LookLeft();
+        // } else
+        // {
+        //     LookRight();
+        // }
 
-        transform.position += direction * speed * Time.deltaTime;
+        // transform.position += direction * speed * Time.deltaTime;
     }
 
     void Shoot()
     {
         // TO DO -> IMPLEMENT THE GUARD SHOOTING THE PLAYER
         animator.SetTrigger("shoot");
+        timeSinceLastShot += Time.deltaTime;
     }
 
     void GetDamaged(float damage)
