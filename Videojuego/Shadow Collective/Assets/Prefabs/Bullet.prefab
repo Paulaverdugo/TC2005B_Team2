@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4115478843585935391}
   - component: {fileID: 4115478843585935388}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: projectiles x1_12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4115478845011300636}
   - component: {fileID: 2464985095582361561}
   - component: {fileID: 3680115636344246566}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &3680115636344246566
 MonoBehaviour:

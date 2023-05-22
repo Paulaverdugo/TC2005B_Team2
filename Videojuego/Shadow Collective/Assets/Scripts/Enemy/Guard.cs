@@ -37,6 +37,9 @@ public class Guard : BaseEnemy
     [SerializeField] GameObject bulletPrefab;
     public Transform firePoint;
 
+    // Values for rotation of bullet
+    private Vector3 playerPos;
+
     // bool that stores if the guard is going to the target or to the startingPos
     bool goingToPatrolTarget = true;
 
@@ -52,7 +55,7 @@ public class Guard : BaseEnemy
         guardAI.enabled = false;
 
         startingPos = transform.position;
-        timeSinceLastShot = 0;
+        timeSinceLastShot = 1;
     }
 
     override protected void Update()
@@ -158,10 +161,21 @@ public class Guard : BaseEnemy
         // TO DO -> IMPLEMENT THE GUARD SHOOTING THE PLAYER
         animator.SetTrigger("shoot");
         timeSinceLastShot += Time.deltaTime;
+
+        // Get the position of the player
+        playerPos = GameObject.Find("Player").transform.position;
+
+        // Get the direction of the bullet
+        Vector3 rotation = playerPos - firePoint.position;
+
+        // Instantiate the bullet
+        float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+        firePoint.rotation = Quaternion.Euler(0f, 0f, rotZ - 90);
+
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
     }
 
-    void GetDamaged(float damage)
+    virtual public void GetDamaged(float damage)
     {
         health -= damage;
 

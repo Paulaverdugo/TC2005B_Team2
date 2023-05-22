@@ -12,6 +12,16 @@ public class BulletBehaviour : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
+        // Deal damage to the player
+        if (collision.gameObject.CompareTag("Player")) {
+            collision.gameObject.GetComponent<BasePlayer>().GetDamaged(1);
+        }
+
+        // Deal damage to the guard
+        if (collision.gameObject.CompareTag("Guard")) {
+            collision.gameObject.GetComponent<Guard>().GetDamaged(1);
+        }
+
         Destroy(gameObject);
     }
 
