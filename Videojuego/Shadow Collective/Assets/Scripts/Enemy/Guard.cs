@@ -20,6 +20,9 @@ public class Guard : BaseEnemy
     [SerializeField] float speed = 1;
     [SerializeField] float health = 1;
 
+    [SerializeField] float chaseCountDown;
+    int caseCountDownSeconds = 3;
+
     // to control the animations
     [SerializeField] Animator animator;
 
@@ -36,6 +39,9 @@ public class Guard : BaseEnemy
     //Bullet values
     [SerializeField] GameObject bulletPrefab;
     public Transform firePoint;
+
+    // Value to flip the sprite
+    private Rigidbody2D rb;
 
     // Values for rotation of bullet
     private Vector3 playerPos;
@@ -56,6 +62,9 @@ public class Guard : BaseEnemy
 
         startingPos = transform.position;
         timeSinceLastShot = 1;
+
+        // Get the Rigidbody2D component
+        rb = GetComponent<Rigidbody2D>();
     }
 
     override protected void Update()
@@ -69,12 +78,10 @@ public class Guard : BaseEnemy
         
         if (isAlerted)
         {
-            MoveToPlayer();
-            if (timeSinceLastShot > 1)
-            {
-                Shoot();
-                timeSinceLastShot = 0;
-            }
+            playerLastPos = GameObject.FindGameObjectsWithTag("Player")[0].transform.position;
+            guardAI.target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+            MoveToPlayer(playerLastPos);
+            Shoot();
         } else
         {
             MovePatrol();
@@ -84,6 +91,7 @@ public class Guard : BaseEnemy
     void MovePatrol() 
     {
         //function that moves the guard in a patrol
+        guardAI.enabled = false;
         if (patrols)
         {
             animator.SetBool("isRunning", true);
@@ -119,10 +127,10 @@ public class Guard : BaseEnemy
                 }
             }
 
-            if (direction.x < 0)
+            if (rb.velocity.x <= 0.1f)
             {
                 LookLeft();
-            } else
+            } else if (rb.velocity.x >= 0.1f)
             {
                 LookRight();
             }
@@ -134,7 +142,7 @@ public class Guard : BaseEnemy
         }
     }
 
-    void MoveToPlayer()
+    void MoveToPlayer(Vector3 playerPos)
     {
         // function that moves the guard to the last known player position
         // TO DO -> IMPLEMENT A* PATH FINDING
@@ -159,20 +167,29 @@ public class Guard : BaseEnemy
     void Shoot()
     {
         // TO DO -> IMPLEMENT THE GUARD SHOOTING THE PLAYER
-        animator.SetTrigger("shoot");
         timeSinceLastShot += Time.deltaTime;
 
         // Get the position of the player
-        playerPos = GameObject.Find("Player").transform.position;
+        playerPos = GameObject.FindGameObjectsWithTag("Player")[0].transform.position;
 
         // Get the direction of the bullet
-        Vector3 rotation = playerPos - firePoint.position;
+        Vector3 rotation = playerPos - transform.position;
+
+        // Change position of shooting point based on the player position.
+        firePoint.position = transform.position + rotation.normalized * 2f;
 
         // Instantiate the bullet
         float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
-        firePoint.rotation = Quaternion.Euler(0f, 0f, rotZ - 90);
+        firePoint.rotation = Quaternion.Euler(0f, 0f, rotZ);
 
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        if(timeSinceLastShot > 1)
+        {
+            Debug.Log(timeSinceLastShot);
+            animator.SetTrigger("shoot");
+            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            timeSinceLastShot = 0;
+        }
+
     }
 
     virtual public void GetDamaged(float damage)

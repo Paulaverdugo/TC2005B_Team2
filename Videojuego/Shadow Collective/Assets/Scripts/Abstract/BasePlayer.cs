@@ -112,15 +112,20 @@ abstract public class BasePlayer : MonoBehaviour
 
         Vector3 rotation = mousePos - transform.position;
 
+        // Make launchposition change based on the rotation of the player
+
         float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
 
         firePoint.rotation = Quaternion.Euler(0f, 0f, rotZ);
+        firePoint.position = transform.position + rotation.normalized * 2f;
 
         if (Input.GetAxisRaw("Fire1") > 0)
         {
             if (!shootButtonPressed)
             {
                 shootButtonPressed = true;
+
+                animator.SetTrigger("shoot");
 
                 // Create the bullet
                 Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
@@ -170,7 +175,6 @@ abstract public class BasePlayer : MonoBehaviour
         // Create a function that plays the death animation and then respawns the player at the first level.
 
         animator.SetTrigger("death");
-        gameObject.transform.position = new Vector3(0, 0, 0);
 
     }
 
