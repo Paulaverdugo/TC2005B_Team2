@@ -33,6 +33,10 @@ public class Guard : BaseEnemy
 
     private GuardAI guardAI;
 
+    //Bullet values
+    [SerializeField] GameObject bulletPrefab;
+    public Transform firePoint;
+
     // bool that stores if the guard is going to the target or to the startingPos
     bool goingToPatrolTarget = true;
 
@@ -154,6 +158,7 @@ public class Guard : BaseEnemy
         // TO DO -> IMPLEMENT THE GUARD SHOOTING THE PLAYER
         animator.SetTrigger("shoot");
         timeSinceLastShot += Time.deltaTime;
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
     }
 
     void GetDamaged(float damage)
