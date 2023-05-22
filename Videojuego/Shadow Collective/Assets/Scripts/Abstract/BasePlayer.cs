@@ -46,6 +46,11 @@ abstract public class BasePlayer : MonoBehaviour
 
     // HealthBar 
     public HealthBar healthBar;
+
+    // Get the bullet prefab
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+    private Vector3 mousePos;
     
     // Base player gadgets
     protected List<BaseGadget> gadgets;
@@ -103,11 +108,22 @@ abstract public class BasePlayer : MonoBehaviour
 
     protected void Shoot()
     {
+        mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector3 rotation = mousePos - transform.position;
+
+        float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+
+        firePoint.rotation = Quaternion.Euler(0f, 0f, rotZ);
+
         if (Input.GetAxisRaw("Fire1") > 0)
         {
             if (!shootButtonPressed)
             {
                 shootButtonPressed = true;
+
+                // Create the bullet
+                Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
                 float tmpDamage = damage;
                 
