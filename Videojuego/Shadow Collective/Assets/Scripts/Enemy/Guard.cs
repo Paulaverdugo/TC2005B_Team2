@@ -8,6 +8,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class Guard : BaseEnemy
 {
@@ -40,6 +41,7 @@ public class Guard : BaseEnemy
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
         startingPos = transform.position;
+
     }
 
     override protected void Update()
@@ -64,54 +66,54 @@ public class Guard : BaseEnemy
     void MovePatrol() 
     {
         // function that moves the guard in a patrol
-        if (patrols)
-        {
-            animator.SetBool("isRunning", true);
-            Vector3 direction, movement;
+        // if (patrols)
+        // {
+        //     animator.SetBool("isRunning", true);
+        //     Vector3 direction, movement;
 
-            if (goingToPatrolTarget)
-            {
-                direction = patrolTarget - transform.position;
-                movement = direction.normalized * speed * Time.deltaTime;
+        //     if (goingToPatrolTarget)
+        //     {
+        //         direction = patrolTarget - transform.position;
+        //         movement = direction.normalized * speed * Time.deltaTime;
 
 
-                // check if we are going to pass the target this tick
-                if (direction.magnitude < (movement).magnitude)
-                {
-                    transform.position = patrolTarget;
-                    direction = Vector3.zero;
+        //         // check if we are going to pass the target this tick
+        //         if (direction.magnitude < (movement).magnitude)
+        //         {
+        //             transform.position = patrolTarget;
+        //             direction = Vector3.zero;
 
-                    goingToPatrolTarget = !goingToPatrolTarget;
-                }
+        //             goingToPatrolTarget = !goingToPatrolTarget;
+        //         }
 
-            } else
-            {
-                direction = startingPos - transform.position;
-                movement = direction.normalized * speed * Time.deltaTime;
+        //     } else
+        //     {
+        //         direction = startingPos - transform.position;
+        //         movement = direction.normalized * speed * Time.deltaTime;
 
-                // check if we are going to pass the startingPos this tick
-                if (direction.magnitude < (movement).magnitude)
-                {
-                    transform.position = startingPos;
-                    direction = Vector3.zero;
+        //         // check if we are going to pass the startingPos this tick
+        //         if (direction.magnitude < (movement).magnitude)
+        //         {
+        //             transform.position = startingPos;
+        //             direction = Vector3.zero;
 
-                    goingToPatrolTarget = !goingToPatrolTarget;
-                }
-            }
+        //             goingToPatrolTarget = !goingToPatrolTarget;
+        //         }
+        //     }
 
-            if (direction.x < 0)
-            {
-                LookLeft();
-            } else
-            {
-                LookRight();
-            }
-            UpdateVisionCone(direction.normalized);
-            transform.position += movement;
-        } else
-        {
-            animator.SetBool("isRunning", false);
-        }
+        //     if (direction.x < 0)
+        //     {
+        //         LookLeft();
+        //     } else
+        //     {
+        //         LookRight();
+        //     }
+        //     UpdateVisionCone(direction.normalized);
+        //     transform.position += movement;
+        // } else
+        // {
+        //     animator.SetBool("isRunning", false);
+        // }
     }
 
     void MoveToPlayer()
