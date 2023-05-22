@@ -13,6 +13,7 @@ abstract public class BasePlayer : MonoBehaviour
 {
     // Base attributes
     public float health;
+    public float maxHealth;
     public float maxSpeed;
     protected float damage;
 
@@ -43,6 +44,8 @@ abstract public class BasePlayer : MonoBehaviour
     // some gadgets and classes need to know where nearby enemies are
     public List<GameObject> enemies = new List<GameObject>();
 
+    // HealthBar 
+    public HealthBar healthBar;
     
     // Base player gadgets
     protected List<BaseGadget> gadgets;
@@ -58,6 +61,8 @@ abstract public class BasePlayer : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
+
+        healthBar.SetMaxHealth(health);
     }
 
     // Update is called once per frame
@@ -141,6 +146,8 @@ abstract public class BasePlayer : MonoBehaviour
         {
             health = maxHealth;
         }
+
+        healthBar.SetHealth(health);
     }
 
     private void GameOver() {
