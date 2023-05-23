@@ -9,6 +9,7 @@ public class GuardAI : MonoBehaviour
 {
     public Transform target;
 
+
     public float speed = 200f;
     public float nextWaypointDistance = 3f;
 
@@ -62,5 +63,6 @@ public class GuardAI : MonoBehaviour
         }
 
         rb.AddForce(force);
+
     }
 }

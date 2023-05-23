@@ -61,7 +61,7 @@ public class Guard : BaseEnemy
 
         startingPos = transform.position;
         timeSinceLastShot = 1;
-        chaseCountDown = 3;
+        chaseCountDown = 5;
 
         // Get the Rigidbody2D component
         rb = GetComponent<Rigidbody2D>();
@@ -85,9 +85,7 @@ public class Guard : BaseEnemy
         
         if (isAlerted)
         {
-            playerLastPos = GameObject.FindGameObjectsWithTag("Player")[0].transform.position;
-            guardAI.target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
-            MoveToPlayer(playerLastPos);
+            MoveToPlayer();
             Shoot();
         } else
         {
@@ -141,11 +139,13 @@ public class Guard : BaseEnemy
         }
     }
 
-    void MoveToPlayer(Vector3 playerPos)
+    void MoveToPlayer()
     {
         // function that moves the guard to the last known player position
         // TO DO -> IMPLEMENT A* PATH FINDING
         animator.SetBool("isRunning", true);
+        playerLastPos = GameObject.FindGameObjectsWithTag("Player")[0].transform.position;
+        guardAI.target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
 
         guardAI.enabled = true;
         goingToPatrolTarget = false;
@@ -157,12 +157,12 @@ public class Guard : BaseEnemy
         {
             isAlerted = false;
             guardAI.enabled = false;
-            chaseCountDown = 3;
+            chaseCountDown = 5;
             goingToPatrolTarget = true;
         }
         // Vector3 direction = (playerLastPos - transform.position).normalized;
 
-        // UpdateVisionCone(direction);
+        UpdateVisionCone(playerLastPos - transform.position);
 
         // if (direction.x < 0)
         // {
