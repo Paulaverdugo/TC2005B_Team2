@@ -136,7 +136,8 @@ abstract public class BasePlayer : MonoBehaviour
                 }
 
                 // Create the bullet
-                Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, rotZ));
+                GameObject bullet = Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, rotZ));
+                bullet.GetComponent<BulletBehaviour>().SetDamage(tmpDamage);
             }
         }
         else

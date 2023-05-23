@@ -18,7 +18,7 @@ public class Guard : BaseEnemy
     [SerializeField] bool patrols;
     
     [SerializeField] float speed = 1;
-    [SerializeField] float health = 1;
+    [SerializeField] float health = 5;
 
     [SerializeField] float chaseCountDown;
 
@@ -206,7 +206,7 @@ public class Guard : BaseEnemy
     {
         health -= damage;
 
-        if (health < 0)
+        if (health <= 0)
         {
             Die();
         }
