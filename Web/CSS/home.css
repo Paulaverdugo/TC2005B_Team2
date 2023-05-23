@@ -12,6 +12,15 @@
   src: url("../fonts/Cyber.ttf");
 }
 
+@font-face {
+  font-family: cyberitalic;
+  src: url("../fonts/Cyber-Italic.ttf");
+}
+
+@font-face {
+  font-family: code;
+  src: url("../Fonts/Code\ 8x8.ttf");
+}
 
 .shadow {
   position: relative;
@@ -27,7 +36,19 @@
   object-fit: cover;
 }
 
-.image-text {
+.video-container {
+  position: relative;
+  width: 1430px;
+  height: 650px;
+}
+
+.custom-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.text-overlay {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -36,13 +57,13 @@
   color: white;
 }
 
-.image-text h2 {
+.text-overlay h2 {
   font-size: 32px;
   margin-bottom: 10px;
 }
 
-.image-text p {
-  font-size: 18px;
+.text-overlay p {
+  font-size: 12px;
 }
 
 header {
@@ -68,6 +89,10 @@ header {
 
 .cyber{
   font-family: cyber;
+}
+
+.code {
+  font-family: code;
 }
 
 .nav-links {
