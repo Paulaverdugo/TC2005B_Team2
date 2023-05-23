@@ -160,9 +160,9 @@ public class Guard : BaseEnemy
             chaseCountDown = 5;
             goingToPatrolTarget = true;
         }
-        // Vector3 direction = (playerLastPos - transform.position).normalized;
+        Vector3 direction = (playerLastPos - transform.position).normalized;
 
-        UpdateVisionCone(playerLastPos - transform.position);
+        UpdateVisionCone(direction);
 
         // if (direction.x < 0)
         // {
