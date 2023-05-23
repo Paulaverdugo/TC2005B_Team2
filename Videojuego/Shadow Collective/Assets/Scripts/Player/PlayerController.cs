@@ -25,7 +25,9 @@ public class PlayerController : MonoBehaviour
         // ChooseCodebreaker();
         // ChooseGhostwalker();
 
-        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        // -7 and -5 were obtained through trail and error
+        Vector2 cursorHotspot = new Vector2(cursorTexture.width / 2 - 7, cursorTexture.height / 2 - 5);
+        Cursor.SetCursor(cursorTexture, cursorHotspot, CursorMode.Auto);
 
         foreach (Transform child in enemyHandler.transform)
         {
