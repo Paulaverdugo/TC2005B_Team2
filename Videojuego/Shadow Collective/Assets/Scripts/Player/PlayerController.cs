@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public GameObject enemyHandler; // to populate the enemies list
     [SerializeField] public Animator animator;
     [SerializeField] public Texture2D cursorTexture;
+    [SerializeField] public GameObject bulletPrefab;
 
     [SerializeField] float acceleration;
     [SerializeField] float deceleration;
@@ -91,5 +92,6 @@ public class PlayerController : MonoBehaviour
         playerScript.acceleration = acceleration;
         playerScript.deceleration = deceleration;
         playerScript.enemies = enemies;
+        playerScript.bulletPrefab = bulletPrefab;
     }
 }

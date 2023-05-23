@@ -48,9 +48,10 @@ abstract public class BasePlayer : MonoBehaviour
     public HealthBar healthBar;
 
     // Get the bullet prefab
+    [System.NonSerialized]
     public GameObject bulletPrefab;
     public Transform firePoint;
-    private Vector3 mousePos;
+
     
     // Base player gadgets
     protected List<BaseGadget> gadgets;
@@ -108,7 +109,7 @@ abstract public class BasePlayer : MonoBehaviour
 
     protected void Shoot()
     {
-        mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
         Vector3 rotation = mousePos - transform.position;
 
