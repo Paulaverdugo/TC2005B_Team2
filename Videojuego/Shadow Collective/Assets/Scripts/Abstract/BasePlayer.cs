@@ -50,8 +50,6 @@ abstract public class BasePlayer : MonoBehaviour
     // Get the bullet prefab
     [System.NonSerialized]
     public GameObject bulletPrefab;
-    public Transform firePoint;
-
     
     // Base player gadgets
     protected List<BaseGadget> gadgets;
@@ -109,27 +107,26 @@ abstract public class BasePlayer : MonoBehaviour
 
     protected void Shoot()
     {
-        Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-
-        Vector3 rotation = mousePos - transform.position;
-
-        // Make launchposition change based on the rotation of the player
-
-        float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
-
-        firePoint.rotation = Quaternion.Euler(0f, 0f, rotZ);
-        firePoint.position = transform.position + rotation.normalized * 2f;
 
         if (Input.GetAxisRaw("Fire1") > 0)
         {
             if (!shootButtonPressed)
             {
+                animator.SetTrigger("shoot");
                 shootButtonPressed = true;
 
-                animator.SetTrigger("shoot");
+                Vector3 shootingOrigin = gameObject.transform.position - new Vector3(0, 0.5f, 0);
 
-                // Create the bullet
-                Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+                Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
+                Vector3 direction = new Vector3(mousePos.x - shootingOrigin.x, mousePos.y - shootingOrigin.y, 0).normalized;
+
+                // Make launchposition change based on the rotation of the player
+                float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+                // we add the direction * offset to not hit own player's hitbox
+                Vector3 launchPosition = shootingOrigin + direction * .8f;
+
 
                 float tmpDamage = damage;
                 
@@ -137,6 +134,9 @@ abstract public class BasePlayer : MonoBehaviour
                 {
                     tmpDamage *= gadget.DamageMultiplier();
                 }
+
+                // Create the bullet
+                Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, rotZ));
             }
         }
         else
