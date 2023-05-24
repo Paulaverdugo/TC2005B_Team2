@@ -37,7 +37,6 @@ public class Guard : BaseEnemy
 
     //Bullet values
     [SerializeField] GameObject bulletPrefab;
-    public Transform firePoint;
 
     // Value to flip the sprite
     private Rigidbody2D rb;
@@ -177,27 +176,28 @@ public class Guard : BaseEnemy
 
     void Shoot()
     {
-        // TO DO -> IMPLEMENT THE GUARD SHOOTING THE PLAYER
         timeSinceLastShot += Time.deltaTime;
 
-        // Get the position of the player
-        playerPos = GameObject.FindGameObjectsWithTag("Player")[0].transform.position;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance, playerLayer);
 
-        // Get the direction of the bullet
-        Vector3 rotation = playerPos - transform.position;
-
-        // Change position of shooting point based on the player position.
-        firePoint.position = transform.position + rotation.normalized * 2f;
-
-        // Instantiate the bullet
-        float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
-        firePoint.rotation = Quaternion.Euler(0f, 0f, rotZ);
-
-        if(timeSinceLastShot > 1)
+        if(timeSinceLastShot > 1 && hit.collider != null)
         {
             animator.SetTrigger("shoot");
-            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             timeSinceLastShot = 0;
+
+            Vector3 shootingOrigin = gameObject.transform.position - new Vector3(0, 0.5f, 0);
+
+            Vector3 direction = new Vector3(player.transform.position.x - shootingOrigin.x, player.transform.position.y - shootingOrigin.y, 0).normalized;
+
+
+            // Change position of shooting point based on the player position.
+            Vector3 launchPosition = shootingOrigin + direction * 1f;
+
+            // get the rotation of the bullet gameobject
+            float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            
+            Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, rotZ));
+            // bullet.GetComponent<BulletBehaviour>().SetDamage(damage); -> to set the damage of the bullet (default 1)
         }
 
     }
