@@ -21,7 +21,7 @@ abstract public class BaseEnemy : MonoBehaviour
 
     [SerializeField] float alertedTimeLimit = 10f; 
     
-    [SerializeField] LayerMask playerLayer;
+    [SerializeField] protected LayerMask playerLayer;
 
     [SerializeField] Vector3 startingVisionConeDirection = Vector3.down;
     
