@@ -50,7 +50,9 @@ abstract public class BasePlayer : MonoBehaviour
     // Get the bullet prefab
     [System.NonSerialized]
     public GameObject bulletPrefab;
-    
+    protected float shootCooldown = 0.5f;
+    protected float timeSinceLastShot;
+
     // Base player gadgets
     protected List<BaseGadget> gadgets;
 
@@ -67,6 +69,7 @@ abstract public class BasePlayer : MonoBehaviour
         mainCamera = Camera.main;
 
         healthBar.SetMaxHealth(health);
+        timeSinceLastShot = shootCooldown;
     }
 
     // Update is called once per frame
@@ -107,11 +110,13 @@ abstract public class BasePlayer : MonoBehaviour
 
     protected void Shoot()
     {
+        timeSinceLastShot += Time.deltaTime;
 
-        if (Input.GetAxisRaw("Fire1") > 0)
+        if (Input.GetAxisRaw("Fire1") > 0 && timeSinceLastShot >= shootCooldown)
         {
             if (!shootButtonPressed)
             {
+                timeSinceLastShot = 0;
                 animator.SetTrigger("shoot");
                 shootButtonPressed = true;
 
