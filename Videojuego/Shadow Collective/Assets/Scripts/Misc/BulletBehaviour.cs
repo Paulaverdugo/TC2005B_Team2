@@ -7,18 +7,22 @@ public class BulletBehaviour : MonoBehaviour
     // Script to control the bullet behavior
     public float bulletSpeed = 10f;
 
-    private void Update() {
+    private void Update()
+    {
         transform.Translate(Vector2.right * bulletSpeed * Time.deltaTime);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         // Deal damage to the player
-        if (collision.gameObject.CompareTag("Player")) {
-            collision.gameObject.GetComponent<PlayerController>().GetDamaged(1);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<BasePlayer>().GetDamaged(1);
         }
 
         // Deal damage to the guard
-        if (collision.gameObject.CompareTag("Enemy")) {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
             collision.gameObject.GetComponent<Guard>().GetDamaged(1);
         }
 

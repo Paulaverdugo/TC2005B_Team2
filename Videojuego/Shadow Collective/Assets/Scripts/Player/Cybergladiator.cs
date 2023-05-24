@@ -33,7 +33,8 @@ public class Cybergladiator : BasePlayer
         base.Start();
 
         //Attributes
-        health = 1;
+        health = base.maxHealth;
+        Debug.Log("Cybergladiator health: " + health);
         maxSpeed = 5;
         damage = 1;
 
@@ -53,14 +54,14 @@ public class Cybergladiator : BasePlayer
         base.Update();
         ActivateShield();
     }
-   
+
     void ActivateShield()
     {
         // if player can be invisible again and they pressed space
         if (Input.GetKey(KeyCode.Space) && !shielding && cooldownTimer >= shieldCooldown)
         {
             shieldAnimation.SetActive(true);
-            
+
             shielding = true;
             shieldTimer = 0;
         }

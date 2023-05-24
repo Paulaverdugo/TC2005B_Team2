@@ -24,7 +24,7 @@ public class Ghostwalker : BasePlayer
         base.Start();
 
         // Attributes
-        health = 1;
+        health = base.maxHealth;
         maxSpeed = 5;
         damage = 1;
 
@@ -49,7 +49,7 @@ public class Ghostwalker : BasePlayer
         if (Input.GetKey(KeyCode.Space) && isVisible && cooldownTimer >= invisibilityCooldown)
         {
             // make sprite transparent
-            spriteRenderer.color = new Color(1,1,1,.5f);
+            spriteRenderer.color = new Color(1, 1, 1, .5f);
             isVisible = false;
             invisibilityTimer = 0;
         }
@@ -61,7 +61,7 @@ public class Ghostwalker : BasePlayer
             // ability ran out
             if (invisibilityTimer > invisibilityDuration)
             {
-                spriteRenderer.color = new Color(1,1,1,1);
+                spriteRenderer.color = new Color(1, 1, 1, 1);
                 isVisible = true;
                 cooldownTimer = 0;
             }
