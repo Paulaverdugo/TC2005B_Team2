@@ -19,14 +19,14 @@ public class Codebreaker : BasePlayer
     override protected void Start()
     {
         base.Start();
-        
-        health = 1;
+
+        health = base.maxHealth;
         maxSpeed = 5;
         damage = 1;
 
         cooldownTimer = hackCooldown;
 
-        visualHackTargetAim = Instantiate(visualHackTarget, Vector3.zero,  Quaternion.identity);
+        visualHackTargetAim = Instantiate(visualHackTarget, Vector3.zero, Quaternion.identity);
         visualHackTargetAim.SetActive(false);
 
         // to test gadgets
@@ -48,13 +48,13 @@ public class Codebreaker : BasePlayer
         if (cooldownTimer >= hackCooldown)
         {
             float closestDistance = float.MaxValue;
-            GameObject closest = null; 
-            
+            GameObject closest = null;
+
             // check the distance of all enemies and find the nearest
             foreach (GameObject enemy in enemies)
             {
                 float distance = (enemy.transform.position - gameObject.transform.position).magnitude;
-                if ( distance < closestDistance)
+                if (distance < closestDistance)
                 {
                     closestDistance = distance;
                     closest = enemy;
@@ -73,12 +73,14 @@ public class Codebreaker : BasePlayer
                 {
                     Hack(closest);
                 }
-            } else
+            }
+            else
             {
                 // nothing near, then there is no visual aid
                 visualHackTargetAim.SetActive(false);
             }
-        } else
+        }
+        else
         {
             cooldownTimer += Time.deltaTime;
         }
@@ -96,10 +98,10 @@ public class Codebreaker : BasePlayer
 
         hackedEnemy.Hack(hackingDuration);
         cooldownTimer = 0f;
-        
-        GameObject visualHackTargetHacked = Instantiate(visualHackTarget, Vector3.zero,  Quaternion.identity);
-        visualHackTargetHacked.SetActive(true);   
-        visualHackTargetHacked.transform.position = enemy.transform.position; 
+
+        GameObject visualHackTargetHacked = Instantiate(visualHackTarget, Vector3.zero, Quaternion.identity);
+        visualHackTargetHacked.SetActive(true);
+        visualHackTargetHacked.transform.position = enemy.transform.position;
 
         yield return new WaitForSeconds(hackingDuration);
 
@@ -120,4 +122,4 @@ public class Codebreaker : BasePlayer
     }
 }
 
-    
+

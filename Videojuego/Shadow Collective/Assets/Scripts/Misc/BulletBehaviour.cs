@@ -8,11 +8,13 @@ public class BulletBehaviour : MonoBehaviour
     public float bulletSpeed = 10f;
     public float damage = 1f;
 
-    private void Update() {
+    private void Update()
+    {
         transform.Translate(Vector2.right * bulletSpeed * Time.deltaTime);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         // Deal damage to the player
         if (collision.gameObject.CompareTag("Player")) {
             collision.gameObject.GetComponent<PlayerController>().GetDamaged(damage);

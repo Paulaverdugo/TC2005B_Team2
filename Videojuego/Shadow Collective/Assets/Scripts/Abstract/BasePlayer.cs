@@ -28,10 +28,10 @@ abstract public class BasePlayer : MonoBehaviour
     protected bool shootButtonPressed;
 
     // Base player states
-    [System.NonSerialized] 
+    [System.NonSerialized]
     public bool isVisible = true;
 
-    [System.NonSerialized] 
+    [System.NonSerialized]
     public Animator animator;
 
     // to flip the sprites when going left
@@ -39,7 +39,7 @@ abstract public class BasePlayer : MonoBehaviour
 
     // keeps track of where the guard is looking
     protected Camera mainCamera;
-    protected bool lookingRight = true; 
+    protected bool lookingRight = true;
 
     // some gadgets and classes need to know where nearby enemies are
     public List<GameObject> enemies = new List<GameObject>();
@@ -129,7 +129,7 @@ abstract public class BasePlayer : MonoBehaviour
 
 
                 float tmpDamage = damage;
-                
+
                 foreach (BaseGadget gadget in gadgets)
                 {
                     tmpDamage *= gadget.DamageMultiplier();
@@ -157,7 +157,8 @@ abstract public class BasePlayer : MonoBehaviour
         return isVisible;
     }
 
-    virtual public void GetDamaged(float damage) {
+    virtual public void GetDamaged(float damage)
+    {
         // Reduce the player's health by the amount of damage taken
         // If the player's health is 0, call the GameOver() function
         health -= damage;
@@ -165,15 +166,18 @@ abstract public class BasePlayer : MonoBehaviour
         if (health <= 0)
         {
             GameOver();
-        } else if (health > maxHealth)
+        }
+        else if (health > maxHealth)
         {
             health = maxHealth;
         }
+        Debug.Log("Player health: " + health);
 
         healthBar.SetHealth(health);
     }
 
-    private void GameOver() {
+    private void GameOver()
+    {
         // Create a function that plays the death animation and then respawns the player at the first level.
 
         animator.SetTrigger("death");
@@ -182,13 +186,14 @@ abstract public class BasePlayer : MonoBehaviour
 
     private void FaceMouse()
     {
-        Vector3 mousePosition = (Vector3) mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mousePosition = (Vector3)mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
         // if mouse is to the right of us
         if ((mousePosition - transform.position).x > 0)
         {
             spriteRenderer.flipX = false;
-        } else
+        }
+        else
         {
             spriteRenderer.flipX = true;
         }
