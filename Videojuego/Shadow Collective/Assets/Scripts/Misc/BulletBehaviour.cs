@@ -20,7 +20,13 @@ public class BulletBehaviour : MonoBehaviour
 
         // Deal damage to the guard
         if (collision.gameObject.CompareTag("Enemy")) {
-            collision.gameObject.GetComponent<Guard>().GetDamaged(damage);
+            EnemyController enemyController = collision.gameObject.GetComponent<EnemyController>();
+
+            if (enemyController.IsGuard())
+            {
+                Guard guardScript = (Guard) enemyController.enemyScript;
+                guardScript.GetDamaged(damage);
+            }
         }
 
         Destroy(gameObject);
