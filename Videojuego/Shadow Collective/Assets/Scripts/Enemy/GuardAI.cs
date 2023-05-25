@@ -7,7 +7,7 @@ using Pathfinding;
 
 public class GuardAI : MonoBehaviour
 {
-    public Transform target;
+    public Vector3 target;
 
 
     public float speed = 200f;
@@ -30,7 +30,7 @@ public class GuardAI : MonoBehaviour
 
     void UpdatePath() {
         if (seeker.IsDone()) {
-            seeker.StartPath(rb.position, target.position, OnPathComplete);
+            seeker.StartPath(rb.position, target, OnPathComplete);
         }
     }
 
@@ -54,7 +54,7 @@ public class GuardAI : MonoBehaviour
         }
 
         Vector2 direction = ((Vector2) path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = direction * speed * Time.deltaTime;
+        rb.velocity = direction * speed * Time.deltaTime;
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
@@ -62,7 +62,7 @@ public class GuardAI : MonoBehaviour
             currentWaypoint++;
         }
 
-        rb.AddForce(force);
+        // rb.AddForce(force);
 
     }
 }

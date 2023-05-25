@@ -143,8 +143,8 @@ public class Guard : BaseEnemy
         // function that moves the guard to the last known player position
         // TO DO -> IMPLEMENT A* PATH FINDING
         animator.SetBool("isRunning", true);
-        playerLastPos = GameObject.FindGameObjectsWithTag("Player")[0].transform.position;
-        guardAI.target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+        // playerLastPos = GameObject.FindGameObjectsWithTag("Player")[0].transform.position;
+        guardAI.target = playerLastPos;
 
         guardAI.enabled = true;
         goingToPatrolTarget = false;
