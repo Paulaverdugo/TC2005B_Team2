@@ -58,7 +58,7 @@ public class Guard : BaseEnemy
         healthBar.GetComponent<HealthBar>().SetMaxHealth(health);
 
         // Change the position of the healthbar to be on top of the guard on the canvas
-        healthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 1.5f, 0));
+        healthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 1f, 0));
 
         // make the sprite used to see the gameobject invisible, since we have animations
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
@@ -107,7 +107,7 @@ public class Guard : BaseEnemy
 
     void UpdateHealthBarPosition() {
         // Change the position of the healthbar to be on top of the guard on the canvas
-        healthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 1.5f, 0));
+        healthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 1f, 0));
     }
 
     void MovePatrol()
