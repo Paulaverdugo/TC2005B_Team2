@@ -64,7 +64,7 @@ MonoBehaviour:
   patrolTarget: {x: -7, y: 6, z: 0}
   patrols: 1
   speed: 1
-  health: 1
+  health: 5
   chaseCountDown: 0
   animator: {fileID: 3461760466696904161}
   bulletPrefab: {fileID: 4115478845011300639, guid: 69ad44bdfbedc41b78bdd2dcc35c8a32, type: 3}
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 200
+  speed: 250
   nextWaypointDistance: 3
 --- !u!1 &3461760467504193912
 GameObject:

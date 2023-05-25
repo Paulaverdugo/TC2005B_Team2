@@ -16,7 +16,7 @@ public class Guard : BaseEnemy
     Vector3 startingPos;
     [SerializeField] Vector3 patrolTarget;
     [SerializeField] bool patrols;
-    
+
     [SerializeField] float speed = 1;
     [SerializeField] float health = 5;
 
@@ -26,8 +26,8 @@ public class Guard : BaseEnemy
     [SerializeField] Animator animator;
 
     // keeps track of where the guard is looking
-    private bool lookingRight = true; 
-    
+    private bool lookingRight = true;
+
     // to not do anything if the guard is dying
     private bool isDying = false;
 
@@ -44,10 +44,13 @@ public class Guard : BaseEnemy
     // Values for rotation of bullet
     private Vector3 playerPos;
 
+    // Values for the healthbar
+    [SerializeField] GameObject healthBar;
+
     // bool that stores if the guard is going to the target or to the startingPos
     bool goingToPatrolTarget = true;
 
-    override protected void Start() 
+    override protected void Start()
     {
         base.Start();
 
@@ -71,28 +74,30 @@ public class Guard : BaseEnemy
         if (isDying) return;
 
         base.Update();
-        
+
         if (isHacked) return;
 
         if (rb.velocity.x <= 0.1f)
         {
             LookLeft();
-        } else if (rb.velocity.x >= 0.1f)
+        }
+        else if (rb.velocity.x >= 0.1f)
         {
             LookRight();
         }
-        
+
         if (isAlerted)
         {
             MoveToPlayer();
             Shoot();
-        } else
+        }
+        else
         {
             MovePatrol();
         }
     }
 
-    void MovePatrol() 
+    void MovePatrol()
     {
         //function that moves the guard in a patrol
         if (patrols)
@@ -115,7 +120,8 @@ public class Guard : BaseEnemy
                     goingToPatrolTarget = !goingToPatrolTarget;
                 }
 
-            } else
+            }
+            else
             {
                 direction = startingPos - transform.position;
                 movement = direction.normalized * speed * Time.deltaTime;
@@ -132,7 +138,8 @@ public class Guard : BaseEnemy
 
             UpdateVisionCone(direction.normalized);
             transform.position += movement;
-        } else
+        }
+        else
         {
             animator.SetBool("isRunning", false);
         }
@@ -149,10 +156,11 @@ public class Guard : BaseEnemy
         guardAI.enabled = true;
         goingToPatrolTarget = false;
 
-        if(chaseCountDown > 0)
+        if (chaseCountDown > 0)
         {
             chaseCountDown -= Time.deltaTime;
-        } else
+        }
+        else
         {
             isAlerted = false;
             guardAI.enabled = false;
@@ -180,7 +188,7 @@ public class Guard : BaseEnemy
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance, playerLayer);
 
-        if(timeSinceLastShot > 1 && hit.collider != null)
+        if (timeSinceLastShot > 1 && hit.collider != null)
         {
             animator.SetTrigger("shoot");
             timeSinceLastShot = 0;
@@ -195,7 +203,7 @@ public class Guard : BaseEnemy
 
             // get the rotation of the bullet gameobject
             float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            
+
             Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, rotZ));
             // bullet.GetComponent<BulletBehaviour>().SetDamage(damage); -> to set the damage of the bullet (default 1)
         }
