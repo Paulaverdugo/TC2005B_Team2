@@ -170,7 +170,7 @@ abstract public class BasePlayer : MonoBehaviour
 
         if (health <= 0)
         {
-            StartCoroutine(GameOver());
+            GameOver();
         }
         else if (health > maxHealth)
         {
@@ -181,12 +181,10 @@ abstract public class BasePlayer : MonoBehaviour
         healthBar.SetHealth(health);
     }
 
-    // Die coroutine
-    IEnumerator GameOver()
-    {
+    virtual public void GameOver() {
         animator.SetTrigger("death");
-        yield return new WaitForSeconds(1.5f);
-        Destroy(gameObject);
+        // Game over
+        Debug.Log("Game Over");
     }
 
     private void FaceMouse()

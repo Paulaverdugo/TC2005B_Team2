@@ -68,6 +68,7 @@ MonoBehaviour:
   chaseCountDown: 0
   animator: {fileID: 3461760466696904161}
   bulletPrefab: {fileID: 4115478845011300639, guid: 69ad44bdfbedc41b78bdd2dcc35c8a32, type: 3}
+  healthBar: {fileID: 0}
 --- !u!114 &3461760466696904162
 MonoBehaviour:
   m_ObjectHideFlags: 0
