@@ -33,8 +33,6 @@ public class Guard : BaseEnemy
 
     private float timeSinceLastShot = 0;
 
-    private GuardAI guardAI;
-
     //Bullet values
     [SerializeField] GameObject bulletPrefab;
 
@@ -87,6 +85,16 @@ public class Guard : BaseEnemy
         else if (rb.velocity.x >= 0.1f)
         {
             LookRight();
+        }
+
+        // If guard is moving, play the running animation
+        if (rb.velocity.x != 0)
+        {
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
         }
 
         // if (isAlerted)

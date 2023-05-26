@@ -8,14 +8,14 @@ using Pathfinding;
 public class GuardAI : MonoBehaviour
 {
     public Transform target;
-    Transform initialPos;
+    public Transform initialPos;
 
     public float speed = 200f;
     public float nextWaypointDistance = 3f;
 
     Path path;
     int currentWaypoint = 0;
-    bool reachedEndOfPath = false;
+    public bool reachedEndOfPath = false;
 
     Seeker seeker;
     Rigidbody2D rb;
@@ -23,7 +23,9 @@ public class GuardAI : MonoBehaviour
     void Start()
     {
         initialPos = transform;
-        rb = GetComponent<Rigidbody2D>();
+        // Find rigidbody component on guard prefab
+        rb = gameObject.transform.parent.gameObject.transform.parent.GetComponent<Rigidbody2D>();
+
         seeker = GetComponent<Seeker>();
     
         InvokeRepeating("UpdatePath", 0f, 0.5f);
@@ -52,6 +54,10 @@ public class GuardAI : MonoBehaviour
             return;
         } else {
             reachedEndOfPath = false;
+        }
+
+        if(reachedEndOfPath) {
+            target = initialPos;
         }
 
         Vector2 direction = ((Vector2) path.vectorPath[currentWaypoint] - rb.position).normalized;

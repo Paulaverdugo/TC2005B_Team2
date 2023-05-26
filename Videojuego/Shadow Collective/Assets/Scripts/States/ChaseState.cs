@@ -10,7 +10,7 @@ public class ChaseState : State
     private GuardAI guardAI;
 
     public void Start() {
-        patrols = gameObject.transform.parent.gameObject.GetComponent<Guard>().patrols;
+        patrols = gameObject.transform.parent.gameObject.transform.parent.GetComponent<Guard>().patrols;
 
         // Get the guardAI component
         guardAI = GetComponent<GuardAI>();

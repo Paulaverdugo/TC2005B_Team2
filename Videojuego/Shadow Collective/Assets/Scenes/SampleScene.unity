@@ -138,6 +138,8 @@ GameObject:
   m_Component:
   - component: {fileID: 147764546}
   - component: {fileID: 147764547}
+  - component: {fileID: 147764548}
+  - component: {fileID: 147764549}
   m_Layer: 0
   m_Name: ChaseState
   m_TagString: Untagged
@@ -172,8 +174,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274ea3729f50a4514881fc772110f356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolState: {fileID: 0}
-  patrols: 0
+  patrolState: {fileID: 1815414657}
+  patrols: 1
+--- !u!114 &147764548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147764545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9510ea6f568714155be4a06e25648e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 155457521}
+  speed: 200
+  nextWaypointDistance: 3
+--- !u!114 &147764549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147764545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!1 &155457516
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,7 +896,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 198910561}
-  - component: {fileID: 198910562}
   m_Layer: 0
   m_Name: StateManager
   m_TagString: Untagged
@@ -876,18 +920,6 @@ Transform:
   m_Father: {fileID: 146451194}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &198910562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198910560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2c357339e3af4b61be3518206e20024, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &315238379
 GameObject:
   m_ObjectHideFlags: 0
@@ -10123,8 +10155,28 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 155457521}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8956814394565742018, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+    - {fileID: 7069760350208184860, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+--- !u!1 &1499702764 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3461760466696904164, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+  m_PrefabInstance: {fileID: 1479306212}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1499702774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499702764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c357339e3af4b61be3518206e20024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: {fileID: 1815414657}
 --- !u!1 &1505563123
 GameObject:
   m_ObjectHideFlags: 0
@@ -10325,6 +10377,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1815414656}
   - component: {fileID: 1815414657}
+  - component: {fileID: 1815414658}
+  - component: {fileID: 1815414659}
   m_Layer: 0
   m_Name: PatrolState
   m_TagString: Untagged
@@ -10359,8 +10413,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fcf903b5605c4814b7a39e60e66183c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseState: {fileID: 0}
-  isAlerted: 0
+  chaseState: {fileID: 147764547}
+  patrols: 1
+--- !u!114 &1815414658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815414655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9510ea6f568714155be4a06e25648e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 200
+  nextWaypointDistance: 3
+--- !u!114 &1815414659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815414655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!1001 &868443037010410791
 PrefabInstance:
   m_ObjectHideFlags: 0
