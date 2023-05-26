@@ -14,8 +14,8 @@ public class Guard : BaseEnemy
 {
     // to control how the guard will move when not alerted
     Vector3 startingPos;
-    [SerializeField] Vector3 patrolTarget;
-    [SerializeField] bool patrols;
+    
+    [SerializeField] public bool patrols;
 
     [SerializeField] float speed = 1;
     [SerializeField] float health = 5;
@@ -63,10 +63,6 @@ public class Guard : BaseEnemy
         // make the sprite used to see the gameobject invisible, since we have animations
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
-        // Get the guardAI component
-        guardAI = GetComponent<GuardAI>();
-        guardAI.enabled = false;
-
         startingPos = transform.position;
         timeSinceLastShot = 1;
         chaseCountDown = 5;
@@ -93,102 +89,104 @@ public class Guard : BaseEnemy
             LookRight();
         }
 
-        if (isAlerted)
-        {
-            MoveToPlayer();
-            Shoot();
-        }
-        else
-        {
-            MovePatrol();
-        }
-    }
-
-
-    void MovePatrol()
-    {
-        //function that moves the guard in a patrol
-        if (patrols)
-        {
-            animator.SetBool("isRunning", true);
-            Vector3 direction, movement;
-
-            if (goingToPatrolTarget)
-            {
-                direction = patrolTarget - transform.position;
-                movement = direction.normalized * speed * Time.deltaTime;
-
-
-                // check if we are going to pass the target this tick
-                if (direction.magnitude < (movement).magnitude)
-                {
-                    transform.position = patrolTarget;
-                    direction = Vector3.zero;
-
-                    goingToPatrolTarget = !goingToPatrolTarget;
-                }
-
-            }
-            else
-            {
-                direction = startingPos - transform.position;
-                movement = direction.normalized * speed * Time.deltaTime;
-
-                // check if we are going to pass the startingPos this tick
-                if (direction.magnitude < (movement).magnitude)
-                {
-                    transform.position = startingPos;
-                    direction = Vector3.zero;
-
-                    goingToPatrolTarget = !goingToPatrolTarget;
-                }
-            }
-
-            UpdateVisionCone(direction.normalized);
-            transform.position += movement;
-        }
-        else
-        {
-            animator.SetBool("isRunning", false);
-        }
-    }
-
-    void MoveToPlayer()
-    {
-        // function that moves the guard to the last known player position
-        // TO DO -> IMPLEMENT A* PATH FINDING
-        animator.SetBool("isRunning", true);
-        playerLastPos = GameObject.FindGameObjectsWithTag("Player")[0].transform.position;
-        guardAI.target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
-
-        guardAI.enabled = true;
-        goingToPatrolTarget = false;
-
-        if (chaseCountDown > 0)
-        {
-            chaseCountDown -= Time.deltaTime;
-        }
-        else
-        {
-            isAlerted = false;
-            guardAI.enabled = false;
-            chaseCountDown = 5;
-            goingToPatrolTarget = true;
-        }
-        Vector3 direction = (playerLastPos - transform.position).normalized;
-
-        UpdateVisionCone(direction);
-
-        // if (direction.x < 0)
+        // if (isAlerted)
         // {
-        //     LookLeft();
-        // } else
-        // {
-        //     LookRight();
+        //     MoveToPlayer();
+        //     Shoot();
         // }
-
-        // transform.position += direction * speed * Time.deltaTime;
+        // else
+        // {
+        //     MovePatrol();
+        // }
     }
+
+
+    // void MovePatrol()
+    // {
+    //     //function that moves the guard in a patrol
+    //     if (patrols)
+    //     // {
+    //     //     animator.SetBool("isRunning", true);
+    //     //     Vector3 direction, movement;
+
+    //     //     if (goingToPatrolTarget)
+    //     //     {
+    //     //         direction = patrolTarget - transform.position;
+    //     //         movement = direction.normalized * speed * Time.deltaTime;
+
+
+    //     //         // check if we are going to pass the target this tick
+    //     //         if (direction.magnitude < (movement).magnitude)
+    //     //         {
+    //     //             transform.position = patrolTarget;
+    //     //             direction = Vector3.zero;
+
+    //     //             goingToPatrolTarget = !goingToPatrolTarget;
+    //     //         }
+
+    //     //     }
+    //     //     else
+    //     //     {
+    //     //         direction = startingPos - transform.position;
+    //     //         movement = direction.normalized * speed * Time.deltaTime;
+
+    //     //         // check if we are going to pass the startingPos this tick
+    //     //         if (direction.magnitude < (movement).magnitude)
+    //     //         {
+    //     //             transform.position = startingPos;
+    //     //             direction = Vector3.zero;
+
+    //     //             goingToPatrolTarget = !goingToPatrolTarget;
+    //     //         }
+    //     //     }
+
+
+            
+    //         UpdateVisionCone(direction.normalized);
+    //         transform.position += movement;
+    //     }
+    //     else
+    //     {
+    //         animator.SetBool("isRunning", false);
+    //     }
+    // }
+
+    // void MoveToPlayer()
+    // {
+    //     // function that moves the guard to the last known player position
+    //     // TO DO -> IMPLEMENT A* PATH FINDING
+    //     animator.SetBool("isRunning", true);
+    //     playerLastPos = GameObject.FindGameObjectsWithTag("Player")[0].transform.position;
+    //     guardAI.target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+
+    //     guardAI.enabled = true;
+    //     goingToPatrolTarget = false;
+
+    //     if (chaseCountDown > 0)
+    //     {
+    //         chaseCountDown -= Time.deltaTime;
+    //     }
+    //     else
+    //     {
+    //         isAlerted = false;
+    //         guardAI.enabled = false;
+    //         chaseCountDown = 5;
+    //         goingToPatrolTarget = true;
+    //     }
+    //     Vector3 direction = (playerLastPos - transform.position).normalized;
+
+    //     UpdateVisionCone(direction);
+
+    //     // if (direction.x < 0)
+    //     // {
+    //     //     LookLeft();
+    //     // } else
+    //     // {
+    //     //     LookRight();
+    //     // }
+
+    //     // transform.position += direction * speed * Time.deltaTime;
+    // }
 
     void Shoot()
     {

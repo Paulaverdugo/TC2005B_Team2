@@ -8,7 +8,7 @@ using Pathfinding;
 public class GuardAI : MonoBehaviour
 {
     public Transform target;
-
+    Transform initialPos;
 
     public float speed = 200f;
     public float nextWaypointDistance = 3f;
@@ -22,6 +22,7 @@ public class GuardAI : MonoBehaviour
 
     void Start()
     {
+        initialPos = transform;
         rb = GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
     
@@ -65,4 +66,9 @@ public class GuardAI : MonoBehaviour
         rb.AddForce(force);
 
     }
+
+    public void SetTarget(Transform target) {
+        this.target = target;
+    }
+
 }

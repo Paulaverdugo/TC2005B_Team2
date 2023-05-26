@@ -33,7 +33,7 @@ abstract public class BaseEnemy : MonoBehaviour
 
     protected SpriteRenderer spriteRenderer;
     // attributes related to the state of the enemy being alerted of the enemies position
-    protected bool isAlerted = false;
+    public bool isAlerted = false;
     protected float alertedTime = 0f;
 
     // when alerted, the guard will try to move to the player's position
