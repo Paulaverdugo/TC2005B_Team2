@@ -17,7 +17,7 @@ public class BulletBehaviour : MonoBehaviour
     {
         // Deal damage to the player
         if (collision.gameObject.CompareTag("Player")) {
-            collision.gameObject.GetComponent<PlayerController>().GetDamaged(damage);
+            collision.gameObject.GetComponent<BasePlayer>().GetDamaged(damage);
         }
 
         // Deal damage to the guard

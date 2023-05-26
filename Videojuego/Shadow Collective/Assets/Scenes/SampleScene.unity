@@ -188,8 +188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2429111f5337a4a928f8df47e8d61545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
-  maxHealth: 50
+  health: 3
+  maxHealth: 3
   maxSpeed: 0
   currentSpeed: 0
   spriteRenderer: {fileID: 0}
@@ -209,8 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac7a07516c6d4430881b8c172a4d1e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
-  maxHealth: 50
+  health: 3
+  maxHealth: 3
   maxSpeed: 0
   currentSpeed: 0
   spriteRenderer: {fileID: 0}
@@ -8841,7 +8841,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 729607565}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8853,7 +8853,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -66.8, y: 19.3}
+  m_AnchoredPosition: {x: -66.79999, y: 19.30001}
   m_SizeDelta: {x: 102.56479, y: 17.283508}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &729607567
@@ -9971,10 +9971,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1339935889}
     m_Modifications:
-    - target: {fileID: 3461760466696904163, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
-      propertyPath: health
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3461760466696904164, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
       propertyPath: m_Name
       value: Guard Patrol
@@ -10023,9 +10019,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8956814394565742018, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
-      propertyPath: speed
-      value: 250
+    - target: {fileID: 6763565957256762341, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6763565957256762341, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8956814394565742018, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
       propertyPath: target

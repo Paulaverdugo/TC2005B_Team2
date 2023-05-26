@@ -170,7 +170,7 @@ abstract public class BasePlayer : MonoBehaviour
 
         if (health <= 0)
         {
-            GameOver();
+            StartCoroutine(GameOver());
         }
         else if (health > maxHealth)
         {
@@ -181,12 +181,20 @@ abstract public class BasePlayer : MonoBehaviour
         healthBar.SetHealth(health);
     }
 
-    private void GameOver()
-    {
-        // Create a function that plays the death animation and then respawns the player at the first level.
-
+    IEnumerator GameOver() {
+        // Play death animation
         animator.SetTrigger("death");
+        // Respawn the player
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(1);
+        spriteRenderer.enabled = true;
+        // Reset the player's health
+        health = maxHealth;
+        healthBar.SetHealth(health);
+        // Reset the player's position
+        transform.position = new Vector3(0, 0, 0);
 
+        yield return null;
     }
 
     private void FaceMouse()
