@@ -9971,10 +9971,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1339935889}
     m_Modifications:
-    - target: {fileID: 3461760466696904163, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
-      propertyPath: enemyHealthBar
-      value: 
-      objectReference: {fileID: 6763565957147363688, guid: deac02a80fc124f3c9dea51bc8cff191, type: 3}
     - target: {fileID: 3461760466696904164, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
       propertyPath: m_Name
       value: Guard Patrol
@@ -10021,6 +10017,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3461760467071314566, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6763565957256762341, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6763565957256762341, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8956814394565742018, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}

@@ -45,7 +45,7 @@ public class Guard : BaseEnemy
     private Vector3 playerPos;
 
     // Values for the healthbar
-    [SerializeField] GameObject enemyHealthBar;
+    private EnemyHealthBar enemyHealthBar;
 
     // bool that stores if the guard is going to the target or to the startingPos
     bool goingToPatrolTarget = true;
@@ -54,12 +54,12 @@ public class Guard : BaseEnemy
     {
         base.Start();
 
-        // Initialize the healthbar
-        Instantiate(enemyHealthBar);
+        // Get the Healthbar
+        enemyHealthBar = GetComponentInChildren<EnemyHealthBar>();
 
-        // Change the position of the healthbar to be on top of the guard on the canvas
+        // Set the healthbar 
+        enemyHealthBar.SetMaxHealth(health);
         
-
         // make the sprite used to see the gameobject invisible, since we have animations
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
@@ -79,7 +79,6 @@ public class Guard : BaseEnemy
     {
         if (isDying) return;
 
-        UpdateHealthBarPosition();
 
         base.Update();
 
@@ -105,10 +104,6 @@ public class Guard : BaseEnemy
         }
     }
 
-    void UpdateHealthBarPosition() {
-        // Change the position of the healthbar to be on top of the guard on the canvas
-        enemyHealthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 1f, 0));
-    }
 
     void MovePatrol()
     {
@@ -226,7 +221,7 @@ public class Guard : BaseEnemy
     virtual public void GetDamaged(float damage)
     {
         health -= damage;
-        enemyHealthBar.GetComponent<HealthBar>().SetHealth(health);
+        enemyHealthBar.SetHealth(health);
 
         if (health <= 0)
         {
