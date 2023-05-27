@@ -98,6 +98,7 @@ abstract public class BaseEnemy : MonoBehaviour
                 print(hit.collider.gameObject.name + ": " + hit.collider.gameObject.layer);
                 if (playerController.CheckVisibility(gameObject)) 
                 {
+                    print("Player seen!");
                     AlertOthers(player.transform.position);
                 }
             }
