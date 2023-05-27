@@ -7,7 +7,7 @@ using Pathfinding;
 
 public class GuardAI : MonoBehaviour
 {
-    public Transform target;
+    public Vector3 target;
 
 
     public float speed = 200f;
@@ -30,7 +30,7 @@ public class GuardAI : MonoBehaviour
 
     void UpdatePath() {
         if (seeker.IsDone()) {
-            seeker.StartPath(rb.position, target.position, OnPathComplete);
+            seeker.StartPath(rb.position, target, OnPathComplete);
         }
     }
 
