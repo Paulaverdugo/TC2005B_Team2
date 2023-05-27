@@ -22,9 +22,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        ChooseCybergladiator();
+        // ChooseCybergladiator();
         // ChooseCodebreaker();
-        // ChooseGhostwalker();
+        ChooseGhostwalker();
 
         // -7 and -5 were obtained through trail and error
         Vector2 cursorHotspot = new Vector2(cursorTexture.width / 2 - 7, cursorTexture.height / 2 - 5);

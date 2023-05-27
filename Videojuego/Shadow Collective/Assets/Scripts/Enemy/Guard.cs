@@ -20,7 +20,7 @@ public class Guard : BaseEnemy
     [SerializeField] float speed = 1;
     [SerializeField] float health = 5;
 
-    [SerializeField] float chaseCountDown;
+    // [SerializeField] float chaseCountDown;
 
     // to control the animations
     [SerializeField] Animator animator;
@@ -49,11 +49,14 @@ public class Guard : BaseEnemy
 
     // bool that stores if the guard is going to the target or to the startingPos
     bool goingToPatrolTarget = true;
+    bool returningToStart = false;
+
+    // when the guard is alerted, it can look farther away
+    private float alertedVisionMultiplier = 2f;
 
     override protected void Start()
     {
         base.Start();
-
         // Get the Healthbar
         enemyHealthBar = GetComponentInChildren<EnemyHealthBar>();
 
@@ -70,7 +73,6 @@ public class Guard : BaseEnemy
 
         startingPos = transform.position;
         timeSinceLastShot = 1;
-        chaseCountDown = 5;
 
         // Get the Rigidbody2D component
         rb = GetComponent<Rigidbody2D>();
@@ -98,6 +100,17 @@ public class Guard : BaseEnemy
         {
             MoveToPlayer();
             Shoot();
+        } 
+        else if (returningToStart)
+        {
+            Vector3 direction = startingPos - transform.position;
+
+            UpdateVisionCone(direction.normalized);
+            if ((transform.position - startingPos).magnitude < 0.5f)
+            {
+                returningToStart = false;
+                guardAI.enabled = false;
+            }
         }
         else
         {
@@ -156,64 +169,45 @@ public class Guard : BaseEnemy
     void MoveToPlayer()
     {
         // function that moves the guard to the last known player position
-        // TO DO -> IMPLEMENT A* PATH FINDING
         animator.SetBool("isRunning", true);
-        playerLastPos = GameObject.FindGameObjectsWithTag("Player")[0].transform.position;
+        // playerLastPos = GameObject.FindGameObjectsWithTag("Player")[0].transform.position;
         guardAI.target = playerLastPos;
 
-        guardAI.enabled = true;
-        goingToPatrolTarget = false;
-
-        if (chaseCountDown > 0)
-        {
-            chaseCountDown -= Time.deltaTime;
-        }
-        else
-        {
-            isAlerted = false;
-            guardAI.enabled = false;
-            chaseCountDown = 5;
-            goingToPatrolTarget = true;
-        }
         Vector3 direction = (playerLastPos - transform.position).normalized;
 
         UpdateVisionCone(direction);
-
-        // if (direction.x < 0)
-        // {
-        //     LookLeft();
-        // } else
-        // {
-        //     LookRight();
-        // }
-
-        // transform.position += direction * speed * Time.deltaTime;
     }
 
     void Shoot()
     {
         timeSinceLastShot += Time.deltaTime;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance, playerLayer);
-
-        if (timeSinceLastShot > 1 && hit.collider != null)
+        // check if the player is in sight
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance * alertedVisionMultiplier, raycastLayer);
+        if(hit.collider != null && playerController.CheckVisibility(gameObject) && GameObject.ReferenceEquals(hit.collider.gameObject, player))
         {
-            animator.SetTrigger("shoot");
-            timeSinceLastShot = 0;
+            // alert others if you can see the player
+            AlertOthers(player.transform.position);
 
-            Vector3 shootingOrigin = gameObject.transform.position - new Vector3(0, 0.5f, 0);
+            if (timeSinceLastShot > 1)
+            {
+                animator.SetTrigger("shoot");
+                timeSinceLastShot = 0;
 
-            Vector3 direction = new Vector3(player.transform.position.x - shootingOrigin.x, player.transform.position.y - shootingOrigin.y, 0).normalized;
+                Vector3 shootingOrigin = gameObject.transform.position - new Vector3(0, 0.5f, 0);
+
+                Vector3 direction = new Vector3(player.transform.position.x - shootingOrigin.x, player.transform.position.y - shootingOrigin.y, 0).normalized;
 
 
-            // Change position of shooting point based on the player position.
-            Vector3 launchPosition = shootingOrigin + direction * 1f;
+                // Change position of shooting point based on the player position.
+                Vector3 launchPosition = shootingOrigin + direction * 1f;
 
-            // get the rotation of the bullet gameobject
-            float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-            Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, rotZ));
-            // bullet.GetComponent<BulletBehaviour>().SetDamage(damage); -> to set the damage of the bullet (default 1)
+                // get the rotation of the bullet gameobject
+                float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                
+                Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, rotZ));
+                // bullet.GetComponent<BulletBehaviour>().SetDamage(damage); -> to set the damage of the bullet (default 1)
+            }
         }
 
     }
@@ -240,6 +234,8 @@ public class Guard : BaseEnemy
         {
             Die();
         }
+        
+        AlertOthers(player.transform.position);
     }
 
     override public void Alert(Vector3 playerPos)
@@ -248,6 +244,15 @@ public class Guard : BaseEnemy
 
         // so that when the alert mode runs out, the player goes back to it's original spot
         goingToPatrolTarget = false;
+        guardAI.enabled = true;
+    }
+
+    override protected void UnAlert()
+    {
+        base.UnAlert();
+
+        guardAI.target = startingPos;
+        returningToStart = true;
     }
 
     private void LookRight()

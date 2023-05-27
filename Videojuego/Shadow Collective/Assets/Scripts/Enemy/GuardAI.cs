@@ -15,7 +15,9 @@ public class GuardAI : MonoBehaviour
 
     Path path;
     int currentWaypoint = 0;
-    bool reachedEndOfPath = false;
+    
+    [System.NonSerialized]
+    public bool reachedEndOfPath = false;
 
     Seeker seeker;
     Rigidbody2D rb;
@@ -54,7 +56,7 @@ public class GuardAI : MonoBehaviour
         }
 
         Vector2 direction = ((Vector2) path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = direction * speed * Time.deltaTime;
+        rb.velocity = direction * speed * Time.deltaTime;
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
@@ -62,7 +64,7 @@ public class GuardAI : MonoBehaviour
             currentWaypoint++;
         }
 
-        rb.AddForce(force);
+        // rb.AddForce(force);
 
     }
 }

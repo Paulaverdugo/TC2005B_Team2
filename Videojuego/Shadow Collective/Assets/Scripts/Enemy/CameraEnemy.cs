@@ -9,15 +9,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraEnemy : BaseEnemy
-{
+{    
     float flipTimer = 3f;
 
     override protected void Start()
     {
         base.Start();
 
-        spriteRenderer = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
-        StartFlipping();
+        // if it's looking to a side, we don't want the camera to flip around
+        if (startingVisionConeDirection == new Vector3(0, -1, 0)) StartFlipping();
     }
 
     private void StartFlipping()

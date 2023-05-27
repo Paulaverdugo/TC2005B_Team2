@@ -21,9 +21,10 @@ abstract public class BaseEnemy : MonoBehaviour
 
     [SerializeField] float alertedTimeLimit = 10f; 
     
-    [SerializeField] protected LayerMask playerLayer;
+    [System.NonSerialized]
+    public LayerMask raycastLayer;
 
-    [SerializeField] Vector3 startingVisionConeDirection = Vector3.down;
+    [SerializeField] protected Vector3 startingVisionConeDirection = Vector3.down;
     
     public float sightDistance;
     protected float fov;
@@ -74,7 +75,7 @@ abstract public class BaseEnemy : MonoBehaviour
         {
             alertedTime += Time.deltaTime;
 
-            if (alertedTime > alertedTimeLimit) isAlerted = false;            
+            if (alertedTime > alertedTimeLimit) UnAlert();            
         }
     }
 
@@ -87,12 +88,14 @@ abstract public class BaseEnemy : MonoBehaviour
     {
         if (isHacked) return;
 
+        // only do the raycast if the player was the one who entered
         if (GameObject.ReferenceEquals(player, collision.gameObject)) 
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance, playerLayer);
-            
-            if (hit.collider != null)
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position), sightDistance, raycastLayer);
+            // if the player was hit, it means it didn't hit any walls or obstacles
+            if (hit.collider != null && GameObject.ReferenceEquals(player, hit.collider.gameObject))
             {
+                print(hit.collider.gameObject.name + ": " + hit.collider.gameObject.layer);
                 if (playerController.CheckVisibility(gameObject)) 
                 {
                     AlertOthers(player.transform.position);
@@ -105,12 +108,14 @@ abstract public class BaseEnemy : MonoBehaviour
     {
         if (isHacked) return;
 
+        // only do the raycast if the player was the one who entered
         if (GameObject.ReferenceEquals(player, collision.gameObject)) 
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance, playerLayer);
-            
-            if (hit.collider != null)
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position), sightDistance, raycastLayer);
+            // if the player was hit, it means it didn't hit any walls or obstacles
+            if (hit.collider != null && GameObject.ReferenceEquals(player, hit.collider.gameObject))
             {
+                print(hit.collider.gameObject.name + ": " + hit.collider.gameObject.layer);
                 if (playerController.CheckVisibility(gameObject)) 
                 {
                     AlertOthers(player.transform.position);
@@ -149,6 +154,11 @@ abstract public class BaseEnemy : MonoBehaviour
         isAlerted = true;
         alertedTime = 0f;
         playerLastPos = playerPos;
+    }
+
+    virtual protected void UnAlert() 
+    {
+        isAlerted = false;
     }
 
     public void AlertOthers(Vector3 playerPos) 

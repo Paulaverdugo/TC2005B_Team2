@@ -824,8 +824,8 @@ namespace Pathfinding {
 		void IPathInternals.Cleanup () { Cleanup(); }
 		void IPathInternals.Initialize () { Initialize(); }
 		void IPathInternals.CalculateStep (long targetTick) { CalculateStep(targetTick); }
+		// string IPathInternals.DebugString (PathLog logMode) { return DebugString(logMode); } // commented out because it was printing too much, uncomment this line and comment next to see the pathfinding debug string
 		string IPathInternals.DebugString (PathLog logMode) { return ""; }
-		// string IPathInternals.DebugString (PathLog logMode) { return DebugString(logMode); }
 	}
 
 	/// <summary>Used for hiding internal methods of the Path class</summary>
