@@ -207,6 +207,8 @@ public class Guard : BaseEnemy
         {
             Die();
         }
+        
+        AlertOthers(player.transform.position);
     }
 
     override public void Alert(Vector3 playerPos)
