@@ -30,6 +30,7 @@ abstract public class BasePlayer : MonoBehaviour
     // Base player states
     [System.NonSerialized]
     public bool isVisible = true;
+    protected bool isDying = false;
 
     [System.NonSerialized]
     public Animator animator;
@@ -75,6 +76,8 @@ abstract public class BasePlayer : MonoBehaviour
     // Update is called once per frame
     virtual protected void Update()
     {
+        if (isDying) return;
+
         // Move the player
         Move();
         Shoot();
@@ -168,9 +171,11 @@ abstract public class BasePlayer : MonoBehaviour
         // If the player's health is 0, call the GameOver() function
         health -= damage;
 
+        print(health);
+
         if (health <= 0)
         {
-            GameOver();
+            StartCoroutine(GameOver());
         }
         else if (health > maxHealth)
         {
@@ -179,11 +184,20 @@ abstract public class BasePlayer : MonoBehaviour
         healthBar.SetHealth(health);
     }
 
-    private void GameOver()
-    {
-        // Create a function that plays the death animation and then respawns the player at the first level.
-
+    protected IEnumerator GameOver() {
+        // Play death animation
         animator.SetTrigger("death");
+        isDying = true;
+
+        yield return new WaitForSeconds(1);
+
+        DestroyImmediate(gameObject);
+        // spriteRenderer.enabled = true;
+        // // Reset the player's health
+        // health = maxHealth;
+        // healthBar.SetHealth(health);
+        // // Reset the player's position
+        // transform.position = new Vector3(0, 0, 0);
 
     }
 

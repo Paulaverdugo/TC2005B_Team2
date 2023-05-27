@@ -34,7 +34,6 @@ public class Cybergladiator : BasePlayer
 
         //Attributes
         health = base.maxHealth;
-        Debug.Log("Cybergladiator health: " + health);
         maxSpeed = 5;
         damage = 1;
 
@@ -91,9 +90,23 @@ public class Cybergladiator : BasePlayer
 
     override public void GetDamaged(float damage)
     {
+        print(health);
+
         if (!shielding)
         {
             health -= damage;
         }
+
+        if (health <= 0)
+        {
+            StartCoroutine(GameOver());
+        }
+        else if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+
+
+        healthBar.SetHealth(health);
     }
 }

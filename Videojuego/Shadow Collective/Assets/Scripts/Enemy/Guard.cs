@@ -16,7 +16,7 @@ public class Guard : BaseEnemy
     Vector3 startingPos;
     [SerializeField] Vector3 patrolTarget;
     [SerializeField] bool patrols;
-    
+
     [SerializeField] float speed = 1;
     [SerializeField] float health = 5;
 
@@ -26,8 +26,8 @@ public class Guard : BaseEnemy
     [SerializeField] Animator animator;
 
     // keeps track of where the guard is looking
-    private bool lookingRight = true; 
-    
+    private bool lookingRight = true;
+
     // to not do anything if the guard is dying
     private bool isDying = false;
 
@@ -44,6 +44,9 @@ public class Guard : BaseEnemy
     // Values for rotation of bullet
     private Vector3 playerPos;
 
+    // Values for the healthbar
+    private EnemyHealthBar enemyHealthBar;
+
     // bool that stores if the guard is going to the target or to the startingPos
     bool goingToPatrolTarget = true;
     bool returningToStart = false;
@@ -51,16 +54,22 @@ public class Guard : BaseEnemy
     // when the guard is alerted, it can look farther away
     private float alertedVisionMultiplier = 2f;
 
-    override protected void Start() 
+    override protected void Start()
     {
         base.Start();
+        // Get the Healthbar
+        enemyHealthBar = GetComponentInChildren<EnemyHealthBar>();
 
+        // Set the healthbar 
+        enemyHealthBar.SetMaxHealth(health);
+        
         // make the sprite used to see the gameobject invisible, since we have animations
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
         // Get the guardAI component
         guardAI = GetComponent<GuardAI>();
         guardAI.enabled = false;
+        guardAI.target = patrolTarget;
 
         startingPos = transform.position;
         timeSinceLastShot = 1;
@@ -73,18 +82,20 @@ public class Guard : BaseEnemy
     {
         if (isDying) return;
 
+
         base.Update();
-        
+
         if (isHacked) return;
 
         if (rb.velocity.x <= 0.1f)
         {
             LookLeft();
-        } else if (rb.velocity.x >= 0.1f)
+        }
+        else if (rb.velocity.x >= 0.1f)
         {
             LookRight();
         }
-        
+
         if (isAlerted)
         {
             MoveToPlayer();
@@ -107,7 +118,8 @@ public class Guard : BaseEnemy
         }
     }
 
-    void MovePatrol() 
+
+    void MovePatrol()
     {
         //function that moves the guard in a patrol
         if (patrols)
@@ -129,8 +141,8 @@ public class Guard : BaseEnemy
 
                     goingToPatrolTarget = !goingToPatrolTarget;
                 }
-
-            } else
+            }
+            else
             {
                 direction = startingPos - transform.position;
                 movement = direction.normalized * speed * Time.deltaTime;
@@ -147,7 +159,8 @@ public class Guard : BaseEnemy
 
             UpdateVisionCone(direction.normalized);
             transform.position += movement;
-        } else
+        }
+        else
         {
             animator.SetBool("isRunning", false);
         }
@@ -199,9 +212,23 @@ public class Guard : BaseEnemy
 
     }
 
+    override protected void UpdateVisionCone(Vector3 direction)
+    {
+        base.UpdateVisionCone(direction);
+
+        if (direction.x < 0)
+        {
+            LookLeft();
+        } else
+        {
+            LookRight();
+        }
+    }
+
     virtual public void GetDamaged(float damage)
     {
         health -= damage;
+        enemyHealthBar.SetHealth(health);
 
         if (health <= 0)
         {
@@ -263,5 +290,6 @@ public class Guard : BaseEnemy
         animator.SetTrigger("die");
         yield return new WaitForSeconds(0.7f);
         Destroy(gameObject);
+        Destroy(enemyHealthBar);
     }
 }
