@@ -66,6 +66,7 @@ public class Guard : BaseEnemy
         // Get the guardAI component
         guardAI = GetComponent<GuardAI>();
         guardAI.enabled = false;
+        guardAI.target = patrolTarget;
 
         startingPos = transform.position;
         timeSinceLastShot = 1;
@@ -127,7 +128,6 @@ public class Guard : BaseEnemy
 
                     goingToPatrolTarget = !goingToPatrolTarget;
                 }
-
             }
             else
             {
@@ -159,7 +159,7 @@ public class Guard : BaseEnemy
         // TO DO -> IMPLEMENT A* PATH FINDING
         animator.SetBool("isRunning", true);
         playerLastPos = GameObject.FindGameObjectsWithTag("Player")[0].transform.position;
-        guardAI.target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+        guardAI.target = playerLastPos;
 
         guardAI.enabled = true;
         goingToPatrolTarget = false;
@@ -216,6 +216,19 @@ public class Guard : BaseEnemy
             // bullet.GetComponent<BulletBehaviour>().SetDamage(damage); -> to set the damage of the bullet (default 1)
         }
 
+    }
+
+    override protected void UpdateVisionCone(Vector3 direction)
+    {
+        base.UpdateVisionCone(direction);
+
+        if (direction.x < 0)
+        {
+            LookLeft();
+        } else
+        {
+            LookRight();
+        }
     }
 
     virtual public void GetDamaged(float damage)
