@@ -37,18 +37,41 @@ INSERT INTO GADGET (gadget_name, gadget_description, player_type) VALUES
 -- PLAYER (ID, last_connection, user_name, player_type)
 INSERT INTO PLAYER (last_connection, user_name, player_type) VALUES 
 ("2023-04-30", "andres_tarazona", 1), 
+("2023-04-30", "andres_tarazona", 3),
 ("2023-04-27", "dulce_garcia", 2), 
+("2023-04-27", "dulce_garcia", 3), 
 ("2023-04-29", "mariel_gomez", 3), 
+("2023-04-29", "mariel_gomez", 1), 
 ("2023-04-20", "paula_verdugo", 1), 
+("2023-04-20", "paula_verdugo", 2), 
+("2023-04-21", "santiago_rodriguez", 3),
 ("2023-04-21", "santiago_rodriguez", 2);
 
 -- PROGRESS (ID, level_achieved, user_name, player_type, life_points)
 INSERT INTO PROGRESS (level_achieved, user_name, player_type, life_points) VALUES
-(1, "andres_tarazona", 1, 1),
+(3, "andres_tarazona", 1, 1),
+(3, "andres_tarazona", 1, 1),
+(3, "andres_tarazona", 1, 3),
 (2, "dulce_garcia", 3, 2),
+(2, "dulce_garcia", 2, 2),
 (2,  "mariel_gomez", 3, 3),
 (1, "paula_verdugo", 1, 4),
+(2, "paula_verdugo", 2, 4),
+(2, "santiago_rodriguez", 3, 5),
 (1, "santiago_rodriguez", 2, 5);
+
+-- CHOSEN_GADGET (ID, progress_id, gadget_id)
+INSERT INTO CHOSEN_GADGET (progress_id, gadget_id) VALUES
+(1, 1),
+(2, 1),
+(3, 3),
+(4, 6),
+(5, 7),
+(6, 5),
+(7, 3),
+(8, 1),
+(9, 2),
+(10, 8);
 
 -- WINS (ID, user_name, player_type)
 INSERT INTO WINS (user_name, player_type) VALUES
@@ -58,9 +81,11 @@ INSERT INTO WINS (user_name, player_type) VALUES
 ("dulce_garcia", 3),
 ("dulce_garcia", 2),
 ("mariel_gomez", 3),
-"mariel_gomez", 1),
+("mariel_gomez", 1),
 ("paula_verdugo", 1),
 ("santiago_rodriguez", 2);
+
+
 
 
 
