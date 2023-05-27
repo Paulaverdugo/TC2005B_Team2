@@ -21,7 +21,8 @@ abstract public class BaseEnemy : MonoBehaviour
 
     [SerializeField] float alertedTimeLimit = 10f; 
     
-    [SerializeField] protected LayerMask playerLayer;
+    [System.NonSerialized]
+    public LayerMask playerLayer;
 
     [SerializeField] Vector3 startingVisionConeDirection = Vector3.down;
     
@@ -89,10 +90,10 @@ abstract public class BaseEnemy : MonoBehaviour
 
         if (GameObject.ReferenceEquals(player, collision.gameObject)) 
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance, playerLayer);
-            
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position), sightDistance);
             if (hit.collider != null)
             {
+                print(hit.collider.gameObject.name + ": " + hit.collider.gameObject.layer);
                 if (playerController.CheckVisibility(gameObject)) 
                 {
                     AlertOthers(player.transform.position);
@@ -101,23 +102,23 @@ abstract public class BaseEnemy : MonoBehaviour
         }
     }
 
-    protected void OnTriggerStay2D(Collider2D collision)
-    {
-        if (isHacked) return;
+    // protected void OnTriggerStay2D(Collider2D collision)
+    // {
+    //     if (isHacked) return;
 
-        if (GameObject.ReferenceEquals(player, collision.gameObject)) 
-        {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance, playerLayer);
+    //     if (GameObject.ReferenceEquals(player, collision.gameObject)) 
+    //     {
+    //         RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance, playerLayer);
             
-            if (hit.collider != null)
-            {
-                if (playerController.CheckVisibility(gameObject)) 
-                {
-                    AlertOthers(player.transform.position);
-                }
-            }
-        }
-    }
+    //         if (hit.collider != null)
+    //         {
+    //             if (playerController.CheckVisibility(gameObject)) 
+    //             {
+    //                 AlertOthers(player.transform.position);
+    //             }
+    //         }
+    //     }
+    // }
 
     virtual protected void UpdateVisionCone(Vector3 direction)
     {

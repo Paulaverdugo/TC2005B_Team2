@@ -9228,7 +9228,7 @@ GameObject:
   - component: {fileID: 1298031429}
   - component: {fileID: 1298031428}
   - component: {fileID: 1298031430}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Tilemap_Obstacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9845,6 +9845,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 155457516}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!4 &1339935889
 Transform:
   m_ObjectHideFlags: 0
@@ -10128,7 +10131,7 @@ GameObject:
   - component: {fileID: 1575718378}
   - component: {fileID: 1575718380}
   - component: {fileID: 1575718379}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10230,6 +10233,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1339935889}
     m_Modifications:
+    - target: {fileID: 868443036294261709, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 868443037322392742, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 868443037448503870, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
       propertyPath: m_Name
       value: CameraEnemy
@@ -10237,6 +10248,18 @@ PrefabInstance:
     - target: {fileID: 868443037903820320, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
       propertyPath: alertingRadius
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 868443037903820322, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 868443037903820322, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 868443037903820323, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 868443037903820324, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
       propertyPath: m_RootOrder

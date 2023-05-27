@@ -11,6 +11,7 @@ using UnityEngine;
 public class EnemyHandler : MonoBehaviour
 {
     [SerializeField] GameObject player;
+    [SerializeField] LayerMask playerLayer;
 
     // Start is called before the first frame update
     void Start()
@@ -19,8 +20,10 @@ public class EnemyHandler : MonoBehaviour
 
         foreach (Transform child in transform)
         {
-            child.gameObject.GetComponent<EnemyController>().enemyScript.player = player;
-            child.gameObject.GetComponent<EnemyController>().enemyScript.playerController = playerController;
+            EnemyController enemyController = child.gameObject.GetComponent<EnemyController>();
+            enemyController.enemyScript.player = player;
+            enemyController.enemyScript.playerController = playerController;
+            enemyController.enemyScript.playerLayer = playerLayer;
             child.gameObject.tag = "Enemy";
             child.gameObject.layer = LayerMask.NameToLayer("Enemy");
         }
