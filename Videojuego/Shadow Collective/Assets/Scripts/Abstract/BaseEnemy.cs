@@ -24,7 +24,7 @@ abstract public class BaseEnemy : MonoBehaviour
     [System.NonSerialized]
     public LayerMask raycastLayer;
 
-    [SerializeField] Vector3 startingVisionConeDirection = Vector3.down;
+    [SerializeField] protected Vector3 startingVisionConeDirection = Vector3.down;
     
     public float sightDistance;
     protected float fov;
