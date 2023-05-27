@@ -15,7 +15,9 @@ public class GuardAI : MonoBehaviour
 
     Path path;
     int currentWaypoint = 0;
-    bool reachedEndOfPath = false;
+    
+    [System.NonSerialized]
+    public bool reachedEndOfPath = false;
 
     Seeker seeker;
     Rigidbody2D rb;

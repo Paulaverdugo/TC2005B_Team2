@@ -176,8 +176,6 @@ abstract public class BasePlayer : MonoBehaviour
         {
             health = maxHealth;
         }
-        Debug.Log("Player health: " + health);
-
         healthBar.SetHealth(health);
     }
 

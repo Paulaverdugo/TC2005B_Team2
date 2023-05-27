@@ -20,7 +20,7 @@ public class Guard : BaseEnemy
     [SerializeField] float speed = 1;
     [SerializeField] float health = 5;
 
-    [SerializeField] float chaseCountDown;
+    // [SerializeField] float chaseCountDown;
 
     // to control the animations
     [SerializeField] Animator animator;
@@ -46,6 +46,7 @@ public class Guard : BaseEnemy
 
     // bool that stores if the guard is going to the target or to the startingPos
     bool goingToPatrolTarget = true;
+    bool returningToStart = false;
 
     override protected void Start() 
     {
@@ -60,7 +61,6 @@ public class Guard : BaseEnemy
 
         startingPos = transform.position;
         timeSinceLastShot = 1;
-        chaseCountDown = 5;
 
         // Get the Rigidbody2D component
         rb = GetComponent<Rigidbody2D>();
@@ -86,7 +86,19 @@ public class Guard : BaseEnemy
         {
             MoveToPlayer();
             Shoot();
-        } else
+        } 
+        else if (returningToStart)
+        {
+            Vector3 direction = startingPos - transform.position;
+
+            UpdateVisionCone(direction.normalized);
+            if ((transform.position - startingPos).magnitude < 0.5f)
+            {
+                returningToStart = false;
+                guardAI.enabled = false;
+            }
+        }
+        else
         {
             MovePatrol();
         }
@@ -141,49 +153,30 @@ public class Guard : BaseEnemy
     void MoveToPlayer()
     {
         // function that moves the guard to the last known player position
-        // TO DO -> IMPLEMENT A* PATH FINDING
         animator.SetBool("isRunning", true);
         // playerLastPos = GameObject.FindGameObjectsWithTag("Player")[0].transform.position;
         guardAI.target = playerLastPos;
 
-        guardAI.enabled = true;
-        goingToPatrolTarget = false;
-
-        if(chaseCountDown > 0)
-        {
-            chaseCountDown -= Time.deltaTime;
-        } else
-        {
-            isAlerted = false;
-            guardAI.enabled = false;
-            chaseCountDown = 5;
-            goingToPatrolTarget = true;
-        }
         Vector3 direction = (playerLastPos - transform.position).normalized;
 
         UpdateVisionCone(direction);
-
-        // if (direction.x < 0)
-        // {
-        //     LookLeft();
-        // } else
-        // {
-        //     LookRight();
-        // }
-
-        // transform.position += direction * speed * Time.deltaTime;
     }
 
     void Shoot()
     {
         timeSinceLastShot += Time.deltaTime;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance, playerLayer);
+        // check if the player is in sight
+        float distanceMultiplier = 2f;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance * distanceMultiplier, playerLayer);
 
-        if(timeSinceLastShot > 1 && hit.collider != null)
+        float distanceToPlayer = (player.transform.position - transform.position).magnitude;
+
+        if(timeSinceLastShot > 1 && hit.collider != null && playerController.CheckVisibility(gameObject))
         {
             animator.SetTrigger("shoot");
             timeSinceLastShot = 0;
+            AlertOthers(player.transform.position);
 
             Vector3 shootingOrigin = gameObject.transform.position - new Vector3(0, 0.5f, 0);
 
@@ -218,6 +211,15 @@ public class Guard : BaseEnemy
 
         // so that when the alert mode runs out, the player goes back to it's original spot
         goingToPatrolTarget = false;
+        guardAI.enabled = true;
+    }
+
+    override protected void UnAlert()
+    {
+        base.UnAlert();
+
+        guardAI.target = startingPos;
+        returningToStart = true;
     }
 
     private void LookRight()

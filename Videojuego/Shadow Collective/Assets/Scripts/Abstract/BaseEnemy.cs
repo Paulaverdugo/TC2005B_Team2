@@ -74,7 +74,7 @@ abstract public class BaseEnemy : MonoBehaviour
         {
             alertedTime += Time.deltaTime;
 
-            if (alertedTime > alertedTimeLimit) isAlerted = false;            
+            if (alertedTime > alertedTimeLimit) UnAlert();            
         }
     }
 
@@ -149,6 +149,11 @@ abstract public class BaseEnemy : MonoBehaviour
         isAlerted = true;
         alertedTime = 0f;
         playerLastPos = playerPos;
+    }
+
+    virtual protected void UnAlert() 
+    {
+        isAlerted = false;
     }
 
     public void AlertOthers(Vector3 playerPos) 
