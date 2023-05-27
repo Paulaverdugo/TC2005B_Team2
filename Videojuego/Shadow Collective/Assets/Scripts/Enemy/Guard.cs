@@ -128,7 +128,6 @@ public class Guard : BaseEnemy
 
                     goingToPatrolTarget = !goingToPatrolTarget;
                 }
-
             }
             else
             {
@@ -217,6 +216,19 @@ public class Guard : BaseEnemy
             // bullet.GetComponent<BulletBehaviour>().SetDamage(damage); -> to set the damage of the bullet (default 1)
         }
 
+    }
+
+    override protected void UpdateVisionCone(Vector3 direction)
+    {
+        base.UpdateVisionCone(direction);
+
+        if (direction.x < 0)
+        {
+            LookLeft();
+        } else
+        {
+            LookRight();
+        }
     }
 
     virtual public void GetDamaged(float damage)
