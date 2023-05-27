@@ -9228,7 +9228,7 @@ GameObject:
   - component: {fileID: 1298031429}
   - component: {fileID: 1298031428}
   - component: {fileID: 1298031430}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tilemap_Obstacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9845,9 +9845,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 155457516}
-  playerLayer:
+  raycastLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
 --- !u!4 &1339935889
 Transform:
   m_ObjectHideFlags: 0

@@ -170,9 +170,8 @@ public class Guard : BaseEnemy
         timeSinceLastShot += Time.deltaTime;
 
         // check if the player is in sight
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance * alertedVisionMultiplier, playerLayer);
-
-        if(hit.collider != null && playerController.CheckVisibility(gameObject))
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance * alertedVisionMultiplier, raycastLayer);
+        if(hit.collider != null && playerController.CheckVisibility(gameObject) && GameObject.ReferenceEquals(hit.collider.gameObject, player))
         {
             // alert others if you can see the player
             AlertOthers(player.transform.position);

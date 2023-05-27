@@ -22,7 +22,7 @@ abstract public class BaseEnemy : MonoBehaviour
     [SerializeField] float alertedTimeLimit = 10f; 
     
     [System.NonSerialized]
-    public LayerMask playerLayer;
+    public LayerMask raycastLayer;
 
     [SerializeField] Vector3 startingVisionConeDirection = Vector3.down;
     
@@ -88,10 +88,12 @@ abstract public class BaseEnemy : MonoBehaviour
     {
         if (isHacked) return;
 
+        // only do the raycast if the player was the one who entered
         if (GameObject.ReferenceEquals(player, collision.gameObject)) 
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position), sightDistance);
-            if (hit.collider != null)
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position), sightDistance, raycastLayer);
+            // if the player was hit, it means it didn't hit any walls or obstacles
+            if (hit.collider != null && GameObject.ReferenceEquals(player, hit.collider.gameObject))
             {
                 print(hit.collider.gameObject.name + ": " + hit.collider.gameObject.layer);
                 if (playerController.CheckVisibility(gameObject)) 
@@ -102,23 +104,25 @@ abstract public class BaseEnemy : MonoBehaviour
         }
     }
 
-    // protected void OnTriggerStay2D(Collider2D collision)
-    // {
-    //     if (isHacked) return;
+    protected void OnTriggerStay2D(Collider2D collision)
+    {
+        if (isHacked) return;
 
-    //     if (GameObject.ReferenceEquals(player, collision.gameObject)) 
-    //     {
-    //         RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance, playerLayer);
-            
-    //         if (hit.collider != null)
-    //         {
-    //             if (playerController.CheckVisibility(gameObject)) 
-    //             {
-    //                 AlertOthers(player.transform.position);
-    //             }
-    //         }
-    //     }
-    // }
+        // only do the raycast if the player was the one who entered
+        if (GameObject.ReferenceEquals(player, collision.gameObject)) 
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position), sightDistance, raycastLayer);
+            // if the player was hit, it means it didn't hit any walls or obstacles
+            if (hit.collider != null && GameObject.ReferenceEquals(player, hit.collider.gameObject))
+            {
+                print(hit.collider.gameObject.name + ": " + hit.collider.gameObject.layer);
+                if (playerController.CheckVisibility(gameObject)) 
+                {
+                    AlertOthers(player.transform.position);
+                }
+            }
+        }
+    }
 
     virtual protected void UpdateVisionCone(Vector3 direction)
     {
