@@ -281,6 +281,7 @@ public class Guard : BaseEnemy
 
     override public void Die()
     {
+        health = 0;
         isDying = true;
         StartCoroutine(DieCoroutine());
     }

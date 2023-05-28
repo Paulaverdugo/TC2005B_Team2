@@ -133,7 +133,7 @@ abstract public class BasePlayer : MonoBehaviour
                 float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
                 // we add the direction * offset to not hit own player's hitbox
-                Vector3 launchPosition = shootingOrigin + direction * .8f;
+                Vector3 launchPosition = shootingOrigin + direction * 0.9f;
 
 
                 float tmpDamage = damage;
