@@ -48,9 +48,6 @@ abstract public class BaseEnemy : MonoBehaviour
 
     virtual protected void Start() 
     {
-
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-
         visionConeVisual = gameObject.transform.GetChild(1).gameObject;
         visionConeVisual.SetActive(false);
 
@@ -179,6 +176,7 @@ abstract public class BaseEnemy : MonoBehaviour
     // function to be hacked by the player or by a gadget
     virtual public void Hack(float hackDuration_) 
     {
+        print(spriteRenderer);
         spriteRenderer.color = new Color(0.258544f,0.4632035f,0.6603774f,1);
 
         hackDuration = hackDuration_;

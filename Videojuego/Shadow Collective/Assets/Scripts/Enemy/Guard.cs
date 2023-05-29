@@ -66,6 +66,8 @@ public class Guard : BaseEnemy
         // make the sprite used to see the gameobject invisible, since we have animations
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
         // Get the guardAI component
         guardAI = GetComponent<GuardAI>();
         guardAI.enabled = false;
@@ -285,7 +287,7 @@ public class Guard : BaseEnemy
         
         // hold the guard in place
         rb.velocity = Vector3.zero; 
-        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        rb.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
 
         animator.SetBool("isRunning", false);
     }
