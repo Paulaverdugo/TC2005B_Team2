@@ -13,13 +13,7 @@ public class Overcharge : BaseGadget
     // TO DO -> CONSIDER ALSO SHORTENING THE PLAYER'S FIRE RATE
     public Overcharge(BasePlayer player_) : base(player_)
     {
-        keyBinded = KeyCode.Q;
 
-        damageMultiplier = 2f;
-        overchargeCooldown = 15f;
-        overchargeDuration = 5f;
-        cooldownTimer = overchargeCooldown;
-        isActive = false; 
     }
 
     private float damageMultiplier;
@@ -28,9 +22,15 @@ public class Overcharge : BaseGadget
     private float cooldownTimer;
     private bool isActive;
 
-    override public void ResetGadget()
+    override public void StartGadget()
     {
-        
+        keyBinded = KeyCode.Q;
+
+        damageMultiplier = 2f;
+        overchargeCooldown = 15f;
+        overchargeDuration = 5f;
+        cooldownTimer = overchargeCooldown;
+        isActive = false; 
     }
 
     override public void UpdateGadget(float deltaTime)

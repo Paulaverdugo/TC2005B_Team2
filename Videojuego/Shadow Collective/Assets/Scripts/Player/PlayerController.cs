@@ -41,8 +41,8 @@ public class PlayerController : MonoBehaviour
         }
         else // no player pref, choose manually -> done to test
         {
-            // ChooseCybergladiator();
-            ChooseCodebreaker();
+            ChooseCybergladiator();
+            // ChooseCodebreaker();
             // ChooseGhostwalker();
         }
 

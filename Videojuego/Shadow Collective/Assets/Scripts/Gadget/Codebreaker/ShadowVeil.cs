@@ -12,14 +12,13 @@ public class ShadowVeil : BaseGadget
 {
     public ShadowVeil(BasePlayer player_) : base(player_)
     {
-        hasBeenUsed = false;
     }
 
     private bool hasBeenUsed;
 
-    override public void ResetGadget()
+    override public void StartGadget()
     {
-        
+        hasBeenUsed = false;
     }
 
     override public void UpdateGadget(float deltaTime)

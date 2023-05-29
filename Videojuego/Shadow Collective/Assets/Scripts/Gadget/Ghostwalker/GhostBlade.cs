@@ -12,18 +12,18 @@ public class GhostBlade : BaseGadget
 {
     public GhostBlade(BasePlayer player_) : base(player_)
     {
-        keyBinded = KeyCode.Q;
-        
-        hasBeenUsed = false;
-        abilityRadius = 1.5f;
+
     }
 
     private bool hasBeenUsed;
     private float abilityRadius;
 
-    override public void ResetGadget()
+    override public void StartGadget()
     {
-
+        keyBinded = KeyCode.Q;
+        
+        hasBeenUsed = false;
+        abilityRadius = 1.5f;
     }
 
     override public void UpdateGadget(float deltaTime)

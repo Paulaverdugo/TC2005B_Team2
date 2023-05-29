@@ -12,14 +12,7 @@ public class CyberDash : BaseGadget
 {
     public CyberDash(BasePlayer player_) : base(player_)
     {
-        keyBinded = KeyCode.LeftShift;
-        
-        dashCooldown = 2f;
-        dashDuration = 0.1f;
-        dashSpeed = 30f;
-        cooldownTimer = dashCooldown;
-        regularSpeed = player.maxSpeed;
-        dashing = false;
+
     }
 
     private float dashCooldown; // how much time the player has to wait between dashes
@@ -29,9 +22,16 @@ public class CyberDash : BaseGadget
     private float cooldownTimer; // time elapsed since dashing
     private bool dashing;
 
-    public override void ResetGadget()
+    public override void StartGadget()
     {
+        keyBinded = KeyCode.LeftShift;
         
+        dashCooldown = 2f;
+        dashDuration = 0.1f;
+        dashSpeed = 30f;
+        cooldownTimer = dashCooldown;
+        regularSpeed = player.maxSpeed;
+        dashing = false;
     }
 
     public override void UpdateGadget(float deltaTime)

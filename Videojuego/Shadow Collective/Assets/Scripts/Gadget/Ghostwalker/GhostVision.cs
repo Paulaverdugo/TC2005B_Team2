@@ -12,18 +12,19 @@ public class GhostVision : BaseGadget
 {
     public GhostVision(BasePlayer player_) : base(player_)
     {
-        hasBeenActivated = false;
+
     }
 
     private bool hasBeenActivated;
 
-    override public void ResetGadget()
+    override public void StartGadget()
     {
-
+        hasBeenActivated = false;
     }
 
     override public void UpdateGadget(float deltaTime)
     {
+        // has to be activated here since the enemies list is populated in the player's Start()
         if (!hasBeenActivated)
         {
             hasBeenActivated = true;
