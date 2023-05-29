@@ -21,7 +21,7 @@ abstract public class BaseGadget
 
 
     //functions every gadget must have to reset in every level
-    abstract public void ResetGadget();
+    abstract public void StartGadget();
 
     abstract public void UpdateGadget(float deltaTime);
 

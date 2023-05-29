@@ -12,13 +12,7 @@ public class BioStim : BaseGadget
 {
     public BioStim(BasePlayer player_) : base(player_)
     {
-        keyBinded = KeyCode.E;
 
-        hasBeenUsed = false;
-        healingAmount = 5f;
-        maxHealth = player.health;
-        animationDuration = 1f;
-        animationTimer = 0f;
     }
 
     private bool hasBeenUsed;
@@ -27,9 +21,15 @@ public class BioStim : BaseGadget
     private float animationDuration;
     private float animationTimer;
 
-    public override void ResetGadget()
+    public override void StartGadget()
     {
-        
+        keyBinded = KeyCode.E;
+
+        hasBeenUsed = false;
+        healingAmount = 5f;
+        maxHealth = player.health;
+        animationDuration = 1f;
+        animationTimer = 0f; 
     }
 
     public override void UpdateGadget(float deltaTime)
@@ -38,7 +38,7 @@ public class BioStim : BaseGadget
         {
             hasBeenUsed = true;
             // player can't have more hps than the hp amount they start with
-            player.health = Mathf.Min(player.health + healingAmount, maxHealth);
+            player.GetHealed(Mathf.Min(player.health + healingAmount, maxHealth));
 
             // green flash to make it look like it's healing
             player.spriteRenderer.color = new Color(0, 1, 0, 1);

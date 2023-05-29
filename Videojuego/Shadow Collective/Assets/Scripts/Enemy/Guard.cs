@@ -66,6 +66,8 @@ public class Guard : BaseEnemy
         // make the sprite used to see the gameobject invisible, since we have animations
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
         // Get the guardAI component
         guardAI = GetComponent<GuardAI>();
         guardAI.enabled = false;
@@ -110,6 +112,7 @@ public class Guard : BaseEnemy
             {
                 returningToStart = false;
                 guardAI.enabled = false;
+                rb.velocity = Vector3.zero;
             }
         }
         else
@@ -184,29 +187,33 @@ public class Guard : BaseEnemy
 
         // check if the player is in sight
         RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance * alertedVisionMultiplier, raycastLayer);
-        if(hit.collider != null && playerController.CheckVisibility(gameObject) && GameObject.ReferenceEquals(hit.collider.gameObject, player))
+        if(hit.collider != null && GameObject.ReferenceEquals(hit.collider.gameObject, player))
         {
-            // alert others if you can see the player
-            AlertOthers(player.transform.position);
-
-            if (timeSinceLastShot > 1)
+            // checking the visibility has to be done after checking if there is line of sight, since there is a gadget that can hack you when you make this call
+            if (playerController.CheckVisibility(gameObject))
             {
-                animator.SetTrigger("shoot");
-                timeSinceLastShot = 0;
+                // alert others if you can see the player
+                AlertOthers(player.transform.position);
 
-                Vector3 shootingOrigin = gameObject.transform.position - new Vector3(0, 0.5f, 0);
+                if (timeSinceLastShot > 1)
+                {
+                    animator.SetTrigger("shoot");
+                    timeSinceLastShot = 0;
 
-                Vector3 direction = new Vector3(player.transform.position.x - shootingOrigin.x, player.transform.position.y - shootingOrigin.y, 0).normalized;
+                    Vector3 shootingOrigin = gameObject.transform.position - new Vector3(0, 0.5f, 0);
+
+                    Vector3 direction = new Vector3(player.transform.position.x - shootingOrigin.x, player.transform.position.y - shootingOrigin.y, 0).normalized;
 
 
-                // Change position of shooting point based on the player position.
-                Vector3 launchPosition = shootingOrigin + direction * 1f;
+                    // Change position of shooting point based on the player position.
+                    Vector3 launchPosition = shootingOrigin + direction * 1f;
 
-                // get the rotation of the bullet gameobject
-                float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                
-                Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, rotZ));
-                // bullet.GetComponent<BulletBehaviour>().SetDamage(damage); -> to set the damage of the bullet (default 1)
+                    // get the rotation of the bullet gameobject
+                    float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                    
+                    Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, rotZ));
+                    // bullet.GetComponent<BulletBehaviour>().SetDamage(damage); -> to set the damage of the bullet (default 1)
+                }
             }
         }
 
@@ -240,11 +247,15 @@ public class Guard : BaseEnemy
 
     override public void Alert(Vector3 playerPos)
     {
+
         base.Alert(playerPos);
 
-        // so that when the alert mode runs out, the player goes back to it's original spot
-        goingToPatrolTarget = false;
-        guardAI.enabled = true;
+        if (!isHacked)
+        {
+            // so that when the alert mode runs out, the player goes back to it's original spot
+            goingToPatrolTarget = false;
+            guardAI.enabled = true;
+        }
     }
 
     override protected void UnAlert()
@@ -275,8 +286,36 @@ public class Guard : BaseEnemy
 
     override public void Hack(float hackDuration_)
     {
+
         base.Hack(hackDuration_);
+        guardAI.enabled = false;
+        
+        // hold the guard in place
+        rb.velocity = Vector3.zero; 
+        rb.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
+
         animator.SetBool("isRunning", false);
+    }
+
+    override public void UnHack()
+    {
+        base.UnHack();
+
+        rb.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
+
+        if (patrols)
+        {
+            guardAI.enabled = true;
+
+            if (isAlerted)
+            {
+                guardAI.target = playerLastPos;
+            } else
+            {
+                guardAI.target = startingPos;
+                returningToStart = true;
+            }
+        }
     }
 
     override public void Die()

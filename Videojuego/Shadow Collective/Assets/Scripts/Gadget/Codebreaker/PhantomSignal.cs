@@ -13,6 +13,21 @@ public class PhantomSignal : BaseGadget
 {
     public PhantomSignal(BasePlayer player_) : base(player_)
     {
+        
+    }
+
+    bool hasBeenUsed;
+
+    float abilityRadius;
+    Vector3 abilityPosition;
+
+    float countdownTotal;
+    float countdownTimer;
+
+    GameObject beacon;
+
+    override public void StartGadget()
+    {
         keyBinded = KeyCode.E;
 
         hasBeenUsed = false;
@@ -24,20 +39,6 @@ public class PhantomSignal : BaseGadget
 
         beacon = UnityEngine.Object.Instantiate(Resources.Load("PhantomSignalBeacon") as GameObject);
         beacon.SetActive(false);
-    }
-    bool hasBeenUsed;
-
-    float abilityRadius;
-    Vector3 abilityPosition;
-
-    float countdownTotal;
-    float countdownTimer;
-
-    GameObject beacon;
-
-    override public void ResetGadget()
-    {
-        
     }
 
     override public void UpdateGadget(float deltaTime)

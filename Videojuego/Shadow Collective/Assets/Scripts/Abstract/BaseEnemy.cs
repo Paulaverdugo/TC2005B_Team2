@@ -48,9 +48,6 @@ abstract public class BaseEnemy : MonoBehaviour
 
     virtual protected void Start() 
     {
-
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-
         visionConeVisual = gameObject.transform.GetChild(1).gameObject;
         visionConeVisual.SetActive(false);
 
@@ -95,10 +92,8 @@ abstract public class BaseEnemy : MonoBehaviour
             // if the player was hit, it means it didn't hit any walls or obstacles
             if (hit.collider != null && GameObject.ReferenceEquals(player, hit.collider.gameObject))
             {
-                print(hit.collider.gameObject.name + ": " + hit.collider.gameObject.layer);
                 if (playerController.CheckVisibility(gameObject)) 
                 {
-                    print("Player seen!");
                     AlertOthers(player.transform.position);
                 }
             }
@@ -116,7 +111,6 @@ abstract public class BaseEnemy : MonoBehaviour
             // if the player was hit, it means it didn't hit any walls or obstacles
             if (hit.collider != null && GameObject.ReferenceEquals(player, hit.collider.gameObject))
             {
-                print(hit.collider.gameObject.name + ": " + hit.collider.gameObject.layer);
                 if (playerController.CheckVisibility(gameObject)) 
                 {
                     AlertOthers(player.transform.position);
