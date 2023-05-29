@@ -66,6 +66,11 @@ public class PlayerController : MonoBehaviour
         playerScript.GetDamaged(damage);
     }
 
+    public void GetHealed(float health)
+    {
+        playerScript.GetHealed(health);
+    }
+
     public BasePlayer GetPlayerScript()
     {
         return playerScript;

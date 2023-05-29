@@ -187,6 +187,12 @@ abstract public class BasePlayer : MonoBehaviour
         healthBar.SetHealth(health);
     }
 
+    virtual public void GetHealed(float healingAmount)
+    {
+        health += healingAmount;
+        healthBar.SetHealth(health);
+    }
+
     protected IEnumerator GameOver() {
         // Play death animation
         animator.SetTrigger("death");

@@ -38,7 +38,7 @@ public class BioStim : BaseGadget
         {
             hasBeenUsed = true;
             // player can't have more hps than the hp amount they start with
-            player.health = Mathf.Min(player.health + healingAmount, maxHealth);
+            player.GetHealed(Mathf.Min(player.health + healingAmount, maxHealth));
 
             // green flash to make it look like it's healing
             player.spriteRenderer.color = new Color(0, 1, 0, 1);
