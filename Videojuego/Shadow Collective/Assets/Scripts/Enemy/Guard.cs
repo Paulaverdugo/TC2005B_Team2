@@ -112,6 +112,7 @@ public class Guard : BaseEnemy
             {
                 returningToStart = false;
                 guardAI.enabled = false;
+                rb.velocity = Vector3.zero;
             }
         }
         else
@@ -186,29 +187,33 @@ public class Guard : BaseEnemy
 
         // check if the player is in sight
         RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance * alertedVisionMultiplier, raycastLayer);
-        if(hit.collider != null && playerController.CheckVisibility(gameObject) && GameObject.ReferenceEquals(hit.collider.gameObject, player))
+        if(hit.collider != null && GameObject.ReferenceEquals(hit.collider.gameObject, player))
         {
-            // alert others if you can see the player
-            AlertOthers(player.transform.position);
-
-            if (timeSinceLastShot > 1)
+            // checking the visibility has to be done after checking if there is line of sight, since there is a gadget that can hack you when you make this call
+            if (playerController.CheckVisibility(gameObject))
             {
-                animator.SetTrigger("shoot");
-                timeSinceLastShot = 0;
+                // alert others if you can see the player
+                AlertOthers(player.transform.position);
 
-                Vector3 shootingOrigin = gameObject.transform.position - new Vector3(0, 0.5f, 0);
+                if (timeSinceLastShot > 1)
+                {
+                    animator.SetTrigger("shoot");
+                    timeSinceLastShot = 0;
 
-                Vector3 direction = new Vector3(player.transform.position.x - shootingOrigin.x, player.transform.position.y - shootingOrigin.y, 0).normalized;
+                    Vector3 shootingOrigin = gameObject.transform.position - new Vector3(0, 0.5f, 0);
+
+                    Vector3 direction = new Vector3(player.transform.position.x - shootingOrigin.x, player.transform.position.y - shootingOrigin.y, 0).normalized;
 
 
-                // Change position of shooting point based on the player position.
-                Vector3 launchPosition = shootingOrigin + direction * 1f;
+                    // Change position of shooting point based on the player position.
+                    Vector3 launchPosition = shootingOrigin + direction * 1f;
 
-                // get the rotation of the bullet gameobject
-                float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                
-                Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, rotZ));
-                // bullet.GetComponent<BulletBehaviour>().SetDamage(damage); -> to set the damage of the bullet (default 1)
+                    // get the rotation of the bullet gameobject
+                    float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                    
+                    Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, rotZ));
+                    // bullet.GetComponent<BulletBehaviour>().SetDamage(damage); -> to set the damage of the bullet (default 1)
+                }
             }
         }
 

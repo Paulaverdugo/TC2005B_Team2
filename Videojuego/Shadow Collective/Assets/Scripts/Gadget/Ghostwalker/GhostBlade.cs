@@ -37,15 +37,22 @@ public class GhostBlade : BaseGadget
             // ability would be wonky
             foreach (GameObject enemy in player.enemies)
             {
-                EnemyController enemyController = enemy.GetComponent<EnemyController>();
-                if (enemyController.IsGuard())
+                if (enemy == null)
                 {
-                    float distance = Vector3.Distance(player.transform.position, enemy.transform.position);
-
-                    if (distance < closestDistance)
+                    player.enemies.Remove(enemy);
+                }
+                else
+                {
+                    EnemyController enemyController = enemy.GetComponent<EnemyController>();
+                    if (enemyController.IsGuard())
                     {
-                        closestDistance = distance;
-                        closestGuard = enemyController;
+                        float distance = Vector3.Distance(player.transform.position, enemy.transform.position);
+
+                        if (distance < closestDistance)
+                        {
+                            closestDistance = distance;
+                            closestGuard = enemyController;
+                        }
                     }
                 }
             }

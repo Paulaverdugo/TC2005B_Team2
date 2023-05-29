@@ -29,7 +29,14 @@ public class GhostVision : BaseGadget
             hasBeenActivated = true;
             foreach (GameObject enemy in player.enemies)
             {
-                enemy.GetComponent<EnemyController>().ShowVisionCone();
+                if (enemy == null)
+                {
+                    player.enemies.Remove(enemy);
+                }
+                else
+                {
+                    enemy.GetComponent<EnemyController>().ShowVisionCone();
+                }
             }
         }
     }

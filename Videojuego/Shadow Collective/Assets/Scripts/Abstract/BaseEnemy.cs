@@ -92,10 +92,8 @@ abstract public class BaseEnemy : MonoBehaviour
             // if the player was hit, it means it didn't hit any walls or obstacles
             if (hit.collider != null && GameObject.ReferenceEquals(player, hit.collider.gameObject))
             {
-                print(hit.collider.gameObject.name + ": " + hit.collider.gameObject.layer);
                 if (playerController.CheckVisibility(gameObject)) 
                 {
-                    print("Player seen!");
                     AlertOthers(player.transform.position);
                 }
             }
@@ -113,7 +111,6 @@ abstract public class BaseEnemy : MonoBehaviour
             // if the player was hit, it means it didn't hit any walls or obstacles
             if (hit.collider != null && GameObject.ReferenceEquals(player, hit.collider.gameObject))
             {
-                print(hit.collider.gameObject.name + ": " + hit.collider.gameObject.layer);
                 if (playerController.CheckVisibility(gameObject)) 
                 {
                     AlertOthers(player.transform.position);
@@ -176,7 +173,6 @@ abstract public class BaseEnemy : MonoBehaviour
     // function to be hacked by the player or by a gadget
     virtual public void Hack(float hackDuration_) 
     {
-        print(spriteRenderer);
         spriteRenderer.color = new Color(0.258544f,0.4632035f,0.6603774f,1);
 
         hackDuration = hackDuration_;

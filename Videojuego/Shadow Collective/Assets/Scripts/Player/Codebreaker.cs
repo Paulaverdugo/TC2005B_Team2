@@ -53,11 +53,18 @@ public class Codebreaker : BasePlayer
             // check the distance of all enemies and find the nearest
             foreach (GameObject enemy in enemies)
             {
-                float distance = (enemy.transform.position - gameObject.transform.position).magnitude;
-                if (distance < closestDistance)
+                if (enemy == null)
                 {
-                    closestDistance = distance;
-                    closest = enemy;
+                    enemies.Remove(enemy);
+                } 
+                else
+                {
+                    float distance = (enemy.transform.position - gameObject.transform.position).magnitude;
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closest = enemy;
+                    }
                 }
             }
 
