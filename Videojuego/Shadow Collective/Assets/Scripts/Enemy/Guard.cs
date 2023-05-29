@@ -240,11 +240,15 @@ public class Guard : BaseEnemy
 
     override public void Alert(Vector3 playerPos)
     {
+
         base.Alert(playerPos);
 
-        // so that when the alert mode runs out, the player goes back to it's original spot
-        goingToPatrolTarget = false;
-        guardAI.enabled = true;
+        if (!isHacked)
+        {
+            // so that when the alert mode runs out, the player goes back to it's original spot
+            goingToPatrolTarget = false;
+            guardAI.enabled = true;
+        }
     }
 
     override protected void UnAlert()
@@ -275,8 +279,36 @@ public class Guard : BaseEnemy
 
     override public void Hack(float hackDuration_)
     {
+
         base.Hack(hackDuration_);
+        guardAI.enabled = false;
+        
+        // hold the guard in place
+        rb.velocity = Vector3.zero; 
+        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+
         animator.SetBool("isRunning", false);
+    }
+
+    override public void UnHack()
+    {
+        base.UnHack();
+
+        rb.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
+
+        if (patrols)
+        {
+            guardAI.enabled = true;
+
+            if (isAlerted)
+            {
+                guardAI.target = playerLastPos;
+            } else
+            {
+                guardAI.target = startingPos;
+                returningToStart = true;
+            }
+        }
     }
 
     override public void Die()
