@@ -9,7 +9,7 @@ public class DamagingTile : MonoBehaviour
     // The amount of damage to deal.
     public int damage = 1;
 
-    public int damageTimer = 10;
+    public int damageTimer = 0;
     
     // Create a function that will be called when the player enters the tile.
     void OnTriggerStay2D(Collider2D other)
@@ -30,23 +30,22 @@ public class DamagingTile : MonoBehaviour
     // Define the coroutine that will deal damage.
     private IEnumerator Damage(GameObject player) {
        // Wait for half a second.
-       yield return new WaitForSeconds(0.5f);
         
         damageTimer -= 1;
 
         if(player.CompareTag("Player")) {
             if (damageTimer == 0) {
                 // Deal damage to the player.
-                player.GetComponent<BasePlayer>().GetDamaged(damage);
-                damageTimer = 10;
                 yield return new WaitForSeconds(0.5f);
+                player.GetComponent<BasePlayer>().GetDamaged(damage);
+                damageTimer = 5;
             } 
         } else if(player.CompareTag("Enemy")){
             if (damageTimer == 0) {
                 // Deal damage to the enemy.
-                player.GetComponent<Guard>().GetDamaged(damage);
-               damageTimer = 10;
                yield return new WaitForSeconds(0.5f);
+                player.GetComponent<Guard>().GetDamaged(damage);
+               damageTimer = 5;
             } 
         }
     }
