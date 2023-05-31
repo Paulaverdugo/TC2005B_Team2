@@ -55,8 +55,10 @@ public class Guard : BaseEnemy
     private float alertedVisionMultiplier = 2f;
 
     override protected void Start()
-    {
+    {   
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         base.Start();
+
         // Get the Healthbar
         enemyHealthBar = GetComponentInChildren<EnemyHealthBar>();
 
@@ -65,8 +67,7 @@ public class Guard : BaseEnemy
         
         // make the sprite used to see the gameobject invisible, since we have animations
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
-
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        
 
         // Get the guardAI component
         guardAI = GetComponent<GuardAI>();
