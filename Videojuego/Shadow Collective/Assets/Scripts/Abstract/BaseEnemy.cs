@@ -56,7 +56,8 @@ abstract public class BaseEnemy : MonoBehaviour
         // set sight distance to the vision cone's distance
         sightDistance = Mathf.Sqrt(Mathf.Pow(visionConeCollider.points[1].y,2) + Mathf.Pow(visionConeCollider.points[1].x,2));
         fov = Mathf.Atan(Mathf.Abs(visionConeCollider.points[1].x) / visionConeCollider.points[1].y);
-
+        
+        
         UpdateVisionCone(startingVisionConeDirection);
     }
 
@@ -119,9 +120,9 @@ abstract public class BaseEnemy : MonoBehaviour
         }
     }
 
-    virtual protected void UpdateVisionCone(Vector3 direction)
+    virtual protected void UpdateVisionCone(Vector3 direction3)
     {
-        direction = new Vector2(direction.x, direction.y).normalized;
+        Vector2 direction = new Vector2(direction3.x, direction3.y).normalized;
         float directionAngle = Mathf.Acos(Vector2.Dot(direction, Vector2.right));
 
         if (direction.y < 0) directionAngle = 2 * Mathf.PI - directionAngle;
@@ -129,18 +130,16 @@ abstract public class BaseEnemy : MonoBehaviour
         // + 90 because of its starting position
         visionConeVisual.transform.rotation = Quaternion.Euler(0f, 0f, directionAngle * Mathf.Rad2Deg + 90);
 
-        PolygonCollider2D col = gameObject.GetComponent<PolygonCollider2D>();
+        visionConeCollider.enabled = false;
 
-        col.enabled = false;
-
-        col.points = new[]
+        visionConeCollider.points = new[]
         {
             Vector2.zero,
             sightDistance * new Vector2(Mathf.Cos(directionAngle + fov), Mathf.Sin(directionAngle + fov)),
             sightDistance * new Vector2(Mathf.Cos(directionAngle - fov), Mathf.Sin(directionAngle - fov))
         };
 
-        col.enabled = true;
+        visionConeCollider.enabled = true;
     }
 
     // function to be alerted that the player has been seen

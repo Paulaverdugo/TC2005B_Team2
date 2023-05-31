@@ -15,9 +15,6 @@ public class CameraEnemy : BaseEnemy
     override protected void Start()
     {
         spriteRenderer = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
-
-        print(spriteRenderer);
-
         base.Start();
 
         // if it's looking to a side, we don't want the camera to flip around
