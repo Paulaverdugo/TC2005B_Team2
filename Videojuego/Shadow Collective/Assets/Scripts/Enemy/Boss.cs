@@ -40,7 +40,11 @@ public class Boss : BaseEnemy
 
     override protected void Start()
     {
+        // Get the Healthbar
+        enemyHealthBar = GetComponentInChildren<EnemyHealthBar>();
 
+        // Set the healthbar 
+        enemyHealthBar.SetMaxHealth(health);
     }
 
     bool test = true;

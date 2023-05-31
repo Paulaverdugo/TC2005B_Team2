@@ -36,6 +36,11 @@ public class EnemyController : MonoBehaviour
         return enemyScript.GetType() == typeof(Guard);
     }
 
+    public bool IsBoss()
+    {
+        return enemyScript.GetType() == typeof(Boss);
+    }
+
     public void Die()
     {
         enemyScript.Die();
