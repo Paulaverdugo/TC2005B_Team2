@@ -155,7 +155,7 @@ abstract public class BaseEnemy : MonoBehaviour
         isAlerted = false;
     }
 
-    public void AlertOthers(Vector3 playerPos) 
+    virtual public void AlertOthers(Vector3 playerPos) 
     {
         // overlap circle returns a list of colliders within a radius
         Collider2D[] colsInRadius = Physics2D.OverlapCircleAll(gameObject.transform.position, alertingRadius, LayerMask.GetMask("Enemy"));
@@ -192,6 +192,9 @@ abstract public class BaseEnemy : MonoBehaviour
 
     virtual public void ShowVisionCone()
     {
-        visionConeVisual.SetActive(true);
+        if (visionConeVisual != null)
+        {
+            visionConeVisual.SetActive(true);
+        }
     }
 }
