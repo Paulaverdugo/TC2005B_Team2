@@ -11,7 +11,6 @@ import {ENV, PORT} from "./const.js";
 const app = express();
 
 app.use(express.json());
-app.use(cors());
 
 //Ruta por defualt
 app.get("/", (req, res) => {
@@ -31,6 +30,6 @@ app.listen(8000, () => {
 });
 
 //Connect to DB
-async function connectDB() {
+export default async function connectDB() {
     return await mysql.createConnection(ENV);
 }
