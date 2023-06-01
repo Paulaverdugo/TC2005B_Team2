@@ -36,7 +36,7 @@ public class BulletBehaviour : MonoBehaviour
             }
         }
 
-        Destroy(gameObject);
+        if (!collision.gameObject.CompareTag("Bullet")) Destroy(gameObject);
     }
 
     public void SetDamage(float damage) {
