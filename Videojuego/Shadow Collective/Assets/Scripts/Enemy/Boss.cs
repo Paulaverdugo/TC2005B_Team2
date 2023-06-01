@@ -76,6 +76,8 @@ public class Boss : BaseEnemy
 
     override protected void Update()
     {
+        if (isDying) return;
+
         if (player.transform.position.x - gameObject.transform.position.x >= 0)
         {
             LookRight();
@@ -162,8 +164,6 @@ public class Boss : BaseEnemy
 
         if (health <= 0)
         {
-            aiPath.maxSpeed = 0;
-            animator.SetTrigger("death");
             Die();
         } 
         // phase
@@ -176,6 +176,9 @@ public class Boss : BaseEnemy
 
     override public void Die()
     {
+        isDying = true;
+        aiPath.maxSpeed = 0;
+        animator.SetTrigger("death");
         toxicBridge.SetActive(false);
         StartCoroutine(DieCoroutine());
     }
