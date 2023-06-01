@@ -230,7 +230,7 @@ public class Boss : BaseEnemy
         print("UnHacked");
         base.UnHack();
 
-        InvokeRepeating("StartBulletHell", 3f, 10f);
+        InvokeRepeating("StartBulletHell", 1f, 10f);
 
         aiPath.maxSpeed = maxSpeed;
         rb.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
