@@ -14,7 +14,8 @@ using Pathfinding;
 public class Boss : BaseEnemy
 {
     [SerializeField] float maxSpeed = 1.5f;
-    [SerializeField] float health = 25;
+    [SerializeField] float maxHealth = 25;
+    private float health;
 
     // to control the animations
     [SerializeField] Animator animator;
@@ -38,7 +39,13 @@ public class Boss : BaseEnemy
     // Values for the healthbar
     private EnemyHealthBar enemyHealthBar;
 
+    // to control the boss' movement
     private AIPath aiPath;
+
+    // to control the map
+    [SerializeField] GameObject toxicHalf;
+    [SerializeField] GameObject toxicFull;
+    [SerializeField] GameObject toxicBridge;
 
     override protected void Start()
     {
@@ -49,7 +56,7 @@ public class Boss : BaseEnemy
         enemyHealthBar = GetComponentInChildren<EnemyHealthBar>();
 
         // Set the healthbar 
-        enemyHealthBar.SetMaxHealth(health);
+        enemyHealthBar.SetMaxHealth(maxHealth);
 
         // Get the rigidbody
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -61,6 +68,8 @@ public class Boss : BaseEnemy
         aiPath = gameObject.GetComponent<AIPath>();
 
         aiPath.maxSpeed = maxSpeed;
+
+        health = maxHealth;
 
         InvokeRepeating("StartBulletHell", 5f, 10f);
     }
@@ -156,11 +165,18 @@ public class Boss : BaseEnemy
             aiPath.maxSpeed = 0;
             animator.SetTrigger("death");
             Die();
+        } 
+        // phase
+        else if (health == Mathf.Ceil(maxHealth / 2))
+        {
+            toxicHalf.SetActive(false);
+            toxicFull.SetActive(true);
         }
     }
 
     override public void Die()
     {
+        toxicBridge.SetActive(false);
         StartCoroutine(DieCoroutine());
     }
 
