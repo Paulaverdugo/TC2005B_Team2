@@ -54,8 +54,8 @@ CREATE TABLE PLAYER (
 -- Progress table 
 CREATE TABLE PROGRESS (
 	id_progress SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    level_achieved SMALLINT UNSIGNED NOT NULL,
     user_name VARCHAR(50) NOT NULL,
+    level_achieved SMALLINT UNSIGNED NOT NULL,
     player_type SMALLINT UNSIGNED NOT NULL,
     life_points SMALLINT UNSIGNED NOT NULL,
     PRIMARY KEY (id_progress), 
@@ -84,6 +84,10 @@ CREATE TABLE WINS (
     CONSTRAINT `fk_WINS_PLAYERTYPES` FOREIGN KEY (player_type) REFERENCES PLAYER_TYPES(id_ptypes) ON DELETE RESTRICT ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- VIEWS STATISTICS()
+--
+
 -- Winner user 
 CREATE VIEW WINNER_USER AS 
 SELECT user_name, COUNT(user_name) AS user_wins FROM WINS
@@ -106,6 +110,28 @@ SELECT gadget_name, COUNT(gadget_id) AS most_gadget FROM CHOSEN_GADGET
 INNER JOIN GADGET ON CHOSEN_GADGET.gadget_id = GADGET.id_gadget
 GROUP BY gadget_id
 ORDER BY most_gadget DESC;
+
+--
+-- VIEWS FOR GET()
+--
+
+-- USER LOGIN
+CREATE VIEW GETUSER AS
+SELECT user_name, user_password FROM USER_INFO;
+
+-- GADGET
+-- CREATE VIEW GADGET_INF AS
+
+-- SELECT * FROM scollective.MOST_GADGET
+-- CREATE VIEW GETUSER AS
+-- SELECT user_name, user_password FROM USER_INFO;
+
+
+-- CREATE VIEW HELPER AS 
+SELECT * FROM scollective.PROGRESS
+WHERE scollective.PROGRESS.id_progress = (SELECT MAX(id_progress) FROM scollective.PROGRESS 
+WHERE scollective.PROGRESS.user_name = 'andres_tarazona');
+
 
 
 

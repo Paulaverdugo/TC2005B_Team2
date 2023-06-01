@@ -2,11 +2,11 @@ USE scollective;
 
 -- USER_INFO (user_name, user_password, email, age, user_register)
 INSERT INTO USER_INFO VALUES
-("andres_tarazona", "andres123", "andres@gmail.com", 23, "2023-05-25"),
-("dulce_garcia", "dulce123", "dulce@gmail.com", 20, "2023-05-25"),
-("mariel_gomez", "mariel123", "mariel@gmail.com", 19, "2023-05-25"),
-("paula_verdugo", "paula123", "paula@gmail.com", 20, "2023-05-25"),
-("santiago_rodriguez", "santiago123", "santiago@gmail.com", 21, "2023-05-25");
+("andres_tarazona", "andres123", "andres@gmail.com", 23, NOW()),
+("dulce_garcia", "dulce123", "dulce@gmail.com", 20, NOW()),
+("mariel_gomez", "mariel123", "mariel@gmail.com", 19, NOW()),
+("paula_verdugo", "paula123", "paula@gmail.com", 20, NOW()),
+("santiago_rodriguez", "santiago123", "santiago@gmail.com", 21, NOW());
 
 -- PLAYER_TYPES (ID, name_ptypes, life_points, speed)
 INSERT INTO PLAYER_TYPES (name_ptypes, life_points, speed) VALUES
