@@ -9,10 +9,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class Boss : BaseEnemy
 {
-    // the enemies speed is set in the ai path
+    [SerializeField] float maxSpeed = 1.5f;
     [SerializeField] float health = 25;
 
     // to control the animations
@@ -37,6 +38,8 @@ public class Boss : BaseEnemy
     // Values for the healthbar
     private EnemyHealthBar enemyHealthBar;
 
+    private AIPath aiPath;
+
     override protected void Start()
     {
         // make the sprite used to see the gameobject invisible, since we have animations
@@ -53,6 +56,13 @@ public class Boss : BaseEnemy
 
         // Get the spriteRenderer
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        // Get the AIPath
+        aiPath = gameObject.GetComponent<AIPath>();
+
+        aiPath.maxSpeed = maxSpeed;
+
+        InvokeRepeating("StartBulletHell", 3f, 10f);
     }
 
     override protected void Update()
@@ -67,9 +77,9 @@ public class Boss : BaseEnemy
         }
 
         // 3 is the distance at which the boss starts running
-        animator.SetBool("isRunning", (player.transform.position - gameObject.transform.position).magnitude > 3f);
+        animator.SetBool("isRunning", aiPath.desiredVelocity.magnitude > 0);
 
-        Shoot();
+        // Shoot();
     }
     
     void Shoot()
@@ -113,6 +123,10 @@ public class Boss : BaseEnemy
 
     private IEnumerator BulletHell()
     {
+        aiPath.maxSpeed = 0;
+        animator.SetTrigger("shoot1");
+        animator.SetBool("bulletHell", true);
+
         Vector3 shootingOrigin = gameObject.transform.position - new Vector3(0, 0.5f, 0);
         
         for (int angle = 0; angle < 720; angle += 15)
@@ -127,6 +141,9 @@ public class Boss : BaseEnemy
 
             yield return new WaitForSeconds(0.075f);
         }
+
+        animator.SetBool("bulletHell", false);
+        aiPath.maxSpeed = maxSpeed;
     }
 
     public void GetDamaged(float damage)
@@ -136,8 +153,21 @@ public class Boss : BaseEnemy
 
         if (health <= 0)
         {
+            aiPath.maxSpeed = 0;
+            animator.SetTrigger("death");
             Die();
         }
+    }
+
+    override public void Die()
+    {
+        StartCoroutine(DieCoroutine());
+    }
+
+    private IEnumerator DieCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+        DestroyImmediate(gameObject);
     }
 
     private void LookRight()

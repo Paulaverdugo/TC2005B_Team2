@@ -8089,7 +8089,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &718065488
 Transform:
   m_ObjectHideFlags: 0
@@ -9251,8 +9251,9 @@ MonoBehaviour:
   alertedTimeLimit: 10
   startingVisionConeDirection: {x: 0, y: -1, z: 0}
   sightDistance: 0
-  health: 25
-  animator: {fileID: 0}
+  maxSpeed: 2
+  health: 5
+  animator: {fileID: 2000631376}
   bulletPrefab: {fileID: 4115478845011300639, guid: 69ad44bdfbedc41b78bdd2dcc35c8a32, type: 3}
   bulletDamage: 2
 --- !u!114 &2000631369
