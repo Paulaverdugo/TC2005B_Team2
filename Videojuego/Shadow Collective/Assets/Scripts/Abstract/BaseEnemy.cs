@@ -41,7 +41,7 @@ abstract public class BaseEnemy : MonoBehaviour
     protected Vector3 playerLastPos;
 
     // attributes related to the state of the enemy being hacked 
-    protected bool isHacked = false;
+    [System.NonSerialized] public bool isHacked = false;
     protected float hackDuration;
     protected float hackTimer;
 

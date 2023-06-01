@@ -76,7 +76,9 @@ public class Boss : BaseEnemy
 
     override protected void Update()
     {
-        if (isDying) return;
+        base.Update();
+
+        if (isDying | isHacked) return;
 
         if (player.transform.position.x - gameObject.transform.position.x >= 0)
         {
@@ -205,6 +207,33 @@ public class Boss : BaseEnemy
             lookingRight = false;
             spriteRenderer.flipX = true;
         }
+    }
+
+    override public void Hack(float hackDuration_)
+    {
+        print("Hacked");
+        base.Hack(hackDuration_ / 2.5f);
+
+        // stop the bullet hell
+        StopAllCoroutines();
+        CancelInvoke();
+        
+        // hold the guard in place
+        aiPath.maxSpeed = 0;
+        rb.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
+
+        animator.SetBool("isRunning", false);
+    }
+
+    override public void UnHack()
+    {
+        print("UnHacked");
+        base.UnHack();
+
+        InvokeRepeating("StartBulletHell", 3f, 10f);
+
+        aiPath.maxSpeed = maxSpeed;
+        rb.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
     }
 
     // override functions the boss doesn't use from base enemy

@@ -50,4 +50,9 @@ public class EnemyController : MonoBehaviour
     {
         enemyScript.ShowVisionCone();
     }
+
+    public bool IsHacked()
+    {
+        return enemyScript.isHacked;
+    }
 }
