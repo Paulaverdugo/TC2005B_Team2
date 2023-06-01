@@ -62,7 +62,7 @@ public class Boss : BaseEnemy
 
         aiPath.maxSpeed = maxSpeed;
 
-        InvokeRepeating("StartBulletHell", 3f, 10f);
+        InvokeRepeating("StartBulletHell", 5f, 10f);
     }
 
     override protected void Update()
@@ -79,7 +79,7 @@ public class Boss : BaseEnemy
         // 3 is the distance at which the boss starts running
         animator.SetBool("isRunning", aiPath.desiredVelocity.magnitude > 0);
 
-        // Shoot();
+        Shoot();
     }
     
     void Shoot()
@@ -139,7 +139,7 @@ public class Boss : BaseEnemy
             GameObject bullet = Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, angle));
             bullet.GetComponent<BulletBehaviour>().SetDamage(bulletDamage); 
 
-            yield return new WaitForSeconds(0.075f);
+            yield return new WaitForSeconds(0.05f);
         }
 
         animator.SetBool("bulletHell", false);
