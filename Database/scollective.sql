@@ -9,7 +9,6 @@ CREATE TABLE USER_INFO (
     user_password VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
     age SMALLINT UNSIGNED NOT NULL,
-    user_register DATETIME,
     PRIMARY KEY (user_name )
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
