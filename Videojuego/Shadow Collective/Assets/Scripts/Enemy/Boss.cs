@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class Boss : BaseEnemy
 {
-    [SerializeField] float speed = 2;
+    // the enemies speed is set in the ai path
     [SerializeField] float health = 25;
 
     // to control the animations
@@ -23,7 +23,6 @@ public class Boss : BaseEnemy
 
     // to not do anything if the guard is dying
     private bool isDying = false;
-
 
     private float timeSinceLastShot = 0;
 
@@ -40,21 +39,37 @@ public class Boss : BaseEnemy
 
     override protected void Start()
     {
+        // make the sprite used to see the gameobject invisible, since we have animations
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
+
         // Get the Healthbar
         enemyHealthBar = GetComponentInChildren<EnemyHealthBar>();
 
         // Set the healthbar 
         enemyHealthBar.SetMaxHealth(health);
+
+        // Get the rigidbody
+        rb = gameObject.GetComponent<Rigidbody2D>();
+
+        // Get the spriteRenderer
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
-    bool test = true;
     override protected void Update()
     {
-        if (test)
+        if (player.transform.position.x - gameObject.transform.position.x >= 0)
         {
-            StartBulletHell();
-            test = false;
+            LookRight();
         }
+        else
+        {
+            LookLeft();
+        }
+
+        // 3 is the distance at which the boss starts running
+        animator.SetBool("isRunning", (player.transform.position - gameObject.transform.position).magnitude > 3f);
+
+        Shoot();
     }
     
     void Shoot()
@@ -70,7 +85,7 @@ public class Boss : BaseEnemy
             {
                 if (timeSinceLastShot > 0.75f)
                 {
-                    // animator.SetTrigger("shoot");
+                    animator.SetTrigger("shoot2");
                     timeSinceLastShot = 0;
 
                     Vector3 shootingOrigin = gameObject.transform.position - new Vector3(0, 0.5f, 0);
@@ -122,6 +137,24 @@ public class Boss : BaseEnemy
         if (health <= 0)
         {
             Die();
+        }
+    }
+
+    private void LookRight()
+    {
+        if (!lookingRight)
+        {
+            lookingRight = true;
+            spriteRenderer.flipX = false;
+        }
+    }
+
+    private void LookLeft()
+    {
+        if (lookingRight)
+        {
+            lookingRight = false;
+            spriteRenderer.flipX = true;
         }
     }
 
