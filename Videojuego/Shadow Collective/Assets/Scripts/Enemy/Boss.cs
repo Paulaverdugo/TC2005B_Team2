@@ -47,6 +47,9 @@ public class Boss : BaseEnemy
     [SerializeField] GameObject toxicFull;
     [SerializeField] GameObject toxicBridge;
 
+    // the boss is not active until the player gets close
+    private bool isActive = false;
+
     override protected void Start()
     {
         // make the sprite used to see the gameobject invisible, since we have animations
@@ -66,19 +69,25 @@ public class Boss : BaseEnemy
 
         // Get the AIPath
         aiPath = gameObject.GetComponent<AIPath>();
-
-        aiPath.maxSpeed = maxSpeed;
+        aiPath.maxSpeed = 0;
 
         health = maxHealth;
 
-        InvokeRepeating("StartBulletHell", 5f, 10f);
+        animator.SetBool("isRunning", false);
     }
 
     override protected void Update()
     {
         base.Update();
 
-        if (isDying | isHacked) return;
+        if (!isActive && (player.transform.position - gameObject.transform.position).magnitude < 10)
+        {
+            isActive = true;
+            aiPath.maxSpeed = maxSpeed;
+            InvokeRepeating("StartBulletHell", 5f, 10f);
+        }
+
+        if (isDying | isHacked | !isActive) return;
 
         if (player.transform.position.x - gameObject.transform.position.x >= 0)
         {
