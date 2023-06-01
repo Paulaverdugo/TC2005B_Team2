@@ -1,9 +1,12 @@
 import express from "express";
 import bodyParser from "body-parser";
-import cors from "cors";
 import {
     usersRouter,
 } from "./routes/index.js";
+
+import mysql from "mysql2/promise";
+import {ENV, PORT} from "./const.js";
+
 
 const app = express();
 
@@ -26,3 +29,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.listen(8000, () => {
     console.log("Servidor iniciado en el puerto 8000");
 });
+
+//Connect to DB
+async function connectDB() {
+    return await mysql.createConnection(ENV);
+}
