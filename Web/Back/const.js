@@ -1,8 +1,8 @@
 
 export const DEV = {
     host: "localhost",
-    user: "user",
-    password: "password",
+    user: "scollective",
+    password: "Micosis_22",
     database: "scollective",
  };
 

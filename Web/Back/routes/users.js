@@ -8,9 +8,10 @@ import {
 const router = Router();
 
 //All the users info (user_name, user_password, email, age, user_register): getUsersInf()
-router.get("/", async (req, res) => {
+router.get("/all/:username", async (req, res) => {
     try {
-        const data = await getUsersInf();
+        const {username} = req.params;
+        const data = await getUsersInf(username);
         if (!data) {
             res.status(404).json({
                 msg: "No se encontró la información solicitada"
