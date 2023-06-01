@@ -22,9 +22,29 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        ChooseCybergladiator();
-        // ChooseCodebreaker();
-        // ChooseGhostwalker();
+        if (PlayerPrefs.HasKey("player_type"))
+        {
+            string playerType = PlayerPrefs.GetString("player_type");
+
+            if (playerType == "cybergladiator")
+            {
+                ChooseCybergladiator();
+            }
+            else if (playerType == "codebreaker")
+            {
+                ChooseCodebreaker();
+            }
+            else if (playerType == "ghostwalker")
+            {
+                ChooseGhostwalker();
+            }
+        }
+        else // no player pref, choose manually -> done to test
+        {
+            // ChooseCybergladiator();
+            // ChooseCodebreaker();
+            ChooseGhostwalker();
+        }
 
         // -7 and -5 were obtained through trail and error
         Vector2 cursorHotspot = new Vector2(cursorTexture.width / 2 - 7, cursorTexture.height / 2 - 5);
@@ -44,6 +64,11 @@ public class PlayerController : MonoBehaviour
     public void GetDamaged(float damage) 
     {
         playerScript.GetDamaged(damage);
+    }
+
+    public void GetHealed(float health)
+    {
+        playerScript.GetHealed(health);
     }
 
     public BasePlayer GetPlayerScript()

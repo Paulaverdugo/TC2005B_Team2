@@ -42,9 +42,22 @@ public class Cybergladiator : BasePlayer
         shieldAnimation = gameObject.transform.Find("Shield").gameObject;
 
         // to test gadgets
-        gadgets.Add(new CyberDash(this));
-        gadgets.Add(new Overcharge(this));
-        gadgets.Add(new BioStim(this));
+        possibleGadgets = new List<BaseGadget>()
+        {
+            new CyberDash(this),
+            new Overcharge(this),
+            new BioStim(this)
+        };
+
+        PopulateActiveGadgets();
+
+        // for testing
+        activeGadgets.Add(possibleGadgets[0]);
+        activeGadgets[0].StartGadget();
+        activeGadgets.Add(possibleGadgets[1]);
+        activeGadgets[1].StartGadget();
+        activeGadgets.Add(possibleGadgets[2]);
+        activeGadgets[2].StartGadget();
     }
 
     // Update is called once per frame

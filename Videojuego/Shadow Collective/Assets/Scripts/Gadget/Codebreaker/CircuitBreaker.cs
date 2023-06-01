@@ -20,13 +20,7 @@ public class CircuitBreaker : BaseGadget
 {
     public CircuitBreaker(BasePlayer player_) : base(player_)
     {
-        keyBinded = KeyCode.Q;
-
-        abilityCooldown = 10f;
-        abilityRadius = 7f;
-        cooldownTimer = abilityCooldown;
-
-        soundPlayer = UnityEngine.Object.Instantiate(Resources.Load("CircuitBreakerPlayer") as GameObject).GetComponent<CircuitBreakerPlayer>();
+        
     }
     
     float abilityCooldown;
@@ -35,9 +29,15 @@ public class CircuitBreaker : BaseGadget
     
     CircuitBreakerPlayer soundPlayer;
 
-    override public void ResetGadget()
+    override public void StartGadget()
     {
-        
+        keyBinded = KeyCode.Q;
+
+        abilityCooldown = 10f;
+        abilityRadius = 7f;
+        cooldownTimer = abilityCooldown;
+
+        soundPlayer = UnityEngine.Object.Instantiate(Resources.Load("CircuitBreakerPlayer") as GameObject).GetComponent<CircuitBreakerPlayer>();
     }
 
     override public void UpdateGadget(float deltaTime)

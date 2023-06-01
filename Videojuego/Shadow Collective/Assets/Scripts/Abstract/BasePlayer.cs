@@ -55,12 +55,15 @@ abstract public class BasePlayer : MonoBehaviour
     protected float timeSinceLastShot;
 
     // Base player gadgets
-    protected List<BaseGadget> gadgets;
+    protected List<BaseGadget> activeGadgets;
+    protected List<BaseGadget> possibleGadgets;
+    protected GadgetsPlayerPrefs gadgetsPlayerPrefs;
 
     // Start is called before the first frame update
     virtual protected void Start()
     {
-        gadgets = new List<BaseGadget>();
+        activeGadgets = new List<BaseGadget>();
+        gadgetsPlayerPrefs = new GadgetsPlayerPrefs();
 
         // make the sprite used to see the gameobject invisible, since we have animations
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
@@ -83,7 +86,7 @@ abstract public class BasePlayer : MonoBehaviour
         Shoot();
         FaceMouse();
 
-        foreach (BaseGadget gadget in gadgets)
+        foreach (BaseGadget gadget in activeGadgets)
         {
             gadget.UpdateGadget(Time.deltaTime);
         }
@@ -133,12 +136,12 @@ abstract public class BasePlayer : MonoBehaviour
                 float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
                 // we add the direction * offset to not hit own player's hitbox
-                Vector3 launchPosition = shootingOrigin + direction * .8f;
+                Vector3 launchPosition = shootingOrigin + direction * 0.9f;
 
 
                 float tmpDamage = damage;
 
-                foreach (BaseGadget gadget in gadgets)
+                foreach (BaseGadget gadget in activeGadgets)
                 {
                     tmpDamage *= gadget.DamageMultiplier();
                 }
@@ -181,7 +184,12 @@ abstract public class BasePlayer : MonoBehaviour
         {
             health = maxHealth;
         }
+        healthBar.SetHealth(health);
+    }
 
+    virtual public void GetHealed(float healingAmount)
+    {
+        health += healingAmount;
         healthBar.SetHealth(health);
     }
 
@@ -215,5 +223,31 @@ abstract public class BasePlayer : MonoBehaviour
         {
             spriteRenderer.flipX = true;
         }
+    }
+
+    protected void PopulateActiveGadgets()
+    {
+        if (PlayerPrefs.HasKey("gadgets"))
+        {
+            string saveJson = PlayerPrefs.GetString("gadgets");
+            gadgetsPlayerPrefs = JsonUtility.FromJson<GadgetsPlayerPrefs>(saveJson);
+
+            if (gadgetsPlayerPrefs.hasGadgetOne)
+            {
+                activeGadgets.Add(possibleGadgets[0]);
+                possibleGadgets[0].StartGadget();
+            }
+
+            if (gadgetsPlayerPrefs.hasGadgetTwo)
+            {
+                activeGadgets.Add(possibleGadgets[1]);
+                possibleGadgets[1].StartGadget();
+            }
+            if (gadgetsPlayerPrefs.hasGadgetThree)
+            {
+                activeGadgets.Add(possibleGadgets[2]);
+                possibleGadgets[2].StartGadget();
+            }  
+        } 
     }
 }

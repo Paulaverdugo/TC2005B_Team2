@@ -30,9 +30,22 @@ public class Codebreaker : BasePlayer
         visualHackTargetAim.SetActive(false);
 
         // to test gadgets
-        gadgets.Add(new ShadowVeil(this));
-        gadgets.Add(new CircuitBreaker(this));
-        gadgets.Add(new PhantomSignal(this));
+        possibleGadgets = new List<BaseGadget>()
+        {
+            new ShadowVeil(this),
+            new CircuitBreaker(this),
+            new PhantomSignal(this)
+        };
+
+        PopulateActiveGadgets();
+
+        // for testing
+        activeGadgets.Add(possibleGadgets[0]);
+        activeGadgets[0].StartGadget();
+        activeGadgets.Add(possibleGadgets[1]);
+        activeGadgets[1].StartGadget();
+        activeGadgets.Add(possibleGadgets[2]);
+        activeGadgets[2].StartGadget();
     }
 
     // Update is called once per frame
@@ -53,11 +66,18 @@ public class Codebreaker : BasePlayer
             // check the distance of all enemies and find the nearest
             foreach (GameObject enemy in enemies)
             {
-                float distance = (enemy.transform.position - gameObject.transform.position).magnitude;
-                if (distance < closestDistance)
+                if (enemy == null)
                 {
-                    closestDistance = distance;
-                    closest = enemy;
+                    enemies.Remove(enemy);
+                } 
+                else
+                {
+                    float distance = (enemy.transform.position - gameObject.transform.position).magnitude;
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closest = enemy;
+                    }
                 }
             }
 
@@ -113,7 +133,7 @@ public class Codebreaker : BasePlayer
         // only check if a gadget can save the player from being seen if it is visible
         if (!isVisible) return false;
 
-        foreach (BaseGadget gadget in gadgets)
+        foreach (BaseGadget gadget in activeGadgets)
         {
             if (!gadget.CheckVisibility(enemy)) return false;
         }

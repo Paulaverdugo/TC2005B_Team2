@@ -67,11 +67,10 @@ router.post("/createUser", async (req, res) => {
         console.log("Error: ", error);
         res.status(500).json({
             msg: "Error", error,
+
         });
     }
 });
-
-
 
 export default router;
 

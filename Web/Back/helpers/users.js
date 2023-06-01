@@ -40,4 +40,4 @@ export async function updatePassword(data) {
     return res
 }
 
- 
+

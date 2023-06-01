@@ -30,10 +30,22 @@ public class Ghostwalker : BasePlayer
 
         cooldownTimer = invisibilityCooldown;
 
-        // to test gadgets
-        gadgets.Add(new PhantomStep(this));
-        gadgets.Add(new GhostBlade(this));
-        gadgets.Add(new GhostVision(this));
+        possibleGadgets = new List<BaseGadget>()
+        {
+            new PhantomStep(this),
+            new GhostBlade(this),
+            new GhostVision(this)
+        };
+
+        PopulateActiveGadgets();
+
+        // for testing
+        activeGadgets.Add(possibleGadgets[0]);
+        activeGadgets[0].StartGadget();
+        activeGadgets.Add(possibleGadgets[1]);
+        activeGadgets[1].StartGadget();
+        activeGadgets.Add(possibleGadgets[2]);
+        activeGadgets[2].StartGadget();
     }
 
     // Update is called once per frame
