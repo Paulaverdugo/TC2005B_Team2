@@ -90,7 +90,8 @@ CREATE TABLE WINS (
 -- Winner user 
 CREATE VIEW WINNER_USER AS 
 SELECT user_name, COUNT(user_name) AS user_wins FROM WINS
-GROUP BY user_name;
+GROUP BY user_name
+LIMIT 3;
 
 -- Winner playertype 
 CREATE VIEW WINNER_PLAYERTYPE AS 
@@ -108,7 +109,8 @@ CREATE VIEW MOST_GADGET AS
 SELECT gadget_name, COUNT(gadget_id) AS most_gadget FROM CHOSEN_GADGET
 INNER JOIN GADGET ON CHOSEN_GADGET.gadget_id = GADGET.id_gadget
 GROUP BY gadget_id
-ORDER BY most_gadget DESC;
+ORDER BY most_gadget DESC
+LIMIT 3;
 
 --
 -- VIEWS FOR GET()
@@ -118,18 +120,7 @@ ORDER BY most_gadget DESC;
 CREATE VIEW GETUSER AS
 SELECT user_name, user_password FROM USER_INFO;
 
--- GADGET
--- CREATE VIEW GADGET_INF AS
 
--- SELECT * FROM scollective.MOST_GADGET
--- CREATE VIEW GETUSER AS
--- SELECT user_name, user_password FROM USER_INFO;
-
-
--- CREATE VIEW HELPER AS 
-SELECT * FROM scollective.PROGRESS
-WHERE scollective.PROGRESS.id_progress = (SELECT MAX(id_progress) FROM scollective.PROGRESS 
-WHERE scollective.PROGRESS.user_name = 'andres_tarazona');
 
 
 

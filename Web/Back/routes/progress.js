@@ -1,17 +1,16 @@
 import { Router } from 'express';
+
 import {
-    getUsersInf,
-    getUser,
-    addUser
-} from "../helpers/users.js"
+    getUserProgress,
+    getProgressGadget,
+    addProgress
+} from "../helpers/progress.js"
 
-const router = Router();
-
-//All the users info (user_name, user_password, email, age, user_register): getUsersInf()
-router.get("/all/:username", async (req, res) => {
+//Get User progress: getUserProgress
+router.get("/:uprogress", async (req, res) => {
     try {
         const {username} = req.params;
-        const data = await getUsersInf(username);
+        const data = await getUserProgress(username);
         if (!data) {
             res.status(404).json({
                 msg: "Not found"
@@ -27,12 +26,11 @@ router.get("/all/:username", async (req, res) => {
     }
 });
 
-
-//Get login info (username and password): getUser
-router.get("/:username", async (req, res) => {
+//Get the user gadget: getProgressGadget
+router.get("/:pgadget", async (req, res) => {
     try {
         const {username} = req.params;
-        const data = await getUser(username);
+        const data = await getProgressGadget(username);
         if (!data) {
             res.status(404).json({
                 msg: "Not found"
@@ -48,30 +46,27 @@ router.get("/:username", async (req, res) => {
     }
 });
 
-
-//Create User (user_name, user_password, email, age, user_register): addUser
-router.post("/createUser", async (req, res) => {
+//Create a new progress: addProgress
+router.post("/newProgress", async (req, res) => {
     try {
-        const {user_name, user_password, email, age} = req.body;
-        const data = await addUser(user_name, user_password, email, age);
+        const {level_achieved, user_name, player_type, life_points} = req.body;
+        const data = await addProgress(level_achieved, user_name, player_type, life_points);
         if (!data) {
             res.status(404).json({
-                msg: "Not found"
+                msg: "Error in saving progress"
             });
             return;
         }
         res.status(200).json({
-            msg: "Usuario created",
+            msg: "Progress saved",
             data,
         });
     } catch (error) {
         console.log("Error: ", error);
         res.status(500).json({
             msg: "Error", error,
-
         });
     }
 });
 
 export default router;
-
