@@ -3427,10 +3427,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b8bc81507b64419c91371fe8ef94cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  username: {fileID: 0}
-  email: {fileID: 0}
-  password: {fileID: 0}
-  age: {fileID: 0}
+  username: {fileID: 1296487030}
+  password: {fileID: 71399308}
+  email: {fileID: 1610125553}
+  age: {fileID: 977188793}
 --- !u!1 &1916410634
 GameObject:
   m_ObjectHideFlags: 0

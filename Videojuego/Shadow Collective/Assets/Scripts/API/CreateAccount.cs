@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Networking;
 
 public class CreateAccount : MonoBehaviour
 {
@@ -18,13 +19,41 @@ public class CreateAccount : MonoBehaviour
 
     void Start()
     {
-        // print(ApiConstants.URI + ":" + ApiConstants.PORT + "/createAccount");
         gameObject.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(TaskOnClick);
     }
 
     void TaskOnClick()
     {
-        // print(ApiConstants.URI + ":" + ApiConstants.PORT + "/createAccount");
-        print(username.text);
+        StartCoroutine(AddUser());
+    }
+
+    private IEnumerator AddUser()
+    {
+        User newUser = new User();
+
+        newUser.user_name = username.text;
+        newUser.user_password = password.text;
+        newUser.email = email.text;
+        newUser.age = age.text;
+        
+        string jsonUser = JsonUtility.ToJson(newUser);
+
+        string ep = ApiConstants.URI + ":" + ApiConstants.PORT + "/users/createUser";
+
+        // even though the API is a post, we use webrequest's put and later define the method as post
+        using (UnityWebRequest www = UnityWebRequest.Put(ep, jsonUser))
+        {
+            //UnityWebRequest www = UnityWebRequest.Post(url + getUsersEP, form);
+            // Set the method later, and indicate the encoding is JSON
+            www.method = "POST";
+            www.SetRequestHeader("Content-Type", "application/json");
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success) {
+                Debug.Log("Response: " + www.downloadHandler.text);
+            } else {
+                Debug.Log("Error: " + www.error);
+            }
+        }
     }
 }
