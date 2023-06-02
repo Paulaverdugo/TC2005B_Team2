@@ -42,8 +42,8 @@ public class PlayerController : MonoBehaviour
         else // no player pref, choose manually -> done to test
         {
             // ChooseCybergladiator();
-            ChooseCodebreaker();
-            // ChooseGhostwalker();
+            // ChooseCodebreaker();
+            ChooseGhostwalker();
         }
 
         // -7 and -5 were obtained through trail and error

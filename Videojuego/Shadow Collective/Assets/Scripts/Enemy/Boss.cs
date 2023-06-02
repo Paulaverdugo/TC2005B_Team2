@@ -13,8 +13,8 @@ using Pathfinding;
 
 public class Boss : BaseEnemy
 {
-    [SerializeField] float maxSpeed = 1.5f;
-    [SerializeField] float maxHealth = 25;
+    [SerializeField] float maxSpeed = 1.7f;
+    [SerializeField] float maxHealth = 60;
     private float health;
 
     // to control the animations
@@ -30,8 +30,9 @@ public class Boss : BaseEnemy
 
     //Bullet values
     [SerializeField] GameObject bulletPrefab;
-    [SerializeField] float bulletDamage = 2;
+    [SerializeField] float bulletDamage = 3;
     private float shootOffset = 1.75f;
+    private float shootCooldown = 0.7f;
 
     // Value to flip the sprite
     private Rigidbody2D rb;
@@ -49,6 +50,9 @@ public class Boss : BaseEnemy
 
     // the boss is not active until the player gets close
     private bool isActive = false;
+
+    // we shouldnt change the boss' speed if it's doing its bullet hell ability
+    private bool isDoingBulletHell = false;
 
     override protected void Start()
     {
@@ -78,8 +82,8 @@ public class Boss : BaseEnemy
 
     override protected void Update()
     {
-        base.Update();
 
+        // activate the boss when the player comes near
         if (!isActive && (player.transform.position - gameObject.transform.position).magnitude < 10)
         {
             isActive = true;
@@ -113,27 +117,26 @@ public class Boss : BaseEnemy
         if(hit.collider != null && GameObject.ReferenceEquals(hit.collider.gameObject, player))
         {
             // checking the visibility has to be done after checking if there is line of sight, since there is a gadget that can hack you when you make this call
-            if (playerController.CheckVisibility(gameObject))
+            if (timeSinceLastShot > 0.6f)
             {
-                if (timeSinceLastShot > 0.75f)
-                {
-                    animator.SetTrigger("shoot2");
-                    timeSinceLastShot = 0;
+                animator.SetTrigger("shoot2");
+                timeSinceLastShot = 0;
 
-                    Vector3 shootingOrigin = gameObject.transform.position - new Vector3(0, 0.5f, 0);
+                Vector3 shootingOrigin = gameObject.transform.position - new Vector3(0, 0.5f, 0);
 
-                    Vector3 direction = new Vector3(player.transform.position.x - shootingOrigin.x, player.transform.position.y - shootingOrigin.y, 0).normalized;
+                Vector3 direction = new Vector3(player.transform.position.x - shootingOrigin.x, player.transform.position.y - shootingOrigin.y, 0).normalized;
 
 
-                    // Change position of shooting point based on the player position.
-                    Vector3 launchPosition = shootingOrigin + direction * shootOffset;
+                // Change position of shooting point based on the player position.
+                Vector3 launchPosition = shootingOrigin + direction * shootOffset;
 
-                    // get the rotation of the bullet gameobject
-                    float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                    
-                    GameObject bullet = Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, rotZ));
-                    bullet.GetComponent<BulletBehaviour>().SetDamage(bulletDamage);
-                }
+                // get the rotation of the bullet gameobject
+                float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                
+                GameObject bullet = Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, rotZ));
+                BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
+                bulletBehaviour.SetDamage(bulletDamage);
+                bulletBehaviour.SetSpeed(12f);
             }
         }
     }
@@ -145,6 +148,7 @@ public class Boss : BaseEnemy
 
     private IEnumerator BulletHell()
     {
+        isDoingBulletHell = true;
         aiPath.maxSpeed = 0;
         animator.SetTrigger("shoot1");
         animator.SetBool("bulletHell", true);
@@ -166,6 +170,7 @@ public class Boss : BaseEnemy
 
         animator.SetBool("bulletHell", false);
         aiPath.maxSpeed = maxSpeed;
+        isDoingBulletHell = false;
     }
 
     public void GetDamaged(float damage)
@@ -173,13 +178,19 @@ public class Boss : BaseEnemy
         health -= damage;
         enemyHealthBar.SetHealth(health);
 
-        if (health <= 0)
+        if (health <= 0 && !isDying)
         {
             Die();
         } 
-        // phase
+
+        // second phase
         else if (health == Mathf.Ceil(maxHealth / 2))
         {
+            maxSpeed *= 1.3f;
+            if (!isDoingBulletHell) aiPath.maxSpeed = maxSpeed;
+
+            shootCooldown = 0.4f;
+
             toxicHalf.SetActive(false);
             toxicFull.SetActive(true);
         }

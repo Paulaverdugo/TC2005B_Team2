@@ -42,4 +42,9 @@ public class BulletBehaviour : MonoBehaviour
     public void SetDamage(float damage) {
         this.damage = damage;
     }
+
+    public void SetSpeed(float speed) 
+    {
+        this.bulletSpeed = speed;
+    }
 }
