@@ -54,6 +54,10 @@ public class Boss : BaseEnemy
     // we shouldnt change the boss' speed if it's doing its bullet hell ability
     private bool isDoingBulletHell = false;
 
+    // spread shot ability
+    private float spreadShotCooldown = 5;
+    private float spreadShotTimer = 0;
+
     override protected void Start()
     {
         // make the sprite used to see the gameobject invisible, since we have animations
@@ -104,6 +108,15 @@ public class Boss : BaseEnemy
 
         // 3 is the distance at which the boss starts running
         animator.SetBool("isRunning", aiPath.desiredVelocity.magnitude > 0);
+
+        spreadShotTimer += Time.deltaTime;
+        if (!isDoingBulletHell && spreadShotTimer > spreadShotCooldown)
+        {
+            spreadShotTimer = 0;
+            SpreadShot();
+
+            spreadShotCooldown = Random.Range(4, 6);
+        }
 
         Shoot();
     }
@@ -254,6 +267,35 @@ public class Boss : BaseEnemy
 
         aiPath.maxSpeed = maxSpeed;
         rb.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    private void SpreadShot()
+    {
+        // defines the angle between shots
+        float angleBetween = 12f;
+
+        animator.SetTrigger("shoot2");
+
+        timeSinceLastShot = 0;
+
+        Vector3 shootingOrigin = gameObject.transform.position - new Vector3(0, 0.5f, 0);
+
+        Vector3 direction = new Vector3(player.transform.position.x - shootingOrigin.x, player.transform.position.y - shootingOrigin.y, 0).normalized;
+
+
+        // Change position of shooting point based on the player position.
+        Vector3 launchPosition = shootingOrigin + direction * shootOffset;
+
+        // get the rotation of the bullet gameobject
+        float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        
+        for (float rotation = rotZ - 2 * angleBetween; rotation <= rotZ + 2 * angleBetween; rotation += angleBetween)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, rotation));
+            BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
+            bulletBehaviour.SetDamage(bulletDamage);
+            bulletBehaviour.SetSpeed(8f);
+        }
     }
 
     // override functions the boss doesn't use from base enemy
