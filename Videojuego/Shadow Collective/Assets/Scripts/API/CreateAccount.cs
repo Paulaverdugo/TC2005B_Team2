@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Networking;
+using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class CreateAccount : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class CreateAccount : MonoBehaviour
     [SerializeField] private TMP_InputField password;
     [SerializeField] private TMP_InputField email;
     [SerializeField] private TMP_InputField age;
+    [SerializeField] private GameObject errorMessage;
 
     void Start()
     {
@@ -49,10 +52,16 @@ public class CreateAccount : MonoBehaviour
             www.SetRequestHeader("Content-Type", "application/json");
             yield return www.SendWebRequest();
 
-            if (www.result == UnityWebRequest.Result.Success) {
-                Debug.Log("Response: " + www.downloadHandler.text);
+            if (www.result == UnityWebRequest.Result.Success) 
+            {
+                // consider after creating user taking the user to the game instead of the log in screen
+                // in that case ADD THE USER_NAME TO PLAYER PREFS
+                SceneManager.LoadScene("LogIn");
             } else {
-                Debug.Log("Error: " + www.error);
+                // Useful to debug:
+                // EditorUtility.DisplayDialog("Error", "Error: " + www.error, "Ok");
+
+                errorMessage.SetActive(true);
             }
         }
     }
