@@ -41,7 +41,7 @@ public class CreateAccount : MonoBehaviour
         
         string jsonUser = JsonUtility.ToJson(newUser);
 
-        string ep = ApiConstants.URI + ":" + ApiConstants.PORT + "/users/createUser";
+        string ep = ApiConstants.URL + "/users/createUser";
 
         // even though the API is a post, we use webrequest's put and later define the method as post
         using (UnityWebRequest www = UnityWebRequest.Put(ep, jsonUser))

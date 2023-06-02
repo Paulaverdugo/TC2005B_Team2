@@ -4,8 +4,7 @@
 
 public static class ApiConstants
 {
-    public static string URI = "http://localhost";
-    public static string PORT = "8000";
+    public static string URL = "http://localhost:8000";
 }
 
 public class User
