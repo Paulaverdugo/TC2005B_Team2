@@ -36,6 +36,11 @@ public class EnemyController : MonoBehaviour
         return enemyScript.GetType() == typeof(Guard);
     }
 
+    public bool IsBoss()
+    {
+        return enemyScript.GetType() == typeof(Boss);
+    }
+
     public void Die()
     {
         enemyScript.Die();
@@ -44,5 +49,10 @@ public class EnemyController : MonoBehaviour
     public void ShowVisionCone()
     {
         enemyScript.ShowVisionCone();
+    }
+
+    public bool IsHacked()
+    {
+        return enemyScript.isHacked;
     }
 }

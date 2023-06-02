@@ -217,7 +217,6 @@ public class Guard : BaseEnemy
                 }
             }
         }
-
     }
 
     virtual public void GetDamaged(float damage)
