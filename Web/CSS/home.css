@@ -4,22 +4,22 @@
 
 @font-face {
   font-family: cyberbold;
-  src: url("../fonts/Cyber-Bold.ttf");
+  src: url("../Fonts/Cyber-Bold.ttf");
 }
 
 @font-face {
   font-family: cyber;
-  src: url("../fonts/Cyber.ttf");
+  src: url("../Fonts/Cyber.ttf");
 }
 
 @font-face {
   font-family: cyberitalic;
-  src: url("../fonts/Cyber-Italic.ttf");
+  src: url("../Fonts/Cyber-Italic.ttf");
 }
 
 @font-face {
   font-family: code;
-  src: url("../Fonts/Code\ 8x8.ttf");
+  src: url("../Fonts/Code.ttf");
 }
 
 .shadow {
@@ -49,12 +49,18 @@
 }
 
 .text-overlay {
+  background-color: transparent;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   color: white;
+}
+
+.text-overlay h2, p {
+  background-color: transparent;
+  text-shadow: #0a0a1f  0px 0px 10px;
 }
 
 .text-overlay h2 {
