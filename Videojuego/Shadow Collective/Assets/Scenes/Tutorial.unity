@@ -166,6 +166,48 @@ MonoBehaviour:
   wordSpeed: 0.001
   playerIsClose: 0
   StartDisplay: 0
+--- !u!70 &61021734
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61021729}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.72, y: 1.08}
+  m_Direction: 0
+--- !u!61 &61021735
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61021729}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.72, y: 1.08}
+    newSize: {x: 0.72, y: 1.08}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.72, y: 1.08}
+  m_EdgeRadius: 0
 --- !u!1001 &118897580
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -811,7 +853,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3335083352849591753, guid: 6cc95adbef0bc46539c66ef652cb4799, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.55
+      value: -2.28
       objectReference: {fileID: 0}
     - target: {fileID: 3335083352849591753, guid: 6cc95adbef0bc46539c66ef652cb4799, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1676,7 +1718,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: -132133073, guid: b8c9effd87f07451ebcbf3871819a234, type: 3}
       - {fileID: -1149349578, guid: b8c9effd87f07451ebcbf3871819a234, type: 3}
-      m_AnimationSpeed: 5.9462986
+      m_AnimationSpeed: 7.6336126
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -8, y: 2, z: 0}
@@ -9526,11 +9568,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3461760467071314566, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.437706
+      value: 11.52
       objectReference: {fileID: 0}
     - target: {fileID: 3461760467071314566, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.49312
+      value: 11.1
       objectReference: {fileID: 0}
     - target: {fileID: 3461760467071314566, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9595,11 +9637,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 478755693248859447, guid: ddeaba35b26dc41f0abe0ad98a8cf11d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12
+      value: -9.61
       objectReference: {fileID: 0}
     - target: {fileID: 478755693248859447, guid: ddeaba35b26dc41f0abe0ad98a8cf11d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.46
+      value: 8.93
       objectReference: {fileID: 0}
     - target: {fileID: 478755693248859447, guid: ddeaba35b26dc41f0abe0ad98a8cf11d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9650,6 +9692,7 @@ GameObject:
   - component: {fileID: 1311426548}
   - component: {fileID: 1311426550}
   - component: {fileID: 1311426549}
+  - component: {fileID: 1311426551}
   m_Layer: 0
   m_Name: Tilemap_ToxicTiles2
   m_TagString: Untagged
@@ -10201,6 +10244,20 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1311426551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311426547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f6d52380039f41059c1193b01a79828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 2
+  damageTimer: 0
 --- !u!1 &1386186910
 GameObject:
   m_ObjectHideFlags: 0
@@ -10625,7 +10682,7 @@ Tilemap:
       - {fileID: -387167119, guid: b8c9effd87f07451ebcbf3871819a234, type: 3}
       - {fileID: -878475320, guid: b8c9effd87f07451ebcbf3871819a234, type: 3}
       - {fileID: 96317170, guid: b8c9effd87f07451ebcbf3871819a234, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 16, y: 11, z: 0}
@@ -13702,6 +13759,7 @@ GameObject:
   - component: {fileID: 1767450050}
   - component: {fileID: 1767450052}
   - component: {fileID: 1767450051}
+  - component: {fileID: 1767450053}
   m_Layer: 0
   m_Name: Tilemap_ToxicTiles1
   m_TagString: Untagged
@@ -14293,6 +14351,20 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1767450053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767450049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f6d52380039f41059c1193b01a79828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  damageTimer: 0
 --- !u!4 &1790852354 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 868443037903820324, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
