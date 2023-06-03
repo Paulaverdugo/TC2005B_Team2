@@ -28,7 +28,7 @@ public class ShadowVeil : BaseGadget
 
     override public bool CheckVisibility(GameObject enemy)
     {
-        if (!hasBeenUsed)
+        if (!hasBeenUsed && !enemy.GetComponent<EnemyController>().IsBoss())
         {   
             hasBeenUsed = true;
 

@@ -123,7 +123,10 @@ public class Codebreaker : BasePlayer
         visualHackTargetHacked.SetActive(true);
         visualHackTargetHacked.transform.position = enemy.transform.position;
 
-        yield return new WaitForSeconds(hackingDuration);
+        while (hackedEnemy.IsHacked())
+        {
+            yield return null;
+        }
 
         DestroyImmediate(visualHackTargetHacked);
     }

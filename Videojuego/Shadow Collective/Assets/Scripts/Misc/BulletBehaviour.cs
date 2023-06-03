@@ -29,12 +29,22 @@ public class BulletBehaviour : MonoBehaviour
                 Guard guardScript = (Guard) enemyController.enemyScript;
                 guardScript.GetDamaged(damage);
             }
+            else if (enemyController.IsBoss())
+            {
+                Boss bossScript = (Boss) enemyController.enemyScript;
+                bossScript.GetDamaged(damage);
+            }
         }
 
-        Destroy(gameObject);
+        if (!collision.gameObject.CompareTag("Bullet")) Destroy(gameObject);
     }
 
     public void SetDamage(float damage) {
         this.damage = damage;
+    }
+
+    public void SetSpeed(float speed) 
+    {
+        this.bulletSpeed = speed;
     }
 }

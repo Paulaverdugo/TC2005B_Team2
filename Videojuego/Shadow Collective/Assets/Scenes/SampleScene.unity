@@ -7977,6 +7977,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guard
       objectReference: {fileID: 0}
+    - target: {fileID: 3461760466696904164, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3461760467071314566, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -8815,6 +8819,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guard Patrol
       objectReference: {fileID: 0}
+    - target: {fileID: 3461760466696904164, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3461760467071314566, guid: 9c583df8c06fb4ed9818c8702b79d78a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -9133,6 +9141,10 @@ PrefabInstance:
     - target: {fileID: 868443037448503870, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
       propertyPath: m_Name
       value: CameraEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 868443037448503870, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 868443037903820320, guid: 83e78f27551e741e2ba2653dc455b4d9, type: 3}
       propertyPath: alertingRadius
