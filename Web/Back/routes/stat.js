@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
 });
 
 //Ranking of playertypes: getTopPT()
-router.get("/", async (req, res) => {
+router.get("/getTopType", async (req, res) => {
     try {
         const data = await getTopPT();
         if (!data) {
@@ -46,7 +46,7 @@ router.get("/", async (req, res) => {
 });
 
 //Top 3 users gadgets: getTopGadgets()
-router.get("/", async (req, res) => {
+router.get("/getTopGadget", async (req, res) => {
     try {
         const data = await getTopGadgets();
         if (!data) {

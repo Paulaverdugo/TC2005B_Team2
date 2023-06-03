@@ -2,6 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import {
     usersRouter,
+    statsRouter,
+    progressRouter,
 } from "./routes/index.js";
 
 import mysql from "mysql2/promise";
@@ -18,14 +20,15 @@ app.get("/", (req, res) => {
 });
 
 // ----  Rutas ---- 
-
 app.use("/users", usersRouter);
+app.use("/stats", statsRouter);
+app.use("/progress", progressRouter);
 
 // ----- Body Parser -----
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.listen(8000, () => {
+app.listen(PORT, () => {
     console.log("Servidor iniciado en el puerto 8000");
 });
 
