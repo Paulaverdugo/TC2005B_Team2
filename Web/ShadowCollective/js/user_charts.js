@@ -49,7 +49,7 @@ const firstChart = new Chart(ctx, {
     }
 });
 
-// To plot data from an API, we first need to fetch a request, and then process the data.
+//  To plot data from an API, we first need to fetch a request, and then process the data.
 try
 {
     const levels_response = await fetch('http://localhost:3002/api/levels',{
