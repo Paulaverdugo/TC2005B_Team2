@@ -1,37 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="../CSS/game.css">
-    <title>Statictics</title>
+<title>Statistics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="../ShadowCollective/css/statistics.css" type="text/css" media="all" />
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<link rel="stylesheet" href="css/chocolat.css" type="text/css" media="all">
+<link href="//fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/user_charts.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script> 
+
 </head>
 <body>
-  <header>
-    <div class="logo">
-        <img src="../Assets/logo.png">
-    </div>
-    <div class="title white bold">
-      <h1>Shadow Collective</h1>
-    </div>
-    <nav>
-      <ul class="nav-links cyber">
-        <li><a href="https://paulaverdugo.github.io/TC2005B_Team2/Web/HTML/home.html">Home</a></li>
-        <li><a href="https://paulaverdugo.github.io/TC2005B_Team2/Web/HTML/game.html">Game</a></li>
-        <li><a href="https://paulaverdugo.github.io/TC2005B_Team2/Web/HTML/statistics.html">Statistics</a></li>
-      </ul>
-    </nav>
-  </header>
+	<div class="banner">
+		<div class="agileinfo-dot">
+			<div class="agileits-logo cyber">
+				<h1><a href="home.html">Shadow Collective </a></h1>
+			</div>
+			<div class="header-top">
+				<div class="container">
+					<div class="header-top-info">
+						<nav class="navbar navbar-default">
+							<!-- Responsive -->
+							<div class="navbar-header">
+								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+							</div>
 
-      <div class="leaderboard white bold">
-        <h1>Leaderboard</h1>
-      </div>
-      <div class="gadgets_leaderboard white bold">
-        <h1>Most Used Gadgets</h1>
-      </div>
-      
+							<!-- Collect the nav links, forms, and other content for toggling -->
+							<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+								<nav>
+                                    <!-- Home: Home, Welcome, Team-->
+                                    <!-- Game: Play-->
+                                    <!-- Statistics: LeaderBoards 1, 2, 3-->
+									<ul class="nav navbar-nav">
+										<li class="active"><a href="home.html">Home</a></li>
+										<li><a href="#about" class="scroll">Welcome</a></li>
+										<li><a href="#team" class="scroll">Team</a></li>
+										<!-- <li><a href="#blog" class="scroll">Blog</a></li> -->
+                                        <li><a href="https://paulaverdugo.github.io/TC2005B_Team2/Web/HTML/game.html">Game</a></li>
+                                        <li><a href="https://paulaverdugo.github.io/TC2005B_Team2/Web/HTML/statistics.html">Statistics</a></li>
+									</ul>
+								</nav>
+							</div>
+							<!-- /.navbar-collapse -->
+						</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //banner -->
 
+	
 
-</body>
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container">
+			<p class="footer-class">© 2023 Shadow Collective.</p>
+		</div>
+	</div>
+	<!-- //copyright -->
+	<script src="js/jarallax.js"></script>
+	<!-- <script src="js/SmoothScroll.min.js"></script> -->
+	<script type="text/javascript">
+		/* init Jarallax */
+		$('.jarallax').jarallax({
+			speed: 0.5,
+			imgWidth: 1366,
+			imgHeight: 768
+		})
+	</script>
+	<script src="js/responsiveslides.min.js"></script>
+	<script type="text/javascript" src="js/move-top.js"></script>
+	<script type="text/javascript" src="js/easing.js"></script>
+	<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/
+								
+			$().UItoTop({ easingType: 'easeOutQuart' });
+								
+			});
+	</script>
+	<!-- //here ends scrolling icon -->
+	<!-- Tabs-JavaScript -->
+	<script src="js/jquery.filterizr.js"></script>
+		<script src="js/controls.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('.filtr-container').filterizr();
+			});
+		</script>
+	<!-- //Tabs-JavaScript -->
+	<!-- PopUp-Box-JavaScript -->
+		<script src="js/jquery.chocolat.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('.filtr-item a').Chocolat();
+			});
+		</script>
+	<!-- //PopUp-Box-JavaScript -->
+</body>	
 </html>
