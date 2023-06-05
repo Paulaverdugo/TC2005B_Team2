@@ -16,7 +16,7 @@ app.use(express.json());
 
 //Ruta por defualt
 app.get("/", (req, res) => {
-    res.send("Servidor trabajando en el puerto 8000");
+    res.send(`Servidor trabajando en el puerto ${PORT}`);
 });
 
 // ----  Rutas ---- 
