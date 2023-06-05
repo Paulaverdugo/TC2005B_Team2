@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.listen(PORT, () => {
-    console.log("Servidor iniciado en el puerto 8000");
+    console.log(`Servidor iniciado en el puerto ${PORT}`);
 });
 
 //Connect to DB
