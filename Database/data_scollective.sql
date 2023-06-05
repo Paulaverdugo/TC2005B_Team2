@@ -14,14 +14,6 @@ INSERT INTO PLAYER_TYPES (name_ptypes, life_points, speed) VALUES
 ("Codebreaker", 2, 20),
 ("Ghostwalker", 3, 3);
 
--- LIFE (ID, life_points, life_stamp)
-INSERT INTO LIFE (life_points, life_stamp) VALUES
-(1, "2023-05-30 09:30:01"),
-(5, "2023-05-30 09:30:01"),
-(7, "2023-05-30 09:30:01"),
-(2, "2023-05-30 09:30:01"),
-(3, "2023-05-30 09:30:01");
-
 -- GADGET (ID, gadget_name, gadget_description, player_type)
 INSERT INTO GADGET (gadget_name, gadget_description, player_type) VALUES
 ("Cyber Rush", "A dash ability", 1),
@@ -47,18 +39,18 @@ INSERT INTO PLAYER (last_connection, user_name, player_type) VALUES
 ("2023-04-21", "santiago_rodriguez", 3),
 ("2023-04-21", "santiago_rodriguez", 2);
 
--- PROGRESS (ID, level_achieved, user_name, player_type, life_points)
-INSERT INTO PROGRESS (level_achieved, user_name, player_type, life_points) VALUES
-(3, "andres_tarazona", 1, 1),
-(3, "andres_tarazona", 1, 1),
-(3, "andres_tarazona", 1, 3),
-(2, "dulce_garcia", 3, 2),
-(2, "dulce_garcia", 2, 2),
-(2,  "mariel_gomez", 3, 3),
-(1, "paula_verdugo", 1, 4),
-(2, "paula_verdugo", 2, 4),
-(2, "santiago_rodriguez", 3, 5),
-(1, "santiago_rodriguez", 2, 5);
+-- PROGRESS (ID, level_achieved, user_name, player_type)
+INSERT INTO PROGRESS (level_achieved, user_name, player_type) VALUES
+(3, "andres_tarazona", 1),
+(3, "andres_tarazona", 1),
+(3, "andres_tarazona", 1),
+(2, "dulce_garcia", 3),
+(2, "dulce_garcia", 2),
+(2,  "mariel_gomez", 3),
+(1, "paula_verdugo", 1),
+(2, "paula_verdugo", 2),
+(2, "santiago_rodriguez", 3),
+(1, "santiago_rodriguez", 2);
 
 -- CHOSEN_GADGET (ID, progress_id, gadget_id)
 INSERT INTO CHOSEN_GADGET (progress_id, gadget_id) VALUES
@@ -85,7 +77,17 @@ INSERT INTO WINS (user_name, player_type) VALUES
 ("paula_verdugo", 1),
 ("santiago_rodriguez", 2);
 
-
+-- DEADS (ID, user_name, player_type, level_dead)
+INSERT INTO DEADS (user_name, player_type, level_dead) VALUES
+("andres_tarazona", 1, 2),
+("andres_tarazona", 1, 3),
+("andres_tarazona", 3, 1),
+("dulce_garcia", 3, 2),
+("dulce_garcia", 2, 3),
+("mariel_gomez", 3, 1),
+("mariel_gomez", 1, 2),
+("paula_verdugo", 1, 3),
+("santiago_rodriguez", 2, 1);
 
 
 
