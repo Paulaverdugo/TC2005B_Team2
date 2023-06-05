@@ -80,6 +80,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   enemies: []
   healthBar: {fileID: 0}
+  activeClassSkin: {fileID: 21300000, guid: 1022a0ad07f454f1e913c3724f48e18f, type: 3}
   invisibilityDuration: 7
   invisibilityCooldown: 7
 --- !u!114 &7599757514122569820
@@ -101,6 +102,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   enemies: []
   healthBar: {fileID: 0}
+  activeClassSkin: {fileID: 21300000, guid: 4a52fd760709949289d8c1806eb85d05, type: 3}
   shieldDuration: 7
   shieldCooldown: 7
 --- !u!114 &7599757514122569823
@@ -122,6 +124,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   enemies: []
   healthBar: {fileID: 0}
+  activeClassSkin: {fileID: 21300000, guid: ffd820d0d09f3408fb5bc3f59f65713a, type: 3}
   hackCooldown: 7
   hackingRadius: 5
   hackingDuration: 5

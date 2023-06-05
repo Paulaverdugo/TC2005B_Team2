@@ -59,6 +59,9 @@ abstract public class BasePlayer : MonoBehaviour
     protected List<BaseGadget> possibleGadgets;
     protected GadgetsPlayerPrefs gadgetsPlayerPrefs;
 
+    // to show which class is active
+    [SerializeField] public Sprite activeClassSkin;
+
     // Start is called before the first frame update
     virtual protected void Start()
     {

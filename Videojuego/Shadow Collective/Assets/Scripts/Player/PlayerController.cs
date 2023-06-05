@@ -76,6 +76,11 @@ public class PlayerController : MonoBehaviour
         return playerScript;
     }
 
+    public Sprite GetClassSkin()
+    {
+        return playerScript.activeClassSkin;
+    }
+
     // functions to choose a class 
     public void ChooseCodebreaker()
     {

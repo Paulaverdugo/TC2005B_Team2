@@ -1,3 +1,7 @@
+/*
+    Script that handles the class selection for the player
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,7 +38,10 @@ public class SkinManager : MonoBehaviour
     
     public void PlayGame()
     {
-        PrefabUtility.SaveAsPrefabAsset(playerskin, "Assets/PlayerSkin.prefab");
-        //SceneManagement.LoadScene("...");
+        PlayerPrefs.SetString("player_type", skins[selectedSkin].name);
+
+        // HERE IS WHERE WE CREATE A NEW PROGRESS THROUGH THE API
+
+        // SceneManager.LoadScene("Level1");
     }
 }
