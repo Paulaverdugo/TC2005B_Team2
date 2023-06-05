@@ -62,6 +62,10 @@ abstract public class BasePlayer : MonoBehaviour
     // to show which class is active
     [SerializeField] public Sprite activeClassSkin;
 
+    // to skip the level for testing and showcasing -> added by player controller
+    [System.NonSerialized]
+    public LevelEnd skipLevel;
+
     // Start is called before the first frame update
     virtual protected void Start()
     {
@@ -82,6 +86,13 @@ abstract public class BasePlayer : MonoBehaviour
     // Update is called once per frame
     virtual protected void Update()
     {
+        // skip current level for testing and showcasing
+        if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.O))
+        {
+            print("skip level");
+            skipLevel.EndLevel();
+        }
+
         if (isDying) return;
 
         // Move the player
