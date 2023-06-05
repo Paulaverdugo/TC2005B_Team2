@@ -395,13 +395,50 @@
   .about-w3lsrow {
       margin: 4em 0 0 0;
   }
+
+  .centered-images {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+/* .w3about-img .block1 {
+    background-image: url(../images/player.gif)no-repeat 0px 0px;
+    background-size: cover;
+    min-height: 30em;
+    padding: 0;
+    position:relative;
+}
+
+.w3about-img .block2 {
+    background-image: url(../images/minimap.gif)no-repeat 0px 0px;
+    background-size: cover;
+    min-height: 30em;
+    padding: 0;
+    position:relative;
+}
+
+.w3about-img .block3 {
+    background-image: url(../images/minimap.gif)no-repeat 0px 0px;
+    background-size: cover;
+    min-height: 30em;
+    padding: 0;
+    position:relative;
+} */
+
+
+
   .w3about-img {
-      background: url(../images/minimap.gif)no-repeat 0px 0px;
+      background: url(../images/player.gif)no-repeat 0px 0px;
       background-size: cover;
       min-height: 30em;
       padding: 0;
       position:relative;
   }
+
+
+
   .w3about-text {
       background: #f2f2f2;
       position: absolute;
@@ -422,6 +459,9 @@
       margin:1em 0 0 0;
   }
   /*-- //about--*/
+
+
+  
   /*-- markets --*/
   .markets{
       background: #ececec;
@@ -481,6 +521,11 @@
       margin:3em 0 0 0;
   }
   /*-- //markets --*/
+
+
+
+
+
   /*-- portfolio --*/
   .filtr-item {
       padding: 0;
@@ -684,6 +729,11 @@
       background: #fff;
   }
   /*-- //portfolio --*/
+
+
+
+
+
   /*-- model --*/
   .agileits-w3layouts-info img{
       width:100%;
@@ -712,6 +762,10 @@
       line-height: 1.8em;
   }
   /*-- //model --*/
+
+
+
+
   /*-- testimonial --*/
   .testimonial{
       background:url(../images/instructions.png);
@@ -773,6 +827,10 @@
       font-style: italic;
   }
   /*-- //testimonial --*/
+
+
+
+
   /*-- team --*/
   .team-heading h4{
       color: rgba(255, 255, 255, 0.47);
@@ -874,6 +932,9 @@
       bottom: 0%;
   }
   /*-- //team --*/
+
+
+
   /*-- blog --*/
   .blog{
       background: #ececec;
@@ -934,6 +995,9 @@
       line-height: 1.8em;
   }
   /*-- //blog --*/
+
+
+
   /*-- mail --*/
   .w3_mail_grids textarea{
       outline: none;
@@ -1117,6 +1181,10 @@
       transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
   }
   /*-- //mail --*/
+
+
+
+
   /*-- contact --*/ 
   .contact-w3lsleft.map {
       padding: 0;
@@ -1191,6 +1259,11 @@
       margin-bottom: -.5em;
   }
   /*-- //contact --*/
+
+
+
+
+
   /*-- footer --*/ 
   .footer{
       background: #333;
@@ -1300,6 +1373,10 @@
       color: #45668e;
   }
   /*-- //footer --*/
+
+
+
+
   /*-- copyright --*/
   .copyright{
       background:#212121;
@@ -1318,6 +1395,9 @@
       color:#FFFFFF;
   }
   /*-- //copyright --*/
+
+
+
   /*-- to-top --*/
   #toTop {
       display: none;
@@ -1344,6 +1424,11 @@
       filter: alpha(opacity=0);
   }
   /*-- //to-top --*/
+
+
+
+
+
   /*-- responsive --*/
   @media(max-width:1080px){
       .w3about-text {
