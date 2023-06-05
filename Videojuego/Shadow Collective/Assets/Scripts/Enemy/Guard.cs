@@ -56,6 +56,9 @@ public class Guard : BaseEnemy
 
     override protected void Start()
     {   
+        // sprite renderer has to be initialized before base.Start() since it is used in update vision cone, to flip the sprite if necessary
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
         base.Start();
 
         // Get the Healthbar
@@ -67,7 +70,6 @@ public class Guard : BaseEnemy
         // make the sprite used to see the gameobject invisible, since we have animations
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
         
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
         // Get the guardAI component
         guardAI = GetComponent<GuardAI>();
@@ -90,15 +92,6 @@ public class Guard : BaseEnemy
 
         if (isHacked) return;
 
-        if (rb.velocity.x <= 0.1f)
-        {
-            LookLeft();
-        }
-        else if (rb.velocity.x >= 0.1f)
-        {
-            LookRight();
-        }
-
         if (isAlerted)
         {
             MoveToPlayer();
@@ -114,6 +107,8 @@ public class Guard : BaseEnemy
                 returningToStart = false;
                 guardAI.enabled = false;
                 rb.velocity = Vector3.zero;
+
+                UpdateVisionCone(startingVisionConeDirection);
             }
         }
         else
@@ -251,6 +246,20 @@ public class Guard : BaseEnemy
 
         guardAI.target = startingPos;
         returningToStart = true;
+    }
+
+    override protected void UpdateVisionCone(Vector3 direction3)
+    {
+        base.UpdateVisionCone(direction3);
+
+        if (direction3.x >= 0)
+        {
+            LookRight();
+        }
+        else
+        {
+            LookLeft();
+        }
     }
 
     private void LookRight()

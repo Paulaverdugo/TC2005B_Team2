@@ -37,7 +37,7 @@ public class NPC : MonoBehaviour
         }
         if(dialogueText.text == dialogue[index])
         {
-            contButton.SetActive(true);
+            //contButton.SetActive(true);
         }
     }
 

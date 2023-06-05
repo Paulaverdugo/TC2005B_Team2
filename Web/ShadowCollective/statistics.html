@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Statistics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="../ShadowCollective/css/statistics.css" type="text/css" media="all" />
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<link rel="stylesheet" href="css/chocolat.css" type="text/css" media="all">
+<script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.js" integrity="sha512-vCUbejtS+HcWYtDHRF2T5B0BKwVG/CLeuew5uT2AiX4SJ2Wff52+kfgONvtdATqkqQMC9Ye5K+Td0OTaz+P7cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/user_charts.js"></script>
+
+</head>
+<body>
+	<div class="banner">
+		<div class="agileinfo-dot">
+			<div class="agileits-logo cyber">
+				<h1><a href="home.html">Shadow Collective </a></h1>
+			</div>
+			<div class="header-top">
+				<div class="container">
+					<div class="header-top-info">
+						<nav class="navbar navbar-default">
+							<!-- Responsive -->
+							<div class="navbar-header">
+								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+							</div>
+
+							<!-- Collect the nav links, forms, and other content for toggling -->
+							<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+								<nav>
+                                    <!-- Home: Home, Welcome, Team-->
+                                    <!-- Game: Play-->
+                                    <!-- Statistics: LeaderBoards 1, 2, 3-->
+									<ul class="nav navbar-nav">
+										<li class="active"><a href="home.html">Home</a></li>
+										<li><a href="#about" class="scroll">Welcome</a></li>
+										<li><a href="#team" class="scroll">Team</a></li>
+										<!-- <li><a href="#blog" class="scroll">Blog</a></li> -->
+                                        <li><a href="https://paulaverdugo.github.io/TC2005B_Team2/Web/HTML/game.html">Game</a></li>
+                                        <li><a href="https://paulaverdugo.github.io/TC2005B_Team2/Web/HTML/statistics.html">Statistics</a></li>
+									</ul>
+								</nav>
+							</div>
+							<!-- /.navbar-collapse -->
+						</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //banner -->
+  <!--Hello-->
+
+	<!-- stats -->
+    <div class="chart">
+        <h2>Winner Users</h2>
+        <div class="creatingChart">
+            <canvas id="apiChart1" width="600" height="600"></canvas>
+        </div>
+    </div>
+  <!-- //stats -->
+
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container">
+			<p class="footer-class">© 2023 Shadow Collective.</p>
+		</div>
+	</div>
+	<!-- //copyright -->
+	<script src="js/jarallax.js"></script>
+	<!-- <script src="js/SmoothScroll.min.js"></script> -->
+	<script type="text/javascript">
+		/* init Jarallax */
+		$('.jarallax').jarallax({
+			speed: 0.5,
+			imgWidth: 1366,
+			imgHeight: 768
+		})
+	</script>
+	<script src="js/responsiveslides.min.js"></script>
+	<script type="text/javascript" src="js/move-top.js"></script>
+	<script type="text/javascript" src="js/easing.js"></script>
+	<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/
+								
+			$().UItoTop({ easingType: 'easeOutQuart' });
+								
+			});
+	</script>
+	<!-- //here ends scrolling icon -->
+	<!-- Tabs-JavaScript -->
+	<script src="js/jquery.filterizr.js"></script>
+		<script src="js/controls.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('.filtr-container').filterizr();
+			});
+		</script>
+	<!-- //Tabs-JavaScript -->
+	<!-- PopUp-Box-JavaScript -->
+		<script src="js/jquery.chocolat.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('.filtr-item a').Chocolat();
+			});
+		</script>
+	<!-- //PopUp-Box-JavaScript -->
+</body>	
+</html>
