@@ -16,8 +16,6 @@ public class SkinManager : MonoBehaviour
     private int selectedSkin = 0;
     public GameObject playerskin;
 
-    [System.NonSerialized] public string selectedClass;
-
     public void NextOption()
     {
         selectedSkin += 1;
@@ -26,8 +24,6 @@ public class SkinManager : MonoBehaviour
             selectedSkin = 0;
         }
         sr.sprite = skins[selectedSkin];
-        selectedClass = skins[selectedSkin].name;
-        print(selectedClass);
     }
 
     public void BackOption()
@@ -38,13 +34,14 @@ public class SkinManager : MonoBehaviour
             selectedSkin = skins.Count - 1;
         }
         sr.sprite = skins[selectedSkin];
-        selectedClass = skins[selectedSkin].name;
-        print(selectedClass);
     }
     
     public void PlayGame()
     {
-        PlayerPrefs.SetString("player_type", selectedClass);
-        // SceneManager.LoadScene("...");
+        PlayerPrefs.SetString("player_type", skins[selectedSkin].name);
+
+        // HERE IS WHERE WE CREATE A NEW PROGRESS THROUGH THE API
+
+        // SceneManager.LoadScene("Level1");
     }
 }
