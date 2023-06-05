@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Shadow Collective</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<link rel="stylesheet" href="css/chocolat.css" type="text/css" media="all">
+<link href="//fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script> 
+
+</head>
+<body>
+	<div class="banner">
+		<div class="agileinfo-dot">
+			<div class="agileits-logo cyber">
+				<h1><a href="home.html">Shadow Collective </a></h1>
+			</div>
+			<div class="header-top">
+				<div class="container">
+					<div class="header-top-info">
+						<nav class="navbar navbar-default">
+							<!-- Responsive -->
+							<div class="navbar-header">
+								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+							</div>
+
+							<!-- Collect the nav links, forms, and other content for toggling -->
+							<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+								<nav>
+                                    <!-- Home: Home, Welcome, Team-->
+                                    <!-- Game: Play-->
+                                    <!-- Statistics: LeaderBoards 1, 2, 3-->
+									<ul class="nav navbar-nav">
+										<li class="active"><a href="home.html">Home</a></li>
+										<li><a href="#about" class="scroll">Welcome</a></li>
+										<li><a href="#team" class="scroll">Team</a></li>
+										<!-- <li><a href="#blog" class="scroll">Blog</a></li> -->
+                                        <li><a href="https://paulaverdugo.github.io/TC2005B_Team2/Web/HTML/game.html">Game</a></li>
+                                        <li><a href="https://paulaverdugo.github.io/TC2005B_Team2/Web/HTML/statistics.html">Statistics</a></li>
+									</ul>
+								</nav>
+							</div>
+							<!-- /.navbar-collapse -->
+						</nav>
+					</div>
+				</div>
+			</div>
+			<div class="w3layouts-banner-info">
+				<div class="container">
+					<div class="w3layouts-banner-slider">
+						<div class="w3layouts-banner-top-slider">
+							<div class="slider">
+								<div class="callbacks_container">
+									<ul class="rslides callbacks callbacks1" id="slider4">
+										<li>
+											<div class="banner_text">
+												<h3>Be careful with your choice</h3>
+												<p>The character you pick will determine your abilities.  Pick wisely.</p>
+												<div class="w3-button">
+													<a href="#" data-toggle="modal" data-target="#myModal">Play Now</a>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="banner_text">
+												<h3>Try to beat the highest score</h3>
+												<p>Checkout the highest scores and login to beat them.</p>
+												<div class="w3-button">
+													<a href="#" data-toggle="modal" data-target="#myModal">Statistics</a>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="clearfix"> </div>
+								<script src="js/responsiveslides.min.js"></script>
+								<script>
+									// You can also use "$(window).load(function() {"
+									$(function () {
+									  // Slideshow 4
+									  $("#slider4").responsiveSlides({
+										auto: true,
+										pager:true,
+										nav:true,
+										speed: 500,
+										namespace: "callbacks",
+										before: function () {
+										  $('.events').append("<li>before event fired.</li>");
+										},
+										after: function () {
+										  $('.events').append("<li>after event fired.</li>");
+										}
+									  });
+								
+									});
+								 </script>
+								<!--banner Slider starts Here-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //banner -->
+	<!-- about -->
+	<div class="about" id="about"> 
+		<div class="container"> 
+			<div class="welcome">
+				<div class="agileits-title"> 
+					<h2>Welcome</h2>
+                    <p>In Shadow Collective, you will assume the role of a skilled adventurer, chosen to join an elite group known as the Shadow Collective. As a member of this secretive organization, you will undertake perilous quests, engage in strategic battles, and delve into the mysteries of the shadow realm. Discover unique abilities, unlock powerful artifacts, and customize your character to fit your preferred playstyle.</p>
+				</div>
+			</div>
+			<div class="about-w3lsrow"> 
+				<div class="col-md-7 col-sm-7 w3about-img"> 
+					<div class="w3about-text"> 
+						<h5 class="w3l-subtitle">Your Role: </h5>
+                        <p>Your choices and actions will shape the fate of the realm, determining the balance between light and darkness.</p>
+					</div>
+				</div> 
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<!-- //about --> 
+	<!-- markets -->
+	<!-- <div class="markets" id="markets">
+		<div class="container">
+			<div class="agileits-title"> 
+				<h3>Our Services</h3>
+			</div>
+			<div class="markets-grids">
+				<div class="col-md-4 w3ls-markets-grid">
+					<div class="agileits-icon-grid">
+						<div class="icon-left">
+							<i class="fa fa-gamepad" aria-hidden="true"></i>
+						</div>
+						<div class="icon-right">
+							<h5>Suspendisse</h5>
+							<p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat at lectus ullamcorper, nec interdum neque hendrerit.</p>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+				<div class="col-md-4 w3ls-markets-grid">
+					<div class="agileits-icon-grid">
+						<div class="icon-left">
+							<i class="fa fa-trophy" aria-hidden="true"></i>
+						</div>
+						<div class="icon-right">
+							<h5>Aliquam</h5>
+							<p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat at lectus ullamcorper, nec interdum neque hendrerit.</p>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+				<div class="col-md-4 w3ls-markets-grid">
+					<div class="agileits-icon-grid">
+						<div class="icon-left">
+							<i class="fa fa-user" aria-hidden="true"></i>
+						</div>
+						<div class="icon-right">
+							<h5>Consectetur</h5>
+							<p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat at lectus ullamcorper, nec interdum neque hendrerit.</p>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+				<div class="col-md-4 w3ls-markets-grid">
+					<div class="agileits-icon-grid">
+						<div class="icon-left">
+							<i class="fa fa-thumbs-up" aria-hidden="true"></i>
+						</div>
+						<div class="icon-right">
+							<h5>Bibendum</h5>
+							<p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat at lectus ullamcorper, nec interdum neque hendrerit.</p>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+				<div class="col-md-4 w3ls-markets-grid">
+					<div class="agileits-icon-grid">
+						<div class="icon-left">
+							<i class="fa fa-comments" aria-hidden="true"></i>
+						</div>
+						<div class="icon-right">
+							<h5>Vestibulum</h5>
+							<p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat at lectus ullamcorper, nec interdum neque hendrerit.</p>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+				<div class="col-md-4 w3ls-markets-grid">
+					<div class="agileits-icon-grid">
+						<div class="icon-left">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</div>
+						<div class="icon-right">
+							<h5>Fermentum</h5>
+							<p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat at lectus ullamcorper, nec interdum neque hendrerit.</p>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div> -->
+	<!-- //markets -->
+	
+	<!-- modal -->
+	<div class="modal about-modal fade" id="myModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header"> 
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
+					<h4 class="modal-title">Gaming <span>Store</span></h4>
+				</div> 
+				<div class="modal-body">
+					<div class="agileits-w3layouts-info">
+						<img src="../gaming_store-starter/images/Cyberpunk.png" alt="" />
+						<p>Duis venenatis, turpis eu bibendum porttitor, sapien quam ultricies tellus, ac rhoncus risus odio eget nunc. Pellentesque ac fermentum diam. Integer eu facilisis nunc, a iaculis felis. Pellentesque pellentesque tempor enim, in dapibus turpis porttitor quis. Suspendisse ultrices hendrerit massa. Nam id metus id tellus ultrices ullamcorper.  Cras tempor massa luctus, varius lacus sit amet, blandit lorem. Duis auctor in tortor sed tristique. Proin sed finibus sem</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //modal -->
+	<!-- testimonial -->
+	<div class="jarallax testimonial" id="testimonial">
+		<div class="testimonial-dot">
+			<div class="container">
+				<div class="agileits-title testimonial-heading"> 
+					<h3>Testimonial</h3> 
+				</div>
+				<div class="w3-agile-testimonial">
+					<div class="slider">
+						<div class="callbacks_container">
+							<ul class="rslides callbacks callbacks1" id="slider3">
+								<li>
+									<div class="testimonial-img-grid">
+										<div class="testimonial-img t-img1">
+											<img src="images/ts1.jpg" alt="" />
+										</div>
+										<div class="testimonial-img">
+											<img src="images/ts2.jpg" alt="" />
+										</div>
+										<div class="testimonial-img t-img2">
+											<img src="images/ts3.jpg" alt="" />
+										</div>
+										<div class="clearfix"> </div>
+									</div>
+									<div class="testimonial-img-info">
+										<p>Nunc interdum elit nec sapien vehicula, ut blandit nulla ultrices. Sed ullamcorper metus eget efficitur rutrum. Aliquam a nunc odio. Aenean fermentum finibus efficitur.</p>
+										<h5>Peter Guptill</h5>
+										<h6>Proin blandit</h6>
+									</div>
+								</li>
+								<li>
+									<div class="testimonial-img-grid">
+										<div class="testimonial-img t-img1">
+											<img src="images/ts2.jpg" alt="" />
+										</div>
+										<div class="testimonial-img">
+											<img src="images/ts3.jpg" alt="" />
+										</div>
+										<div class="testimonial-img t-img2">
+											<img src="images/ts1.jpg" alt="" />
+										</div>
+										<div class="clearfix"> </div>
+									</div>
+									<div class="testimonial-img-info">
+										<p>Morbi est est, mollis id diam a, pellentesque dignissim lorem. Sed malesuada sed lacus sit amet vestibulum. Sed nibh purus, egestas eu orci vel, mollis interdum orci.</p>
+										<h5>Mary Jane</h5>
+										<h6>Lorem ipsum</h6>
+									</div>
+								</li>
+								<li>
+									<div class="testimonial-img-grid">
+										<div class="testimonial-img t-img1">
+											<img src="images/ts3.jpg" alt="" />
+										</div>
+										<div class="testimonial-img">
+											<img src="images/ts1.jpg" alt="" />
+										</div>
+										<div class="testimonial-img t-img2">
+											<img src="images/ts2.jpg" alt="" />
+										</div>
+										<div class="clearfix"> </div>
+									</div>
+									<div class="testimonial-img-info">
+										<p>Proin blandit rhoncus metus porta tristique. Praesent suscipit in erat a tempor. Nullam tempor lectus ex, a auctor orci ultricies ac. Mauris sapien neque, condimentum sit</p>
+										<h5>Steven Wilson</h5>
+										<h6>Proin blandit</h6>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="clearfix"> </div>
+						<script>
+									// You can also use "$(window).load(function() {"
+									$(function () {
+									  // Slideshow 4
+									  $("#slider3").responsiveSlides({
+										auto: true,
+										pager:false,
+										nav:false,
+										speed: 500,
+										namespace: "callbacks",
+										before: function () {
+										  $('.events').append("<li>before event fired.</li>");
+										},
+										after: function () {
+										  $('.events').append("<li>after event fired.</li>");
+										}
+									  });
+								
+									});
+						</script>
+						<!--banner Slider starts Here-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //testimonial -->
+	<!-- team -->
+	<div class="team" id="team">
+		<div class="container">
+			<div class="agileits-title"> 
+				<h3>Amazing Team</h3> 
+			</div>
+			<div class="agileits-team-grids">
+				<div class="col-md-2 agileits-team-grid">
+					<div class="team-info">
+						<img src="images/t1.jpg" alt="">
+						<div class="team-caption"> 
+							<h4>Santiago</h4>
+							<p>Fusce laoreet</p>
+							<ul>
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-rss"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 agileits-team-grid">
+					<div class="team-info">
+						<img src="images/t2.jpg" alt="">
+						<div class="team-caption"> 
+							<h4>Andrés</h4>
+							<p>Fusce laoreet</p>
+							<ul>
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-rss"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 agileits-team-grid">
+					<div class="team-info">
+						<img src="images/t3.jpg" alt="">
+						<div class="team-caption"> 
+							<h4>Paula</h4>
+							<p>Fusce laoreet</p>
+						</div>
+					</div>
+				</div>
+                <div class="col-md-2 agileits-team-grid">
+					<div class="team-info">
+						<img src="images/t2.jpg" alt="">
+						<div class="team-caption"> 
+							<h4>Mariel</h4>
+							<p>Fusce laoreet</p>
+							<ul>
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-rss"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 agileits-team-grid">
+					<div class="team-info">
+						<img src="images/t4.jpg" alt="">
+						<div class="team-caption"> 
+							<h4>Dulce</h4>
+							<p>Fusce laoreet</p>
+							<ul>
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-rss"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+                <div class="col-md-2 agileits-team-grid">
+					<div class="team-info">
+						<img src="images/t4.jpg" alt="">
+						<div class="team-caption"> 
+							<h4>Shadow</h4>
+							<p>Fusce laoreet</p>
+							<ul>
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-rss"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<!-- //team -->
+	<!-- blog -->
+	<!-- <div id="blog" class="blog">
+		<div class="container"> 
+			<div class="agileits-title">
+				<h3>Our Blog</h3>
+			</div> 
+			<div class="wthree-blog-grids">
+				<div class="col-md-6 w3-agileits-blog-grid">
+					<div class="col-sm-4 col-xs-3 blog-left">
+						<h4>24/01</h4>
+						<ul>
+							<li>Posted : <a href="#">Admin</a></li>
+							<li>Likes : 31<li>
+							<li>Comments : (4)</li>
+						</ul>
+					</div>
+					<div class="col-sm-8 col-xs-9 blog-right">
+						<a href="#" data-toggle="modal" data-target="#myModal">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet luctus gravida.</a>
+						<p>Sed ut feugiat felis. Morbi tempor ut nibh id consectetur. Morbi turpis arcu, interdum at feugiat non, iaculis id dui. Cras vestibulum dapibus volutpat. Fusce id molestie mauris, nec pulvinar nibh. </p>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="col-md-6 w3-agileits-blog-grid">
+					<div class="col-sm-4 col-xs-3 blog-left">
+						<h4>09/12</h4>
+						<ul>
+							<li>Posted : <a href="#">Admin</a></li>
+							<li>Likes : 80<li>
+							<li>Comments : (8)</li>
+						</ul>
+					</div>
+					<div class="col-sm-8 col-xs-9 blog-right">
+						<a href="#" data-toggle="modal" data-target="#myModal">Etiam ut nibh quis magna placerat euismod ac id eros. Cras eleifend nulla vel eros blandit.</a>
+						<p>Duis sodales eleifend laoreet. Vestibulum luctus venenatis massa, in vulputate mi porta ac. Maecenas sollicitudin eros lectus, a rutrum nisi vulputate quis. Proin tempus, lectus vitae gravida</p>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div> -->
+	<!-- //blog -->
+	<!-- footer -->
+	<div class="footer">
+		<div class="container">
+			<div class="footer-top">
+				<div class="col-md-4 amet-sed"> 
+					<div class="footer-title">
+						<h3>About Us</h3>
+					</div> 
+					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+				</div>
+				<div class="col-md-4 amet-sed amet-medium">
+					<div class="footer-title">
+						<h3>Info...</h3>
+					</div> 
+					<p><!--<a href="#">http://example.com</a> --> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt lorem sed velit fermentum eget placerat. </p>
+					<p><!--<a href="#">http://example.com</a> --> Sed tincidunt lorem sed velit fermentum eget placerat. Lorem ipsum dolor sit, consectetur adipiscing elit. </p>
+				</div>
+				<div class="col-md-4 amet-sed ">
+					<div class="footer-title">
+						<h3>Information</h3>
+					</div> 
+					<div class="agileinfo-social-grids">
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<!-- //footer --> 
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container">
+			<p class="footer-class">© 2023 Shadow Collective.</p>
+		</div>
+	</div>
+	<!-- //copyright -->
+	<script src="js/jarallax.js"></script>
+	<!-- <script src="js/SmoothScroll.min.js"></script> -->
+	<script type="text/javascript">
+		/* init Jarallax */
+		$('.jarallax').jarallax({
+			speed: 0.5,
+			imgWidth: 1366,
+			imgHeight: 768
+		})
+	</script>
+	<script src="js/responsiveslides.min.js"></script>
+	<script type="text/javascript" src="js/move-top.js"></script>
+	<script type="text/javascript" src="js/easing.js"></script>
+	<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/
+								
+			$().UItoTop({ easingType: 'easeOutQuart' });
+								
+			});
+	</script>
+	<!-- //here ends scrolling icon -->
+	<!-- Tabs-JavaScript -->
+	<script src="js/jquery.filterizr.js"></script>
+		<script src="js/controls.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('.filtr-container').filterizr();
+			});
+		</script>
+	<!-- //Tabs-JavaScript -->
+	<!-- PopUp-Box-JavaScript -->
+		<script src="js/jquery.chocolat.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('.filtr-item a').Chocolat();
+			});
+		</script>
+	<!-- //PopUp-Box-JavaScript -->
+</body>	
+</html>
