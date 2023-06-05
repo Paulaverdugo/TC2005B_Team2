@@ -14,4 +14,4 @@ export const DEV = {
  };
 
 export const ENV = PROD;
-export const PORT = 8000;
+export const PORT = process.env.PORT || 4000;
