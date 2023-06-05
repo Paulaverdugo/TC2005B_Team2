@@ -1,3 +1,7 @@
+/*
+    Script that handles the class selection for the player
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +16,8 @@ public class SkinManager : MonoBehaviour
     private int selectedSkin = 0;
     public GameObject playerskin;
 
+    [System.NonSerialized] public string selectedClass;
+
     public void NextOption()
     {
         selectedSkin += 1;
@@ -20,6 +26,8 @@ public class SkinManager : MonoBehaviour
             selectedSkin = 0;
         }
         sr.sprite = skins[selectedSkin];
+        selectedClass = skins[selectedSkin].name;
+        print(selectedClass);
     }
 
     public void BackOption()
@@ -30,6 +38,8 @@ public class SkinManager : MonoBehaviour
             selectedSkin = skins.Count - 1;
         }
         sr.sprite = skins[selectedSkin];
+        selectedClass = skins[selectedSkin].name;
+        print(selectedClass);
     }
     
     public void PlayGame()
