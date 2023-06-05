@@ -6,8 +6,10 @@ import {
     addProgress
 } from "../helpers/progress.js"
 
+const router = Router();
+
 //Get User progress: getUserProgress
-router.get("/:uprogress", async (req, res) => {
+router.get("/user/:uprogress", async (req, res) => {
     try {
         const {username} = req.params;
         const data = await getUserProgress(username);
@@ -27,7 +29,7 @@ router.get("/:uprogress", async (req, res) => {
 });
 
 //Get the user gadget: getProgressGadget
-router.get("/:pgadget", async (req, res) => {
+router.get("/gadget/:pgadget", async (req, res) => {
     try {
         const {username} = req.params;
         const data = await getProgressGadget(username);
