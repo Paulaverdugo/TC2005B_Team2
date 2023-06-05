@@ -32,3 +32,26 @@ public class ShortUserList
 {
     public List<ShortUser> users;
 }
+
+[System.Serializable]
+public class ShortProgress
+{
+    public string user_name;
+    public int player_type;
+    public int level_achieved;
+}
+
+[System.Serializable]
+public class Progress
+{
+    public int id_progress;
+    public string user_name;
+    public int player_type;
+    public int level_achieved;
+}
+
+[System.Serializable]
+public class ProgressList
+{
+    public List<Progress> progresses;
+}
