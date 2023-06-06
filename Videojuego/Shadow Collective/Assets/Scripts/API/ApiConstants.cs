@@ -55,3 +55,15 @@ public class ProgressList
 {
     public List<Progress> progresses;
 }
+
+[System.Serializable]
+public class ShortGadget
+{
+    public int id_gadget;
+}
+
+[System.Serializable]
+public class ShortGadgetList
+{
+    public List<ShortGadget> gadgets;
+}

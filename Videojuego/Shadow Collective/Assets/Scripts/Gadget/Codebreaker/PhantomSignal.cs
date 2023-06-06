@@ -13,8 +13,9 @@ public class PhantomSignal : BaseGadget
 {
     public PhantomSignal(BasePlayer player_) : base(player_)
     {
-        
+        id_gadget = 6;
     }
+
 
     bool hasBeenUsed;
 
