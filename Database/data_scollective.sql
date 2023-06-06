@@ -63,7 +63,7 @@ INSERT INTO CHOSEN_GADGET (progress_id, gadget_id) VALUES
 (7, 3),
 (8, 1),
 (9, 2),
-(10, 8);
+(10, 5);
 
 -- WINS (ID, user_name, player_type)
 INSERT INTO WINS (user_name, player_type) VALUES

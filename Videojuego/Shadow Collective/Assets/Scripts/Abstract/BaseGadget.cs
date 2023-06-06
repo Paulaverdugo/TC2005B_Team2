@@ -15,7 +15,7 @@ abstract public class BaseGadget
     }
 
     // gadget id
-    public int id_gadget;
+    public int gadget_id;
 
     protected BasePlayer player;
 

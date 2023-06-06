@@ -59,7 +59,7 @@ public class ProgressList
 [System.Serializable]
 public class ShortGadget
 {
-    public int id_gadget;
+    public int gadget_id;
 }
 
 [System.Serializable]

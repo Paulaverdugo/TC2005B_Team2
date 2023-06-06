@@ -108,6 +108,8 @@ public class Login : MonoBehaviour
                     PlayerPrefs.SetString("player_type", playerType);
                     PlayerPrefs.SetInt("id_progress", progress.id_progress);
 
+                    StartCoroutine(GetGadgets());
+
                     switch (progress.level_achieved)
                     {
                         case 1:
@@ -125,9 +127,30 @@ public class Login : MonoBehaviour
                     }
                 }
             } else {
-                errorMessage.SetActive(true);
-                errorMessage.GetComponent<TMP_Text>().text = "Error! Please try again.";
+                Debug.Log("Error: " + www.error);
             }
         }        
+    }
+
+    private IEnumerator GetGadgets()
+    {
+        string ep = ApiConstants.URL + "/progress/gadget/" + PlayerPrefs.GetString("user_name");
+
+        using (UnityWebRequest www = UnityWebRequest.Get(ep))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success) 
+            {
+                // the response is [] if there is are no active gadgets
+                if (www.downloadHandler.text != "[]")
+                {
+                    string jsonGadgets = "{\"gadgets\":" + www.downloadHandler.text + "}";
+                    PlayerPrefs.SetString("gadgets", jsonGadgets); 
+                }
+            } else {
+                Debug.Log("Error: " + www.error);
+            }
+        }
     }
 }

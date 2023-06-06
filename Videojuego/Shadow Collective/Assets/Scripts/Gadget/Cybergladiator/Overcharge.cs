@@ -13,7 +13,7 @@ public class Overcharge : BaseGadget
     // TO DO -> CONSIDER ALSO SHORTENING THE PLAYER'S FIRE RATE
     public Overcharge(BasePlayer player_) : base(player_)
     {
-        id_gadget = 3;
+        gadget_id = 3;
     }
 
     private float damageMultiplier;

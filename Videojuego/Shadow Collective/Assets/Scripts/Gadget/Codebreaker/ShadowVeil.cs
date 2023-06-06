@@ -12,7 +12,7 @@ public class ShadowVeil : BaseGadget
 {
     public ShadowVeil(BasePlayer player_) : base(player_)
     {
-        id_gadget = 4;
+        gadget_id = 4;
     }
 
     private bool hasBeenUsed;
