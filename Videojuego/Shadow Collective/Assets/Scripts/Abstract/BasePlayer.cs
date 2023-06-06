@@ -242,11 +242,8 @@ abstract public class BasePlayer : MonoBehaviour
         if (PlayerPrefs.HasKey("gadgets"))
         {
             string saveJson = PlayerPrefs.GetString("gadgets");
-            Debug.Log(saveJson);
 
             ShortGadgetList shortGadgetList = JsonUtility.FromJson<ShortGadgetList>(saveJson);
-
-            Debug.Log("Gadget id in shortGadgetList: " + shortGadgetList.gadgets[0].gadget_id);
 
             // for all of the gadgets stored in playerprefs, look for them in possibleGadgets and add them to activeGadgets
             foreach (ShortGadget gadget in shortGadgetList.gadgets)
@@ -255,7 +252,6 @@ abstract public class BasePlayer : MonoBehaviour
                 {
                     if (gadget.gadget_id == possibleGadget.gadget_id)
                     {
-                        Debug.Log("Added gadget to active gadgets");
                         activeGadgets.Add(possibleGadget);
                         possibleGadget.StartGadget();
                     }
