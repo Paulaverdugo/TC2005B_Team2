@@ -3,7 +3,8 @@ import { Router } from 'express';
 import {
     getUserProgress,
     getProgressGadget,
-    addProgress
+    addProgress,
+    updateLevel
 } from "../helpers/progress.js"
 
 const router = Router();
@@ -70,5 +71,29 @@ router.post("/newProgress", async (req, res) => {
         });
     }
 });
+
+//Update level: updateLevel
+router.patch("/updateLevel", async (req, res) => {
+    try {
+        const data = await updateLevel(req.body);
+        if (!data) {
+            res.status(404).json({
+                msg: "Error in upadating level"
+            });
+            return;
+        }
+        res.status(200).json({
+            msg: "Level updated",
+            data,
+        });
+    } catch (error) {
+        console.log("Error: ", error);
+        res.status(500).json({
+            msg: "Error", error,
+        });
+    }
+});
+
+
 
 export default router;

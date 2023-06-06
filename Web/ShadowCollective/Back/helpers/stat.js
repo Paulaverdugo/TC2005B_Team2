@@ -8,10 +8,18 @@ export async function getTopUsers() {
     return res;
 }
 
-//Ranking of playertypes
-export async function getTopPT() {
+//Ranking of playertypes wins 
+export async function getTopPTwins() {
     const db = await connectDB();
     const [res, fields] = await db.execute(`SELECT * FROM scollective.WINNER_PLAYERTYPE`);
+    db.end();
+    return res;
+}
+
+//Ranking of playertypes deads 
+export async function getTopPTdeads() {
+    const db = await connectDB();
+    const [res, fields] = await db.execute(`SELECT * FROM scollective.DEAD_PLAYERTYPE`);
     db.end();
     return res;
 }

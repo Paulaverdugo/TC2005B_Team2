@@ -39,3 +39,15 @@ export async function addProgress(level_achieved, user_name, player_type) {
     db.end();
     return res
 }
+
+//Update level (level_achieved)
+export async function updateLevel(data) {
+    const db = await connectDB();
+    const {level_achieved} = data;
+    const [res] = await db.execute(
+        `UPDATE scollective.PROGRESS SET level_achieved = ? WHERE id_progress = \'${id_progress}\ ` ,
+        [level_achieved]
+    );
+    db.end();
+    return res
+}
