@@ -57,7 +57,6 @@ abstract public class BasePlayer : MonoBehaviour
     // Base player gadgets
     protected List<BaseGadget> activeGadgets;
     protected List<BaseGadget> possibleGadgets;
-    protected GadgetsPlayerPrefs gadgetsPlayerPrefs;
 
     // to show which class is active
     [SerializeField] public Sprite activeClassSkin;
@@ -70,7 +69,6 @@ abstract public class BasePlayer : MonoBehaviour
     virtual protected void Start()
     {
         activeGadgets = new List<BaseGadget>();
-        gadgetsPlayerPrefs = new GadgetsPlayerPrefs();
 
         // make the sprite used to see the gameobject invisible, since we have animations
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
@@ -244,24 +242,21 @@ abstract public class BasePlayer : MonoBehaviour
         if (PlayerPrefs.HasKey("gadgets"))
         {
             string saveJson = PlayerPrefs.GetString("gadgets");
-            gadgetsPlayerPrefs = JsonUtility.FromJson<GadgetsPlayerPrefs>(saveJson);
 
-            if (gadgetsPlayerPrefs.hasGadgetOne)
-            {
-                activeGadgets.Add(possibleGadgets[0]);
-                possibleGadgets[0].StartGadget();
-            }
+            ShortGadgetList shortGadgetList = JsonUtility.FromJson<ShortGadgetList>(saveJson);
 
-            if (gadgetsPlayerPrefs.hasGadgetTwo)
+            // for all of the gadgets stored in playerprefs, look for them in possibleGadgets and add them to activeGadgets
+            foreach (ShortGadget gadget in shortGadgetList.gadgets)
             {
-                activeGadgets.Add(possibleGadgets[1]);
-                possibleGadgets[1].StartGadget();
+                foreach (BaseGadget possibleGadget in possibleGadgets)
+                {
+                    if (gadget.gadget_id == possibleGadget.gadget_id)
+                    {
+                        activeGadgets.Add(possibleGadget);
+                        possibleGadget.StartGadget();
+                    }
+                }
             }
-            if (gadgetsPlayerPrefs.hasGadgetThree)
-            {
-                activeGadgets.Add(possibleGadgets[2]);
-                possibleGadgets[2].StartGadget();
-            }  
         } 
     }
 }

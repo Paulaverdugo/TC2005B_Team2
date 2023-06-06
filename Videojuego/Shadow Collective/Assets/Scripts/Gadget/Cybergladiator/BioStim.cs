@@ -12,7 +12,7 @@ public class BioStim : BaseGadget
 {
     public BioStim(BasePlayer player_) : base(player_)
     {
-
+        gadget_id = 2;
     }
 
     private bool hasBeenUsed;

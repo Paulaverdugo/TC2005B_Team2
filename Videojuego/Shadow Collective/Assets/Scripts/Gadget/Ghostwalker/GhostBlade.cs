@@ -12,7 +12,7 @@ public class GhostBlade : BaseGadget
 {
     public GhostBlade(BasePlayer player_) : base(player_)
     {
-
+        gadget_id = 9;
     }
 
     private bool hasBeenUsed;

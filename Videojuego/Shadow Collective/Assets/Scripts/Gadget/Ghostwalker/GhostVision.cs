@@ -12,7 +12,7 @@ public class GhostVision : BaseGadget
 {
     public GhostVision(BasePlayer player_) : base(player_)
     {
-
+        gadget_id = 7;
     }
 
     private bool hasBeenActivated;

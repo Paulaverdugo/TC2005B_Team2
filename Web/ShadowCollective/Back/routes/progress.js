@@ -9,7 +9,7 @@ import {
 const router = Router();
 
 //Get User progress: getUserProgress
-router.get("/user/:uprogress", async (req, res) => {
+router.get("/user/:username", async (req, res) => {
     try {
         const {username} = req.params;
         const data = await getUserProgress(username);
@@ -29,7 +29,7 @@ router.get("/user/:uprogress", async (req, res) => {
 });
 
 //Get the user gadget: getProgressGadget
-router.get("/gadget/:pgadget", async (req, res) => {
+router.get("/gadget/:username", async (req, res) => {
     try {
         const {username} = req.params;
         const data = await getProgressGadget(username);
@@ -51,8 +51,8 @@ router.get("/gadget/:pgadget", async (req, res) => {
 //Create a new progress: addProgress
 router.post("/newProgress", async (req, res) => {
     try {
-        const {level_achieved, user_name, player_type, life_points} = req.body;
-        const data = await addProgress(level_achieved, user_name, player_type, life_points);
+        const {level_achieved, user_name, player_type} = req.body;
+        const data = await addProgress(level_achieved, user_name, player_type);
         if (!data) {
             res.status(404).json({
                 msg: "Error in saving progress"

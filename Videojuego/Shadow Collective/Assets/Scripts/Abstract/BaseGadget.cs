@@ -14,6 +14,9 @@ abstract public class BaseGadget
         player = player_;
     }
 
+    // gadget id
+    public int gadget_id;
+
     protected BasePlayer player;
 
     // Enter Key to activate gadget

@@ -20,7 +20,7 @@ public class CircuitBreaker : BaseGadget
 {
     public CircuitBreaker(BasePlayer player_) : base(player_)
     {
-        
+        gadget_id = 5;
     }
     
     float abilityCooldown;
