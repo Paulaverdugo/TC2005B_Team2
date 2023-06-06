@@ -86,7 +86,7 @@ public class Boss : BaseEnemy
 
     override protected void Update()
     {
-
+        base.Update();
         // activate the boss when the player comes near
         if (!isActive && (player.transform.position - gameObject.transform.position).magnitude < 10)
         {
@@ -244,12 +244,14 @@ public class Boss : BaseEnemy
 
     override public void Hack(float hackDuration_)
     {
-        print("Hacked");
-        base.Hack(hackDuration_ / 2.5f);
-
         // stop the bullet hell
         StopAllCoroutines();
         CancelInvoke();
+
+
+        print("Hacked");
+        base.Hack(hackDuration_ / 2.5f);
+
         
         // hold the guard in place
         aiPath.maxSpeed = 0;
