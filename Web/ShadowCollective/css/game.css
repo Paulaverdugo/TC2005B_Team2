@@ -380,14 +380,14 @@
   }
   .agileits-title h2,.agileits-title h3{
       font-size: 4em;
-      color: #60698c;
+      color: white;
       margin: 0;
       text-align: center;
-      font-family: cyberustique;
+      font-family: cyberbold;
   }
   .agileits-title p {
       font-size: 1em;
-      color: #595863;
+      color: white;
       line-height: 1.8em;
       margin: 1em auto 0;
       width: 65%;
@@ -400,6 +400,12 @@
     display: flex;
     justify-content: center;
 }
+
+.resized-image {
+    width: 24%; /* Adjust this value as needed */
+    height: auto;
+}
+
 
 
 
@@ -427,17 +433,37 @@
     position:relative;
 } */
 
+/* .w3about-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url(../images/player.gif) no-repeat 0 0;
+    background-size: cover;
+    min-height: 30em;
+    padding: 0;
+    position: relative;
+} */
 
 
   .w3about-img {
-      background: url(../images/player.gif)no-repeat 0px 0px;
+      /* background: url(../images/player2.gif)no-repeat 0px 0px; */
       background-size: cover;
       min-height: 30em;
       padding: 0;
       position:relative;
   }
 
+  .w3about-img.cybergladiator {
+    background-image: url(../images/player2_AdobeExpress.gif);
+}
 
+.w3about-img.codebreaker {
+    background-image: url(../images/player3.gif);
+}
+
+.w3about-img.ghostwalker {
+    background-image: url(../images/player2_AdobeExpress.gif);
+}
 
   .w3about-text {
       background: #f2f2f2;
