@@ -16,8 +16,8 @@ INSERT INTO PLAYER_TYPES (name_ptypes, life_points, speed) VALUES
 
 -- GADGET (ID, gadget_name, gadget_description, player_type)
 INSERT INTO GADGET (gadget_name, gadget_description, player_type) VALUES
-("Cyber Rush", "A dash ability", 1),
-("Plasma Shield", "A shield that blocks all damage briefly", 1),
+("Cyber Dash", "A dash ability", 1),
+("Bio Stim", "A one time use healing ability", 1),
 ("Overcharge", "Briefly doubles all damage", 1),
 ("Shadow Veil", "A cloak that when seen hacks the enemy that saw you", 2),
 ("Circuit Breaker", "An EMP surge that hacks enemies inside a range for 5 seconds", 2),
@@ -63,7 +63,7 @@ INSERT INTO CHOSEN_GADGET (progress_id, gadget_id) VALUES
 (7, 3),
 (8, 1),
 (9, 2),
-(10, 8);
+(10, 5);
 
 -- WINS (ID, user_name, player_type)
 INSERT INTO WINS (user_name, player_type) VALUES

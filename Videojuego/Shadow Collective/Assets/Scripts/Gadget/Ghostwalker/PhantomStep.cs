@@ -17,7 +17,7 @@ public class PhantomStep : BaseGadget
 {
     public PhantomStep(BasePlayer player_) : base(player_)
     {
-
+        gadget_id = 8;
     }
 
     private float dashCooldown; // how much time the player has to wait between dashes

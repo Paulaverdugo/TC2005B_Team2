@@ -1,14 +1,15 @@
 import connectDB from "../index.js";
 
 
-//All the users info from progress (ID, level_achieved, user_name, player_type, life_points)
+//All the users info from progress (ID, level_achieved, user_name, player_type)
 //Gives the last progress id from the user
 export async function getUserProgress(user_name) {
     const db = await connectDB();
     const [res, fields] = await db.execute(
         `SELECT * FROM scollective.PROGRESS 
         WHERE scollective.PROGRESS.id_progress = (SELECT MAX(id_progress) FROM scollective.PROGRESS 
-        WHERE user_name = \'${user_name}\')`
+        WHERE user_name = \'${user_name}\')
+        AND level_achieved <> 4`
     );
     db.end();
     return res;
@@ -27,14 +28,26 @@ export async function getProgressGadget(user_name) {
     return res;
 }
 
-//Create a new progress (level_achieved, user_name, player_type, life_points)
-export async function addProgress(level_achieved, user_name, player_type, life_points) {
+//Create a new progress (level_achieved, user_name, player_type)
+export async function addProgress(level_achieved, user_name, player_type) {
     const db = await connectDB();
 
     const [res] = await db.execute(
-        `INSERT INTO scollective.PROGRESS(level_achieved, user_name, player_type, life_points) VALUES(\'${level_achieved}\', \'${user_name}\', \'${player_type}\', \'${life_points}\')`
+        `INSERT INTO scollective.PROGRESS(level_achieved, user_name, player_type) VALUES(\'${level_achieved}\', \'${user_name}\', \'${player_type}\')`
     );
 
+    db.end();
+    return res
+}
+
+//Update level (level_achieved)
+export async function updateLevel(data) {
+    const db = await connectDB();
+    const {level_achieved} = data;
+    const [res] = await db.execute(
+        `UPDATE scollective.PROGRESS SET level_achieved = ? WHERE id_progress = \'${id_progress}\ ` ,
+        [level_achieved]
+    );
     db.end();
     return res
 }
