@@ -5,6 +5,7 @@ import {
     statsRouter,
     progressRouter,
 } from "./routes/index.js";
+import cors from "cors";
 
 import mysql from "mysql2/promise";
 import {ENV, PORT} from "./const.js";
@@ -13,6 +14,7 @@ import {ENV, PORT} from "./const.js";
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 //Ruta por defualt
 app.get("/", (req, res) => {
