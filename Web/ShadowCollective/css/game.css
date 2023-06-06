@@ -448,7 +448,7 @@
   .w3about-img {
       /* background: url(../images/player2.gif)no-repeat 0px 0px; */
       background-size: cover;
-      min-height: 30em;
+      min-height: 25em;
       padding: 0;
       position:relative;
   }
