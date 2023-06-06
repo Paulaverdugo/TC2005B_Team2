@@ -47,6 +47,9 @@ public class Boss : BaseEnemy
     [SerializeField] GameObject toxicHalf;
     [SerializeField] GameObject toxicFull;
     [SerializeField] GameObject toxicBridge;
+    [SerializeField] GameObject doorOpened;
+    [SerializeField] GameObject doorClosed;
+
 
     // the boss is not active until the player gets close
     private bool isActive = false;
@@ -88,11 +91,17 @@ public class Boss : BaseEnemy
     {
         base.Update();
         // activate the boss when the player comes near
-        if (!isActive && (player.transform.position - gameObject.transform.position).magnitude < 10)
+
+        if (!isActive)
         {
-            isActive = true;
-            aiPath.maxSpeed = maxSpeed;
-            InvokeRepeating("StartBulletHell", 5f, 10f);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, 20, raycastLayer);
+            if (hit != null && GameObject.ReferenceEquals(hit.collider.gameObject, player))
+            {
+                isActive = true;
+                aiPath.maxSpeed = maxSpeed;
+                InvokeRepeating("StartBulletHell", 5f, 10f);
+                StartCoroutine(CloseDoor());
+            }
         }
 
         if (isDying | isHacked | !isActive) return;
@@ -298,6 +307,14 @@ public class Boss : BaseEnemy
             bulletBehaviour.SetDamage(bulletDamage);
             bulletBehaviour.SetSpeed(8f);
         }
+    }
+
+    private IEnumerator CloseDoor()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        doorOpened.SetActive(false);
+        doorClosed.SetActive(true);
     }
 
     // override functions the boss doesn't use from base enemy
