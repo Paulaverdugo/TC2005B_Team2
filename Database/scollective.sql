@@ -101,9 +101,12 @@ INNER JOIN PLAYER_TYPES ON WINS.player_type = PLAYER_TYPES.id_ptypes
 GROUP BY WINS.player_type
 ORDER BY player_type_wins DESC;
 
--- Average age player
-CREATE VIEW PLAYER_AGE AS
-SELECT ROUND(AVG(age)) FROM USER_INFO AS average_age;
+-- Deads playertype
+CREATE VIEW DEAD_PLAYERTYPE AS 
+SELECT PLAYER_TYPES.name_ptypes, COUNT(DEADS.player_type) AS player_type_deads FROM DEADS
+INNER JOIN PLAYER_TYPES ON DEADS.player_type = PLAYER_TYPES.id_ptypes
+GROUP BY DEADS.player_type
+ORDER BY player_type_deads DESC;
 
 -- The most chosen gadget
 CREATE VIEW MOST_GADGET AS
@@ -120,7 +123,6 @@ LIMIT 3;
 -- USER LOGIN
 CREATE VIEW GETUSER AS
 SELECT user_name, user_password FROM USER_INFO;
-
 
 
 
