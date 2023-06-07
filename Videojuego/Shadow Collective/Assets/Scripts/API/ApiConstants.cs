@@ -67,3 +67,10 @@ public class ShortGadgetList
 {
     public List<ShortGadget> gadgets;
 }
+
+[System.Serializable]
+public class Win
+{
+    public string user_name;
+    public int player_type;
+}

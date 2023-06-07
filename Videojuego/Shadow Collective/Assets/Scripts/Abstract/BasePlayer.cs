@@ -64,6 +64,7 @@ abstract public class BasePlayer : MonoBehaviour
     // to skip the level for testing and showcasing -> added by player controller
     [System.NonSerialized]
     public LevelEnd skipLevel;
+    private bool skippingLevel = false;
 
     // Start is called before the first frame update
     virtual protected void Start()
@@ -85,9 +86,10 @@ abstract public class BasePlayer : MonoBehaviour
     virtual protected void Update()
     {
         // skip current level for testing and showcasing
-        if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.O))
+        if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.O) && !skippingLevel)
         {
-            print("skip level");
+            skippingLevel = true;
+            Debug.Log("skipping level");
             skipLevel.EndLevel();
         }
 
