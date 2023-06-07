@@ -100,3 +100,10 @@ public class Response
     public string msg;
     public Data data;
 }
+
+[System.Serializable]
+public class LevelAchieved
+{
+    public int id_progress;
+    public int level_achieved;
+}

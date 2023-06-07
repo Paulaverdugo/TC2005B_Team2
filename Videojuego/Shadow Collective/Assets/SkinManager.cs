@@ -94,7 +94,6 @@ public class SkinManager : MonoBehaviour
             {
                 Response response = JsonUtility.FromJson<Response>(www.downloadHandler.text);
                 PlayerPrefs.SetInt("id_progress", response.data.insertId);
-                print("progress created, id: " + PlayerPrefs.GetInt("id_progress"));
             }
         }
     }
