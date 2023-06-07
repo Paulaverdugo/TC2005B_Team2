@@ -40,7 +40,7 @@ public class DamagingTile : MonoBehaviour
             if (damageTimer == 0) {
                 // Deal damage to the player.
                 yield return new WaitForSeconds(0.5f);
-                player.GetComponent<BasePlayer>().GetDamaged(damage);
+                player.GetComponent<PlayerController>().GetDamaged(damage);
                 damageTimer = 5;
             } 
         } else if(player.CompareTag("Enemy")){
