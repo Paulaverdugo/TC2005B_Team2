@@ -7,6 +7,7 @@ public class BulletBehaviour : MonoBehaviour
     // Script to control the bullet behavior
     public float bulletSpeed = 10f;
     public float damage = 1f;
+    public bool fromPlayer = false;
 
     private void Update()
     {
@@ -27,7 +28,7 @@ public class BulletBehaviour : MonoBehaviour
             if (enemyController.IsGuard())
             {
                 Guard guardScript = (Guard) enemyController.enemyScript;
-                guardScript.GetDamaged(damage);
+                guardScript.GetDamaged(damage, fromPlayer);
             }
             else if (enemyController.IsBoss())
             {
@@ -46,5 +47,10 @@ public class BulletBehaviour : MonoBehaviour
     public void SetSpeed(float speed) 
     {
         this.bulletSpeed = speed;
+    }
+
+    public void SetFromPlayer()
+    {
+        this.fromPlayer = true;
     }
 }

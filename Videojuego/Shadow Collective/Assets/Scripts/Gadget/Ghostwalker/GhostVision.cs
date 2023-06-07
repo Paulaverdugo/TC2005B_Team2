@@ -28,6 +28,9 @@ public class GhostVision : BaseGadget
         if (!hasBeenActivated)
         {
             hasBeenActivated = true;
+
+            List<GameObject> enemiesToDelete = new List<GameObject>();
+
             foreach (GameObject enemy in player.enemies)
             {
                 if (enemy == null)
@@ -38,6 +41,12 @@ public class GhostVision : BaseGadget
                 {
                     enemy.GetComponent<EnemyController>().ShowVisionCone();
                 }
+            }
+
+            // delete from enemies list the enemies that were destroyed
+            foreach (GameObject enemy in enemiesToDelete)
+            {
+                player.enemies.Remove(enemy);
             }
         }
     }

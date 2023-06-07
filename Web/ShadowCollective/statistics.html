@@ -13,7 +13,7 @@
 <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.js" integrity="sha512-vCUbejtS+HcWYtDHRF2T5B0BKwVG/CLeuew5uT2AiX4SJ2Wff52+kfgONvtdATqkqQMC9Ye5K+Td0OTaz+P7cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
-<script src="js/user_charts.js"></script>
+<script type="module" defer src="../ShadowCollective/js/stats.js"></script> 
 
 </head>
 <body>
@@ -67,7 +67,8 @@
     <div class="chart">
         <h2>Winner Users</h2>
         <div class="creatingChart">
-            <canvas id="apiChart1" width="600" height="600"></canvas>
+            <canvas id="winsChart" width="200" height="200"></canvas>
+			<canvas id="winsTypeChart" width="200" height="200"></canvas>
         </div>
     </div>
   <!-- //stats -->

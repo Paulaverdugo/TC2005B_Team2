@@ -4,6 +4,7 @@ import {
     usersRouter,
     statsRouter,
     progressRouter,
+    eventRouter,
 } from "./routes/index.js";
 import cors from "cors";
 
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
 app.use("/users", usersRouter);
 app.use("/stats", statsRouter);
 app.use("/progress", progressRouter);
+app.use("/event", eventRouter);
 
 // ----- Body Parser -----
 app.use(bodyParser.json());

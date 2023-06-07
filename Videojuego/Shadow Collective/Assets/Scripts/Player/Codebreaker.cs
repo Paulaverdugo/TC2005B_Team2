@@ -63,12 +63,14 @@ public class Codebreaker : BasePlayer
             float closestDistance = float.MaxValue;
             GameObject closest = null;
 
+            List<GameObject> enemiesToDelete = new List<GameObject>();
+
             // check the distance of all enemies and find the nearest
             foreach (GameObject enemy in enemies)
             {
                 if (enemy == null)
                 {
-                    enemies.Remove(enemy);
+                    enemiesToDelete.Add(enemy);
                 } 
                 else
                 {
@@ -79,6 +81,12 @@ public class Codebreaker : BasePlayer
                         closest = enemy;
                     }
                 }
+            }
+
+            // delete from enemies list the enemies that were destroyed
+            foreach (GameObject enemy in enemiesToDelete)
+            {
+                enemies.Remove(enemy);
             }
 
             // if the nearest is within the hackingRadius
@@ -123,7 +131,7 @@ public class Codebreaker : BasePlayer
         visualHackTargetHacked.SetActive(true);
         visualHackTargetHacked.transform.position = enemy.transform.position;
 
-        while (hackedEnemy.IsHacked())
+        while (hackedEnemy != null && hackedEnemy.IsHacked())
         {
             yield return null;
         }

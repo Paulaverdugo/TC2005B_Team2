@@ -35,6 +35,9 @@ public class GhostBlade : BaseGadget
 
             // can't use overlapcircleall since the enemies colliders for the vision cone affect it and the
             // ability would be wonky
+
+            List<GameObject> enemiesToDelete = new List<GameObject>();
+
             foreach (GameObject enemy in player.enemies)
             {
                 if (enemy == null)
@@ -55,6 +58,12 @@ public class GhostBlade : BaseGadget
                         }
                     }
                 }
+            }
+
+            // delete from enemies list the enemies that were destroyed
+            foreach (GameObject enemy in enemiesToDelete)
+            {
+                player.enemies.Remove(enemy);
             }
 
             if (closestGuard != null && closestDistance <= abilityRadius)
