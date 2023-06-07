@@ -131,7 +131,7 @@ public class Codebreaker : BasePlayer
         visualHackTargetHacked.SetActive(true);
         visualHackTargetHacked.transform.position = enemy.transform.position;
 
-        while (hackedEnemy.IsHacked())
+        while (hackedEnemy != null && hackedEnemy.IsHacked())
         {
             yield return null;
         }
