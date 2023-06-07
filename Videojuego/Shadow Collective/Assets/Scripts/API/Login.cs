@@ -58,7 +58,7 @@ public class Login : MonoBehaviour
                 else
                 {
                     errorMessage.SetActive(true);
-                    errorMessage.GetComponent<TMP_Text>().text = "User does not exist!";
+                    errorMessage.GetComponent<TMP_Text>().text = "Incorrect username or password!";
                 }
             } else {
                 errorMessage.SetActive(true);

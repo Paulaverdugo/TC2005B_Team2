@@ -82,3 +82,21 @@ public class Death
     public int player_type;
     public int level_death;
 }
+
+[System.Serializable]
+public class Data
+{
+    public int fieldCount;
+    public int affectedRows;
+    public int insertId;
+    public string info;
+    public int serverStatus;
+    public int waringStatus;
+}
+
+[System.Serializable]
+public class Response
+{
+    public string msg;
+    public Data data;
+}

@@ -90,7 +90,12 @@ public class SkinManager : MonoBehaviour
             if (www.result != UnityWebRequest.Result.Success) 
             {
                 Debug.Log("error creating a progress: " + www.error);
-            } 
+            } else // get the id_progress from the response
+            {
+                Response response = JsonUtility.FromJson<Response>(www.downloadHandler.text);
+                PlayerPrefs.SetInt("id_progress", response.data.insertId);
+                print("progress created, id: " + PlayerPrefs.GetInt("id_progress"));
+            }
         }
     }
 }
