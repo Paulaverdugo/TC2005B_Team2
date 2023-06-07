@@ -192,6 +192,7 @@ abstract public class BasePlayer : MonoBehaviour
         // Reduce the player's health by the amount of damage taken
         // If the player's health is 0, call the GameOver() function
         health -= damage;
+        StartCoroutine(DamageVisualCue());
 
         print(health);
 
@@ -205,6 +206,13 @@ abstract public class BasePlayer : MonoBehaviour
             health = maxHealth;
         }
         healthBar.SetHealth(health);
+    }
+
+    protected IEnumerator DamageVisualCue()
+    {
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.075f);
+        spriteRenderer.color = Color.white;
     }
 
     virtual public void GetHealed(float healingAmount)
