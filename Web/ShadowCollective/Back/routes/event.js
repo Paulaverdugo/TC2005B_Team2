@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import {
     addWin,
-    addDeads
-} from "../helpers/users.js"
+    addDeath,
+} from "../helpers/event.js"
 
 const router = Router();
 
@@ -31,10 +31,10 @@ router.post("/addWin", async (req, res) => {
 });
 
 //Create Deads: addDeads
-router.post("/addDeads", async (req, res) => {
+router.post("/addDeath", async (req, res) => {
     try {
-        const {user_name, player_type, level_dead} = req.body;
-        const data = await addDeads(user_name, player_type, level_dead);
+        const {user_name, player_type, level_death} = req.body;
+        const data = await addDeath(user_name, player_type, level_death);
         if (!data) {
             res.status(404).json({
                 msg: "Not found"
@@ -42,7 +42,7 @@ router.post("/addDeads", async (req, res) => {
             return;
         }
         res.status(200).json({
-            msg: "Dead created",
+            msg: "Death created",
             data,
         });
     } catch (error) {

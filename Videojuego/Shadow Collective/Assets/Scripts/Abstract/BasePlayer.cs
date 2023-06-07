@@ -8,6 +8,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 abstract public class BasePlayer : MonoBehaviour
 {
@@ -64,6 +66,7 @@ abstract public class BasePlayer : MonoBehaviour
     // to skip the level for testing and showcasing -> added by player controller
     [System.NonSerialized]
     public LevelEnd skipLevel;
+    private bool skippingLevel = false;
 
     // Start is called before the first frame update
     virtual protected void Start()
@@ -85,9 +88,10 @@ abstract public class BasePlayer : MonoBehaviour
     virtual protected void Update()
     {
         // skip current level for testing and showcasing
-        if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.O))
+        if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.O) && !skippingLevel)
         {
-            print("skip level");
+            skippingLevel = true;
+            Debug.Log("skipping level");
             skipLevel.EndLevel();
         }
 
@@ -184,6 +188,7 @@ abstract public class BasePlayer : MonoBehaviour
 
     virtual public void GetDamaged(float damage)
     {
+        if (isDying) return;
         // Reduce the player's health by the amount of damage taken
         // If the player's health is 0, call the GameOver() function
         health -= damage;
@@ -192,6 +197,7 @@ abstract public class BasePlayer : MonoBehaviour
 
         if (health <= 0)
         {
+            isDying = true;
             StartCoroutine(GameOver());
         }
         else if (health > maxHealth)
@@ -207,10 +213,13 @@ abstract public class BasePlayer : MonoBehaviour
         healthBar.SetHealth(health);
     }
 
-    protected IEnumerator GameOver() {
+    protected IEnumerator GameOver() 
+    {
+        // Add a death to our stats
+        StartCoroutine(AddDeath());
+
         // Play death animation
         animator.SetTrigger("death");
-        isDying = true;
 
         yield return new WaitForSeconds(1);
 
@@ -260,5 +269,48 @@ abstract public class BasePlayer : MonoBehaviour
                 }
             }
         } 
+    }
+
+    protected IEnumerator AddDeath()
+    {
+        Death death = new Death();
+
+        // populate the death object
+        death.user_name = PlayerPrefs.GetString("user_name");
+        death.player_type = PlayerPrefs.GetInt("player_type_number");
+
+        switch(SceneManager.GetActiveScene().name)
+        {
+            case "Level1":
+                death.level_death = 1;
+                break;
+            case "Level2":
+                death.level_death = 2;
+                break;
+            case "LevelB":
+                death.level_death = 3;
+                break;
+            default: // we shouldn't reach here
+                death.level_death = 0;
+                break;
+        }
+
+        string jsonDeath = JsonUtility.ToJson(death);
+
+        string ep = ApiConstants.URL + "/event/addDeath";
+        // even though the API is a post, we use webrequest's put and later define the method as post
+        using (UnityWebRequest www = UnityWebRequest.Put(ep, jsonDeath))
+        {
+            //UnityWebRequest www = UnityWebRequest.Post(url + getUsersEP, form);
+            // Set the method later, and indicate the encoding is JSON
+            www.method = "POST";
+            www.SetRequestHeader("Content-Type", "application/json");
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Error creating a death: " + www.error);
+            }
+        }
     }
 }

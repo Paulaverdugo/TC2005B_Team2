@@ -105,7 +105,9 @@ public class Login : MonoBehaviour
                             playerType = "ghostwalker";
                             break;
                     }
+                    // add info to player prefs
                     PlayerPrefs.SetString("player_type", playerType);
+                    PlayerPrefs.SetInt("player_type_number", progress.player_type);
                     PlayerPrefs.SetInt("id_progress", progress.id_progress);
 
                     StartCoroutine(GetGadgets());
