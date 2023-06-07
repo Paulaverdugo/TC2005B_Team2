@@ -74,3 +74,11 @@ public class Win
     public string user_name;
     public int player_type;
 }
+
+[System.Serializable]
+public class Death
+{
+    public string user_name;
+    public int player_type;
+    public int level_death;
+}
