@@ -161,6 +161,8 @@ abstract public class BasePlayer : MonoBehaviour
                 // Create the bullet
                 GameObject bullet = Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, rotZ));
                 bullet.GetComponent<BulletBehaviour>().SetDamage(tmpDamage);
+                // so that if it damages a guard, it knows the player's pos
+                bullet.GetComponent<BulletBehaviour>().SetFromPlayer();
             }
         }
         else

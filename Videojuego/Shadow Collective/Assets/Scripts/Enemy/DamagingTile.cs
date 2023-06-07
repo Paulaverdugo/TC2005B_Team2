@@ -23,7 +23,10 @@ public class DamagingTile : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             // If it is, start the damage coroutine.
-            StartCoroutine(Damage(other.gameObject));
+            if (!other.isTrigger && other.gameObject.GetComponent<EnemyController>().IsGuard())
+            {
+                StartCoroutine(Damage(other.gameObject));
+            }
         }
     }
 
@@ -37,7 +40,7 @@ public class DamagingTile : MonoBehaviour
             if (damageTimer == 0) {
                 // Deal damage to the player.
                 yield return new WaitForSeconds(0.5f);
-                player.GetComponent<BasePlayer>().GetDamaged(damage);
+                player.GetComponent<PlayerController>().GetDamaged(damage);
                 damageTimer = 5;
             } 
         } else if(player.CompareTag("Enemy")){
