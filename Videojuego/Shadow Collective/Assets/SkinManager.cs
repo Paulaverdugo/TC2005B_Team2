@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using UnityEngine.Networking;
 
 public class SkinManager : MonoBehaviour
 {
@@ -40,8 +41,56 @@ public class SkinManager : MonoBehaviour
     {
         PlayerPrefs.SetString("player_type", skins[selectedSkin].name);
 
+        int playerTypeNumber = 0;
+
+        switch(skins[selectedSkin].name)
+        {
+            case "cybergladiator":
+                playerTypeNumber = 1;
+                break;
+            case "codebreaker":
+                playerTypeNumber = 2;
+                break;
+            case "ghostwalker":
+                playerTypeNumber = 3;
+                break;
+            default: // we shouldn't reach here
+                playerTypeNumber = 0;
+                break;
+        }
+
+        PlayerPrefs.SetInt("player_type_number", playerTypeNumber);
+
         // HERE IS WHERE WE CREATE A NEW PROGRESS THROUGH THE API
 
-        // SceneManager.LoadScene("Level1");
+        StartCoroutine(CreateProgress());
+        SceneManager.LoadScene("Tutorial");
+    }
+
+    private IEnumerator CreateProgress()
+    {
+        ShortProgress progress = new ShortProgress();
+
+        progress.level_achieved = 1;
+        progress.user_name = PlayerPrefs.GetString("user_name");
+        progress.player_type = PlayerPrefs.GetInt("player_type_number");
+
+        string jsonProgress = JsonUtility.ToJson(progress);
+
+        string ep = ApiConstants.URL + "/progress/newProgress";
+
+        using (UnityWebRequest www = UnityWebRequest.Put(ep, jsonProgress))
+        {
+            //UnityWebRequest www = UnityWebRequest.Post(url + getUsersEP, form);
+            // Set the method later, and indicate the encoding is JSON
+            www.method = "POST";
+            www.SetRequestHeader("Content-Type", "application/json");
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success) 
+            {
+                Debug.Log("error creating a progress: " + www.error);
+            } 
+        }
     }
 }

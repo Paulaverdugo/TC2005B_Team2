@@ -36,9 +36,9 @@ public class ShortUserList
 [System.Serializable]
 public class ShortProgress
 {
+    public int level_achieved;
     public string user_name;
     public int player_type;
-    public int level_achieved;
 }
 
 [System.Serializable]
