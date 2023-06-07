@@ -216,7 +216,6 @@ public class Guard : BaseEnemy
 
     virtual public void GetDamaged(float damage, bool fromPlayer = false)
     {
-        print(gameObject.name + " got damaged");
         health -= damage;
         enemyHealthBar.SetHealth(health);
 

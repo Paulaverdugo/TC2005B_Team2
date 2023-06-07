@@ -196,7 +196,6 @@ abstract public class BasePlayer : MonoBehaviour
         }
         else if (health > maxHealth)
         {
-            print("health > maxHealth");
             health = maxHealth;
         }
         healthBar.SetHealth(health);
