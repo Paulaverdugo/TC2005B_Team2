@@ -11,6 +11,7 @@ using UnityEngine;
 public class CameraEnemy : BaseEnemy
 {    
     float flipTimer = 3f;
+    private bool flips = false;
 
     override protected void Start()
     {
@@ -18,7 +19,16 @@ public class CameraEnemy : BaseEnemy
         base.Start();
 
         // if it's looking to a side, we don't want the camera to flip around
-        if (startingVisionConeDirection == new Vector3(0, -1, 0)) StartFlipping();
+        if (startingVisionConeDirection == new Vector3(0, -1, 0))
+        {
+            StartFlipping();
+            flips = true;
+        } else if (startingVisionConeDirection == new Vector3(1, 0, 0))
+        {
+            // just flip once
+            Flip();
+        }
+        
     }
 
     private void StartFlipping()
@@ -29,7 +39,7 @@ public class CameraEnemy : BaseEnemy
     private void Flip()
     {
         // flip the camera to make it look like it's looking around
-        transform.Rotate(new Vector3(0f, 180f, 0f));
+        spriteRenderer.flipX = !spriteRenderer.flipX;
     }
 
     override public void Hack(float hackDuration_)
@@ -41,6 +51,6 @@ public class CameraEnemy : BaseEnemy
     override public void UnHack()
     {
         base.UnHack();
-        StartFlipping();
+        if (flips) StartFlipping();
     }
 }
