@@ -23,7 +23,10 @@ public class DamagingTile : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             // If it is, start the damage coroutine.
-            StartCoroutine(Damage(other.gameObject));
+            if (!other.isTrigger && other.gameObject.GetComponent<EnemyController>().IsGuard())
+            {
+                StartCoroutine(Damage(other.gameObject));
+            }
         }
     }
 

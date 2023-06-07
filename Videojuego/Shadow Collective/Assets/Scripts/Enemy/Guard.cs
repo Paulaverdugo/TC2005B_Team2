@@ -214,8 +214,9 @@ public class Guard : BaseEnemy
         }
     }
 
-    virtual public void GetDamaged(float damage)
+    virtual public void GetDamaged(float damage, bool fromPlayer = false)
     {
+        print(gameObject.name + " got damaged");
         health -= damage;
         enemyHealthBar.SetHealth(health);
 
@@ -224,7 +225,7 @@ public class Guard : BaseEnemy
             Die();
         }
         
-        AlertOthers(player.transform.position);
+        if (fromPlayer) AlertOthers(player.transform.position);
     }
 
     override public void Alert(Vector3 playerPos)
