@@ -336,7 +336,7 @@ abstract public class BasePlayer : MonoBehaviour
         ChosenGadget chosenGadget = new ChosenGadget();
 
         chosenGadget.gadget_id = gadget.gadget_id;
-        chosenGadget.progress_id = PlayerPrefs.GetInt("progress_id");
+        chosenGadget.progress_id = PlayerPrefs.GetInt("id_progress");
 
         string jsonChosenGadget = JsonUtility.ToJson(chosenGadget);
 
@@ -355,7 +355,7 @@ abstract public class BasePlayer : MonoBehaviour
                 Debug.Log("Error deleting a gadget: " + www.error);
             } else
             {
-                Debug.Log("Deleted gadget " + gadget.gadget_id);
+                Debug.Log("Deleted gadget " + gadget.gadget_id + " from " + chosenGadget.progress_id);
             }
         }
     }

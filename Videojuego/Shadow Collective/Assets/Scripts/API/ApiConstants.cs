@@ -84,12 +84,6 @@ public class Death
 }
 
 [System.Serializable]
-public class ChosenGadget
-{
-    public int progress_id;
-    public int gadget_id;
-}
-
 public class Data
 {
     public int fieldCount;
@@ -112,4 +106,11 @@ public class LevelAchieved
 {
     public int id_progress;
     public int level_achieved;
+}
+
+[System.Serializable]
+public class ChosenGadget
+{
+    public int gadget_id;
+    public int progress_id;
 }
