@@ -57,7 +57,7 @@ public class CreateAccount : MonoBehaviour
                 // consider after creating user taking the user to the game instead of the log in screen
                 // in that case ADD THE USER_NAME TO PLAYER PREFS
                 PlayerPrefs.SetString("user_name", newUser.user_name);
-                SceneManager.LoadScene("Intro");
+                SceneManager.LoadScene("Selection");
             } else {
                 // Useful to debug:
                 // EditorUtility.DisplayDialog("Error", "Error: " + www.error, "Ok");
