@@ -82,7 +82,7 @@ public class LevelEnd : MonoBehaviour
             //     levelAchieved.level_achieved = 4;
             //     break;
             default: // should not reach here
-                levelAchieved.level_achieved = 1;
+                levelAchieved.level_achieved = 4;
                 break;
         }
 
