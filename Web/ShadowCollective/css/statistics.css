@@ -156,6 +156,12 @@ body{
 }
 /*-- //header --*/
 /*--slider--*/
+
+.chart {
+    max-width: 800px;
+    max-height: 800px;
+}
+
 #slider2,
 #slider3 {
   box-shadow: none;
@@ -347,6 +353,17 @@ body{
     margin: 2em 0;
     letter-spacing: 2px;
 }
+
+.chart-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .chart-container .creatingChart {
+    text-align: center;
+  }
+  
+
 .w3-button {
     position: relative;
     margin: 0;
