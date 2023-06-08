@@ -226,6 +226,15 @@ abstract public class BasePlayer : MonoBehaviour
         // Add a death to our stats
         StartCoroutine(AddDeath());
 
+        // Leave the player with only one gadget
+        while (activeGadgets.Count > 1)
+        {
+            BaseGadget gadgetToDelete = activeGadgets[Random.Range(0, activeGadgets.Count - 1)];
+            StartCoroutine(RemoveGadget(gadgetToDelete));
+
+            activeGadgets.Remove(gadgetToDelete);
+        }
+
         // Play death animation
         animator.SetTrigger("death");
 
@@ -318,6 +327,35 @@ abstract public class BasePlayer : MonoBehaviour
             if (www.result != UnityWebRequest.Result.Success)
             {
                 Debug.Log("Error creating a death: " + www.error);
+            }
+        }
+    }
+
+    protected IEnumerator RemoveGadget(BaseGadget gadget)
+    {
+        ChosenGadget chosenGadget = new ChosenGadget();
+
+        chosenGadget.gadget_id = gadget.gadget_id;
+        chosenGadget.progress_id = PlayerPrefs.GetInt("progress_id");
+
+        string jsonChosenGadget = JsonUtility.ToJson(chosenGadget);
+
+        string ep = ApiConstants.URL + "/gadget/deleteChosenGadget";
+        // even though the API is a post, we use webrequest's put and later define the method as post
+        using (UnityWebRequest www = UnityWebRequest.Put(ep, jsonChosenGadget))
+        {
+            //UnityWebRequest www = UnityWebRequest.Post(url + getUsersEP, form);
+            // Set the method later, and indicate the encoding is JSON
+            www.method = "DELETE";
+            www.SetRequestHeader("Content-Type", "application/json");
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Error deleting a gadget: " + www.error);
+            } else
+            {
+                Debug.Log("Deleted gadget " + gadget.gadget_id);
             }
         }
     }

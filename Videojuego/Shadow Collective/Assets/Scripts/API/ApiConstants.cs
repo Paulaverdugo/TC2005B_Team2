@@ -82,3 +82,10 @@ public class Death
     public int player_type;
     public int level_death;
 }
+
+[System.Serializable]
+public class ChosenGadget
+{
+    public int progress_id;
+    public int gadget_id;
+}

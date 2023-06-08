@@ -5,6 +5,7 @@ import {
     statsRouter,
     progressRouter,
     eventRouter,
+    gadgetRouter,
 } from "./routes/index.js";
 
 import mysql from "mysql2/promise";
@@ -25,6 +26,7 @@ app.use("/users", usersRouter);
 app.use("/stats", statsRouter);
 app.use("/progress", progressRouter);
 app.use("/event", eventRouter);
+app.use("/gadget", gadgetRouter);
 
 // ----- Body Parser -----
 app.use(bodyParser.json());
