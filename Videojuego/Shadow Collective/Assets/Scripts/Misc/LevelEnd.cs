@@ -27,6 +27,8 @@ public class LevelEnd : MonoBehaviour
         {
             StartCoroutine(AddWin());
         }
+
+        StartCoroutine(UpdateLevelAchieved());
         
         // load the next level
         SceneManager.LoadScene(nextLevel);
@@ -57,5 +59,50 @@ public class LevelEnd : MonoBehaviour
                 Debug.Log("Error creating a win: " + www.error);
             }
         }
+    }
+
+    private IEnumerator UpdateLevelAchieved()
+    {
+        LevelAchieved levelAchieved = new LevelAchieved();
+
+        // populate the levelAchieved object
+        levelAchieved.id_progress = PlayerPrefs.GetInt("id_progress");
+        switch (nextLevel)
+        {
+            case "Level1":
+                levelAchieved.level_achieved = 1;
+                break;
+            case "Level2":
+                levelAchieved.level_achieved = 2;
+                break;
+            case "LevelB":
+                levelAchieved.level_achieved = 3;
+                break;
+            // case "scene after boss":
+            //     levelAchieved.level_achieved = 4;
+            //     break;
+            default: // should not reach here
+                levelAchieved.level_achieved = 4;
+                break;
+        }
+
+        string jsonLevelAchieved = JsonUtility.ToJson(levelAchieved);
+
+        string ep = ApiConstants.URL + "/progress/updateLevel";
+
+        // even though the API is a patch, we use webrequest's put and later define the method as post
+        using (UnityWebRequest www = UnityWebRequest.Put(ep, jsonLevelAchieved))
+        {
+            // Set the method later, and indicate the encoding is JSON
+            www.method = "PATCH";
+            www.SetRequestHeader("Content-Type", "application/json");
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Error updating the level achieved: " + www.error);
+            }
+        }
+        
     }
 }
