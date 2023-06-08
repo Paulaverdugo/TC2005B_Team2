@@ -308,7 +308,7 @@ MonoBehaviour:
     But fret not, brave warrior, for your indomitable spirit remains. Sharpen your
     skills, gather your resolve, and rise again. The fate of the world hangs in the
     balance, awaiting your triumphant return. Reclaim what was lost and show the
-    enemy the true extent of your arsenal!
+    enemy the true extent of your strength!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a5e5a7422126e4331b151353ff1450bd, type: 2}
   m_sharedMaterial: {fileID: -6020777134960286238, guid: a5e5a7422126e4331b151353ff1450bd, type: 2}
@@ -645,7 +645,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2070928883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,12 +675,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96

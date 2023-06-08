@@ -243,6 +243,7 @@ abstract public class BasePlayer : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         DestroyImmediate(gameObject);
+        SceneManager.LoadScene("Death");
         // spriteRenderer.enabled = true;
         // // Reset the player's health
         // health = maxHealth;
