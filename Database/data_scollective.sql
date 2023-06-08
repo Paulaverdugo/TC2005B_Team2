@@ -26,19 +26,6 @@ INSERT INTO GADGET (gadget_name, gadget_description, player_type) VALUES
 ("Phantom Step", "Dash when stealthing", 3),
 ("Ghost Blade", "One-hit takedown while stealthing. One use only", 3);
 
--- PLAYER (ID, last_connection, user_name, player_type)
-INSERT INTO PLAYER (last_connection, user_name, player_type) VALUES 
-("2023-04-30", "andres_tarazona", 1), 
-("2023-04-30", "andres_tarazona", 3),
-("2023-04-27", "dulce_garcia", 2), 
-("2023-04-27", "dulce_garcia", 3), 
-("2023-04-29", "mariel_gomez", 3), 
-("2023-04-29", "mariel_gomez", 1), 
-("2023-04-20", "paula_verdugo", 1), 
-("2023-04-20", "paula_verdugo", 2), 
-("2023-04-21", "santiago_rodriguez", 3),
-("2023-04-21", "santiago_rodriguez", 2);
-
 -- PROGRESS (ID, level_achieved, user_name, player_type)
 INSERT INTO PROGRESS (level_achieved, user_name, player_type) VALUES
 (3, "andres_tarazona", 1),
