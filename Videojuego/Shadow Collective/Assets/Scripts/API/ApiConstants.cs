@@ -36,9 +36,9 @@ public class ShortUserList
 [System.Serializable]
 public class ShortProgress
 {
+    public int level_achieved;
     public string user_name;
     public int player_type;
-    public int level_achieved;
 }
 
 [System.Serializable]
@@ -81,4 +81,29 @@ public class Death
     public string user_name;
     public int player_type;
     public int level_death;
+}
+
+[System.Serializable]
+public class Data
+{
+    public int fieldCount;
+    public int affectedRows;
+    public int insertId;
+    public string info;
+    public int serverStatus;
+    public int waringStatus;
+}
+
+[System.Serializable]
+public class Response
+{
+    public string msg;
+    public Data data;
+}
+
+[System.Serializable]
+public class LevelAchieved
+{
+    public int id_progress;
+    public int level_achieved;
 }
