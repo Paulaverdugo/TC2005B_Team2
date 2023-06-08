@@ -316,6 +316,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 319159692042588030, guid: 24d3253b904a2440d8072886067544a6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 319159692800636923, guid: 24d3253b904a2440d8072886067544a6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -66.80005
+      objectReference: {fileID: 0}
+    - target: {fileID: 319159692800636923, guid: 24d3253b904a2440d8072886067544a6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 19.299988
+      objectReference: {fileID: 0}
     - target: {fileID: 319159692879883100, guid: 24d3253b904a2440d8072886067544a6, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 88
@@ -1154,7 +1166,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 19.175, y: -131.95322}
+  m_AnchoredPosition: {x: 19.175049, y: -131.95325}
   m_SizeDelta: {x: -327.9329, y: -351.0536}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &568431432
@@ -1799,7 +1811,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: -132133073, guid: b8c9effd87f07451ebcbf3871819a234, type: 3}
       - {fileID: -1149349578, guid: b8c9effd87f07451ebcbf3871819a234, type: 3}
-      m_AnimationSpeed: 5.4948587
+      m_AnimationSpeed: 5.7438335
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -8, y: 2, z: 0}
@@ -1865,7 +1877,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: -399370891, guid: b8c9effd87f07451ebcbf3871819a234, type: 3}
       - {fileID: -61658816, guid: b8c9effd87f07451ebcbf3871819a234, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 6, y: 5, z: 0}
