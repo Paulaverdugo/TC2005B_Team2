@@ -235,6 +235,8 @@ abstract public class BasePlayer : MonoBehaviour
             activeGadgets.Remove(gadgetToDelete);
         }
 
+        StartCoroutine(ResetLevelAchieved());
+
         // Play death animation
         animator.SetTrigger("death");
 
@@ -353,9 +355,33 @@ abstract public class BasePlayer : MonoBehaviour
             if (www.result != UnityWebRequest.Result.Success)
             {
                 Debug.Log("Error deleting a gadget: " + www.error);
-            } else
+            }
+        }
+    }
+
+    protected IEnumerator ResetLevelAchieved()
+    {
+        LevelAchieved levelAchieved = new LevelAchieved();
+
+        // populate the levelAchieved object
+        levelAchieved.id_progress = PlayerPrefs.GetInt("id_progress");
+        levelAchieved.level_achieved = 1;
+
+        string jsonLevelAchieved = JsonUtility.ToJson(levelAchieved);
+
+        string ep = ApiConstants.URL + "/progress/updateLevel";
+
+        // even though the API is a patch, we use webrequest's put and later define the method as post
+        using (UnityWebRequest www = UnityWebRequest.Put(ep, jsonLevelAchieved))
+        {
+            // Set the method later, and indicate the encoding is JSON
+            www.method = "PATCH";
+            www.SetRequestHeader("Content-Type", "application/json");
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.Log("Deleted gadget " + gadget.gadget_id + " from " + chosenGadget.progress_id);
+                Debug.Log("Error updating the level achieved: " + www.error);
             }
         }
     }
