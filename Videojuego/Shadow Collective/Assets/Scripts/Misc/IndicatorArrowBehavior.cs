@@ -20,6 +20,12 @@ public class IndicatorArrowBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (levelEnd == null)
+        {
+            // if the level end wasn't assigned, then we don't show the arrow as that might be confusing
+            DestroyImmediate(gameObject);
+        }
+
         // point the arrow towards the level end
         Vector3 direction = levelEnd.transform.position - gameObject.transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
