@@ -157,10 +157,7 @@ body{
 /*-- //header --*/
 /*--slider--*/
 
-.chart {
-    max-width: 800px;
-    max-height: 800px;
-}
+
 
 #slider2,
 #slider3 {
@@ -343,7 +340,7 @@ body{
 .banner_text h3 {
     color: #FFFFFF;
     font-size: 3em;
-    margin: 0;
+    margin: 50;
     font-weight: 100;
     text-transform: uppercase;
 }
@@ -354,15 +351,24 @@ body{
     letter-spacing: 2px;
 }
 
-.chart-container {
+.creatingChart {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-  }
-  
-  .chart-container .creatingChart {
-    text-align: center;
-  }
-  
+    align-items: center;
+
+}
+
+.chart-container canvas {
+    flex: 1;
+    width: 50%;
+    max-width: 500px;
+    height: 50%;
+    max-height: 300px;
+    align-items: center;
+    
+}
+   
 
 .w3-button {
     position: relative;

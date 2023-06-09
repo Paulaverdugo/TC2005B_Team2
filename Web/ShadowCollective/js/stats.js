@@ -36,36 +36,52 @@ try
 
     console.log(users_response);
 
-    if (users_response.ok) 
-    {
-        const results = await users_response.json()
-
-        console.log(results)
-
+    if (users_response.ok) {
+        const results = await users_response.json();
+    
+        console.log(results);
+    
         const values = Object.values(results);
         console.log(values);
-
+    
         const names = values.map((value) => value.user_name);
         const wins = values.map((value) => value.user_wins);
-
+    
         const ctx1 = document.getElementById('winsChart').getContext('2d');
-        const chart1 = new Chart(ctx1, 
-            {
-                type: 'bar',
-                data: {
-                    labels: names,
-                    datasets: [
-                        {
-                            label: '',
-                            data: wins,
-                            backgroundColor: ['rgba(255, 99, 132, 0.2)',],
-                            borderColor: ['rgba(255, 99, 132, 1)',],
-                            borderWidth: 1
-                        }
-                    ]
+        const chart1 = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: names,
+                datasets: [{
+                    label: 'Wins', // Etiqueta en el eje x (Wins)
+                    data: wins,
+                    backgroundColor: ['rgba(58,93,201,255)'],
+                    borderColor: ['rgba(58,93,201,255)'],
+                    borderWidth: 1
+                }]
             },
-        })
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Username', // Etiqueta en el eje x (Username)
+                           
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Wins', // Etiqueta en el eje y (Wins)
+                           
+                        }
+                    }
+                }
+            }
+        });
     }
+    
+    
 
 
     if (type_response.ok) 
@@ -92,8 +108,8 @@ try
                         {
                             label: '',
                             data: type_wins,
-                            backgroundColor: ['rgba(66, 106, 39)',],
-                            borderColor: ['rgba(120, 207, 59)',],
+                            backgroundColor: ['rgba(249,205,116,255)',],
+                            borderColor: ['rgba(1,1,1,1)',],
                             borderWidth: 1
                         }
                     ]
@@ -125,14 +141,32 @@ try
                     labels: dead_names,
                     datasets: [
                         {
-                            label: '',
+                            label: 'Deads',
                             data: dead_type,
-                            backgroundColor: ['rgba(140, 64, 176)',],
-                            borderColor: ['rgba(140, 64, 176)',],
+                            backgroundColor: ['rgba(167,240,111,255)',],
+                            borderColor: ['rgba(167,240,111,255)',],
                             borderWidth: 1
                         }
                     ]
             },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Class', // Etiqueta en el eje x 
+                           
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Deads', // Etiqueta en el eje y (Wins)
+                           
+                        }
+                    }
+                }
+            }
         })
     }
     else{
@@ -165,8 +199,8 @@ try
                         {
                             label: 'Wins',
                             data: gadget_frequency,
-                            backgroundColor: ['rgba(255, 99, 132, 0.2)',],
-                            borderColor: ['rgba(255, 99, 132, 1)',],
+                            backgroundColor: ['rgba(176,62,84,255)',],
+                            borderColor: ['rgba(1,1,1,1)',],
                             borderWidth: 1
                         }
                     ]
