@@ -100,13 +100,21 @@ abstract public class BasePlayer : MonoBehaviour
         }
 
         // if esc is presed, pause the game
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Time.timeScale = 0;
-            pauseMenu.SetActive(true);
+            if (pauseMenu.activeSelf)
+            {
+                Time.timeScale = 1;
+                pauseMenu.SetActive(false);
+            }
+            else
+            {
+                Time.timeScale = 0;
+                pauseMenu.SetActive(true);
+            }
         }
 
-        if (isDying) return;
+        if (isDying || Time.timeScale == 0) return;
 
         // Move the player
         Move();
