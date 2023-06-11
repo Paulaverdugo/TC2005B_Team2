@@ -103,23 +103,10 @@ public class Cybergladiator : BasePlayer
 
     override public void GetDamaged(float damage)
     {
-        print(health);
-
+        
         if (!shielding)
         {
-            health -= damage;
+            base.GetDamaged(damage);
         }
-
-        if (health <= 0)
-        {
-            StartCoroutine(GameOver());
-        }
-        else if (health > maxHealth)
-        {
-            health = maxHealth;
-        }
-
-
-        healthBar.SetHealth(health);
     }
 }
