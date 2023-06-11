@@ -68,6 +68,10 @@ abstract public class BasePlayer : MonoBehaviour
     public LevelEnd skipLevel;
     private bool skippingLevel = false;
 
+    // to pause the game
+    [System.NonSerialized] 
+    public GameObject pauseMenu;
+
     // Start is called before the first frame update
     virtual protected void Start()
     {
@@ -93,6 +97,13 @@ abstract public class BasePlayer : MonoBehaviour
             skippingLevel = true;
             Debug.Log("skipping level");
             skipLevel.EndLevel();
+        }
+
+        // if esc is presed, pause the game
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Time.timeScale = 0;
+            pauseMenu.SetActive(true);
         }
 
         if (isDying) return;
