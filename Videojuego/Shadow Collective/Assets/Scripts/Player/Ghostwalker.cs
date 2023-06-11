@@ -52,7 +52,11 @@ public class Ghostwalker : BasePlayer
     override protected void Update()
     {
         base.Update();
-        GoInvisible();
+
+        if (Time.timeScale != 0)
+        {
+            GoInvisible();
+        }
     }
 
     void GoInvisible()

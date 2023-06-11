@@ -64,7 +64,11 @@ public class Cybergladiator : BasePlayer
     override protected void Update()
     {
         base.Update();
-        ActivateShield();
+
+        if (Time.timeScale != 0)
+        {   
+            ActivateShield();
+        }
     }
 
     void ActivateShield()

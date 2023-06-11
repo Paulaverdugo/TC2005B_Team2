@@ -68,9 +68,15 @@ abstract public class BasePlayer : MonoBehaviour
     public LevelEnd skipLevel;
     private bool skippingLevel = false;
 
+    // to pause the game
+    [System.NonSerialized] 
+    public GameObject pauseMenu;
+
     // Start is called before the first frame update
     virtual protected void Start()
     {
+        Time.timeScale = 1;
+
         activeGadgets = new List<BaseGadget>();
 
         // make the sprite used to see the gameobject invisible, since we have animations
@@ -95,7 +101,22 @@ abstract public class BasePlayer : MonoBehaviour
             skipLevel.EndLevel();
         }
 
-        if (isDying) return;
+        // if esc is presed, pause the game
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (pauseMenu.activeSelf)
+            {
+                Time.timeScale = 1;
+                pauseMenu.SetActive(false);
+            }
+            else
+            {
+                Time.timeScale = 0;
+                pauseMenu.SetActive(true);
+            }
+        }
+
+        if (isDying || Time.timeScale == 0) return;
 
         // Move the player
         Move();
