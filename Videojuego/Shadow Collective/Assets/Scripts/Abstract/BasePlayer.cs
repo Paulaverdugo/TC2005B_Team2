@@ -75,6 +75,8 @@ abstract public class BasePlayer : MonoBehaviour
     // Start is called before the first frame update
     virtual protected void Start()
     {
+        Time.timeScale = 1;
+
         activeGadgets = new List<BaseGadget>();
 
         // make the sprite used to see the gameobject invisible, since we have animations
