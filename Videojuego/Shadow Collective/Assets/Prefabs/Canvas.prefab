@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 319159692879883097}
   - component: {fileID: 319159692879883102}
   - component: {fileID: 319159692879883103}
+  - component: {fileID: 2049339100}
   m_Layer: 5
   m_Name: GadgetBar
   m_TagString: Untagged
@@ -437,7 +438,19 @@ MonoBehaviour:
   m_CellSize: {x: 35, y: 35}
   m_Spacing: {x: 10, y: 10}
   m_Constraint: 0
-  m_ConstraintCount: 2
+  m_ConstraintCount: 3
+--- !u!114 &2049339100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319159692879883101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1bf1ef644e63487cb06b69cb8f54060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &319159693459875593
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,7 +536,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1258285787037390792, guid: 0e4de680deeeb40d99f93cc0b78b4468, type: 3}
       propertyPath: m_Name
-      value: GadgetSlot (1)
+      value: Gadget1
       objectReference: {fileID: 0}
     - target: {fileID: 3695125311168611348, guid: 0e4de680deeeb40d99f93cc0b78b4468, type: 3}
       propertyPath: m_Pivot.x
@@ -625,7 +638,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1258285787037390792, guid: 0e4de680deeeb40d99f93cc0b78b4468, type: 3}
       propertyPath: m_Name
-      value: GadgetSlot (2)
+      value: Gadget2
       objectReference: {fileID: 0}
     - target: {fileID: 3695125311168611348, guid: 0e4de680deeeb40d99f93cc0b78b4468, type: 3}
       propertyPath: m_Pivot.x
@@ -727,7 +740,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1258285787037390792, guid: 0e4de680deeeb40d99f93cc0b78b4468, type: 3}
       propertyPath: m_Name
-      value: GadgetSlot
+      value: Class
       objectReference: {fileID: 0}
     - target: {fileID: 3695125311168611348, guid: 0e4de680deeeb40d99f93cc0b78b4468, type: 3}
       propertyPath: m_Pivot.x
