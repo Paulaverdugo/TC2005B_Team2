@@ -110,7 +110,7 @@ public class Login : MonoBehaviour
                     PlayerPrefs.SetInt("player_type_number", progress.player_type);
                     PlayerPrefs.SetInt("id_progress", progress.id_progress);
 
-                    StartCoroutine(GetGadgets());
+                    yield return StartCoroutine(GetGadgets());
 
                     switch (progress.level_achieved)
                     {
