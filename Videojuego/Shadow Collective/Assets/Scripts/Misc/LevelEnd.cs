@@ -10,7 +10,7 @@ using UnityEngine.Networking;
 
 public class LevelEnd : MonoBehaviour
 {
-    [SerializeField] string nextLevel;
+    [SerializeField] string nextScene;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -31,7 +31,7 @@ public class LevelEnd : MonoBehaviour
         StartCoroutine(UpdateLevelAchieved());
         
         // load the next level
-        SceneManager.LoadScene(nextLevel);
+        SceneManager.LoadScene(nextScene);
     }
 
     private IEnumerator AddWin()
@@ -67,20 +67,23 @@ public class LevelEnd : MonoBehaviour
 
         // populate the levelAchieved object
         levelAchieved.id_progress = PlayerPrefs.GetInt("id_progress");
-        switch (nextLevel)
+        switch (SceneManager.GetActiveScene().name)
         {
-            case "Level1":
+            case "Tutorial":
+                PlayerPrefs.SetString("level_achieved", "Level1");
                 levelAchieved.level_achieved = 1;
                 break;
-            case "Level2":
+            case "Level1":
+                PlayerPrefs.SetString("level_achieved", "Level2");
                 levelAchieved.level_achieved = 2;
                 break;
-            case "LevelB":
+            case "Level2":
+                PlayerPrefs.SetString("level_achieved", "LevelB");
                 levelAchieved.level_achieved = 3;
                 break;
-            // case "scene after boss":
-            //     levelAchieved.level_achieved = 4;
-            //     break;
+            case "LevelB":
+                levelAchieved.level_achieved = 4;
+                break;
             default: // should not reach here
                 levelAchieved.level_achieved = 4;
                 break;
