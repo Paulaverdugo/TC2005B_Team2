@@ -92,10 +92,8 @@ public class SkinManager : MonoBehaviour
             // Set the method later, and indicate the encoding is JSON
             www.method = "POST";
             www.SetRequestHeader("Content-Type", "application/json");
-            print("before yield return");
             yield return www.SendWebRequest();
 
-            print("after yield return");
             if (www.result != UnityWebRequest.Result.Success) 
             {
                 Debug.Log("error creating a progress: " + www.error);
@@ -103,11 +101,8 @@ public class SkinManager : MonoBehaviour
             {
                 Response response = JsonUtility.FromJson<Response>(www.downloadHandler.text);
                 PlayerPrefs.SetInt("id_progress", response.data.insertId);
-                print("id_progress: " + response.data.insertId);
             }
-            print("after if else");
         }
-        print("id_progress: " + PlayerPrefs.GetInt("id_progress"));
         SceneManager.LoadScene("Tutorial");
     }
 }
