@@ -5,15 +5,28 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager instance;
     [SerializeField] AudioMixer mixer;
+    [SerializeField] AudioSource shootSource;
+    [SerializeField] AudioClip shoot;
+    [SerializeField] AudioSource moveSource;
+    [SerializeField] AudioClip move;
 
     public const string MUSIC_KEY = "musicVolume";
     public const string SFX_KEY = "sfxVolume";
     // Start is called before the first frame update
     void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         LoadVolume();
-
     }
 
     void LoadVolume()
@@ -23,6 +36,17 @@ public class AudioManager : MonoBehaviour
         // Load the volume preferences.
         mixer.SetFloat(VolumeSettings.MUSIC_VOLUME, Mathf.Log10(musicVolume) * 20);
         mixer.SetFloat(VolumeSettings.SFX_VOLUME, Mathf.Log10(sfxVolume) * 20);
+    }
 
+    public void PlayShootSound()
+    {
+        shootSource.clip = shoot;
+        shootSource.Play();
+    }
+
+    public void PlayMoveSound()
+    {
+        moveSource.clip = move;
+        moveSource.Play();
     }
 }
