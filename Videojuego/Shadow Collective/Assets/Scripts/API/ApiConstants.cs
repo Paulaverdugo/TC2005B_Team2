@@ -59,12 +59,23 @@ public class ProgressList
 [System.Serializable]
 public class ShortGadget
 {
+    public ShortGadget() {}
+    public ShortGadget(int gadget_id)
+    {
+        this.gadget_id = gadget_id;
+    }
+
     public int gadget_id;
 }
 
 [System.Serializable]
 public class ShortGadgetList
 {
+    public ShortGadgetList() {}
+    public ShortGadgetList(List<ShortGadget> gadgets)
+    {
+        this.gadgets = gadgets;
+    }
     public List<ShortGadget> gadgets;
 }
 
@@ -106,4 +117,11 @@ public class LevelAchieved
 {
     public int id_progress;
     public int level_achieved;
+}
+
+[System.Serializable]
+public class ChosenGadget
+{
+    public int gadget_id;
+    public int progress_id;
 }

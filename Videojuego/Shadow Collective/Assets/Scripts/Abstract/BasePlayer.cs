@@ -68,9 +68,15 @@ abstract public class BasePlayer : MonoBehaviour
     public LevelEnd skipLevel;
     private bool skippingLevel = false;
 
+    // to pause the game
+    [System.NonSerialized] 
+    public GameObject pauseMenu;
+
     // Start is called before the first frame update
     virtual protected void Start()
     {
+        Time.timeScale = 1;
+
         activeGadgets = new List<BaseGadget>();
 
         // make the sprite used to see the gameobject invisible, since we have animations
@@ -95,7 +101,22 @@ abstract public class BasePlayer : MonoBehaviour
             skipLevel.EndLevel();
         }
 
-        if (isDying) return;
+        // if esc is presed, pause the game
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (pauseMenu.activeSelf)
+            {
+                Time.timeScale = 1;
+                pauseMenu.SetActive(false);
+            }
+            else
+            {
+                Time.timeScale = 0;
+                pauseMenu.SetActive(true);
+            }
+        }
+
+        if (isDying || Time.timeScale == 0) return;
 
         // Move the player
         Move();
@@ -226,12 +247,24 @@ abstract public class BasePlayer : MonoBehaviour
         // Add a death to our stats
         StartCoroutine(AddDeath());
 
+        // Leave the player with only one gadget
+        while (activeGadgets.Count > 1)
+        {
+            BaseGadget gadgetToDelete = activeGadgets[Random.Range(0, activeGadgets.Count - 1)];
+            StartCoroutine(RemoveGadget(gadgetToDelete));
+
+            activeGadgets.Remove(gadgetToDelete);
+        }
+
+        StartCoroutine(ResetLevelAchieved());
+
         // Play death animation
         animator.SetTrigger("death");
 
         yield return new WaitForSeconds(1);
 
         DestroyImmediate(gameObject);
+        SceneManager.LoadScene("Death");
         // spriteRenderer.enabled = true;
         // // Reset the player's health
         // health = maxHealth;
@@ -318,6 +351,59 @@ abstract public class BasePlayer : MonoBehaviour
             if (www.result != UnityWebRequest.Result.Success)
             {
                 Debug.Log("Error creating a death: " + www.error);
+            }
+        }
+    }
+
+    protected IEnumerator RemoveGadget(BaseGadget gadget)
+    {
+        ChosenGadget chosenGadget = new ChosenGadget();
+
+        chosenGadget.gadget_id = gadget.gadget_id;
+        chosenGadget.progress_id = PlayerPrefs.GetInt("id_progress");
+
+        string jsonChosenGadget = JsonUtility.ToJson(chosenGadget);
+
+        string ep = ApiConstants.URL + "/gadget/deleteChosenGadget";
+        // even though the API is a post, we use webrequest's put and later define the method as post
+        using (UnityWebRequest www = UnityWebRequest.Put(ep, jsonChosenGadget))
+        {
+            //UnityWebRequest www = UnityWebRequest.Post(url + getUsersEP, form);
+            // Set the method later, and indicate the encoding is JSON
+            www.method = "DELETE";
+            www.SetRequestHeader("Content-Type", "application/json");
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Error deleting a gadget: " + www.error);
+            }
+        }
+    }
+
+    protected IEnumerator ResetLevelAchieved()
+    {
+        LevelAchieved levelAchieved = new LevelAchieved();
+
+        // populate the levelAchieved object
+        levelAchieved.id_progress = PlayerPrefs.GetInt("id_progress");
+        levelAchieved.level_achieved = 1;
+
+        string jsonLevelAchieved = JsonUtility.ToJson(levelAchieved);
+
+        string ep = ApiConstants.URL + "/progress/updateLevel";
+
+        // even though the API is a patch, we use webrequest's put and later define the method as post
+        using (UnityWebRequest www = UnityWebRequest.Put(ep, jsonLevelAchieved))
+        {
+            // Set the method later, and indicate the encoding is JSON
+            www.method = "PATCH";
+            www.SetRequestHeader("Content-Type", "application/json");
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Error updating the level achieved: " + www.error);
             }
         }
     }

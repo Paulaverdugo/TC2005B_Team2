@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/NewAccount.unity
     guid: 92b857ad576e647a094250654e1cc30d
   - enabled: 1
+    path: Assets/Scenes/GadgetSelection.unity
+    guid: f2f381cbc91a54be5a2a9bb3547181c6
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
@@ -32,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 556d34f196b1c4892bb4a3a6e0b06f95
+  - enabled: 1
+    path: Assets/Scenes/Death.unity
+    guid: 551d55cf3f4b045c293fe145f45d6715
   m_configObjects: {}

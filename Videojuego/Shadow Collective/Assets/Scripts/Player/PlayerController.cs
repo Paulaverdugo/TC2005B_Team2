@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public Animator animator;
     [SerializeField] public Texture2D cursorTexture;
     [SerializeField] public GameObject bulletPrefab;
+    [SerializeField] public GameObject pauseMenu;
     [SerializeField] LevelEnd skipLevel;
 
     [SerializeField] float acceleration;
@@ -125,5 +126,6 @@ public class PlayerController : MonoBehaviour
         playerScript.enemies = enemies;
         playerScript.bulletPrefab = bulletPrefab;
         playerScript.skipLevel = skipLevel;
+        playerScript.pauseMenu = pauseMenu;
     }
 }

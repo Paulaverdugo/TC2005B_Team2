@@ -52,19 +52,23 @@ public class Cybergladiator : BasePlayer
         PopulateActiveGadgets();
 
         // for testing
-        activeGadgets.Add(possibleGadgets[0]);
-        activeGadgets[0].StartGadget();
-        activeGadgets.Add(possibleGadgets[1]);
-        activeGadgets[1].StartGadget();
-        activeGadgets.Add(possibleGadgets[2]);
-        activeGadgets[2].StartGadget();
+        // activeGadgets.Add(possibleGadgets[0]);
+        // activeGadgets[0].StartGadget();
+        // activeGadgets.Add(possibleGadgets[1]);
+        // activeGadgets[1].StartGadget();
+        // activeGadgets.Add(possibleGadgets[2]);
+        // activeGadgets[2].StartGadget();
     }
 
     // Update is called once per frame
     override protected void Update()
     {
         base.Update();
-        ActivateShield();
+
+        if (Time.timeScale != 0)
+        {   
+            ActivateShield();
+        }
     }
 
     void ActivateShield()
@@ -103,23 +107,10 @@ public class Cybergladiator : BasePlayer
 
     override public void GetDamaged(float damage)
     {
-        print(health);
-
+        
         if (!shielding)
         {
-            health -= damage;
+            base.GetDamaged(damage);
         }
-
-        if (health <= 0)
-        {
-            StartCoroutine(GameOver());
-        }
-        else if (health > maxHealth)
-        {
-            health = maxHealth;
-        }
-
-
-        healthBar.SetHealth(health);
     }
 }

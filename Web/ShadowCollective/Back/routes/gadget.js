@@ -3,7 +3,7 @@ import { Router } from 'express';
 import {
     addChosenGadget,
     deleteChosenGadget
-} from "../helpers/users.js"
+} from "../helpers/gadget.js"
 
 const router = Router();
 
