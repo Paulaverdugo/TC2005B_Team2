@@ -97,10 +97,7 @@ public class SkinManagerGadget : MonoBehaviour
     // function for select button -> should add the gadget to the player prefs and load the next level
     public void Select()
     {
-        activeGadgets.Add(new ShortGadget(gadgetsToChoose[selectedSkin].gadget_id));
-        
-        PlayerPrefs.SetString("gadgets", JsonUtility.ToJson(new ShortGadgetList(activeGadgets)));
-
+        StartCoroutine(AddGadget());
         
         // load the next level
         switch(PlayerPrefs.GetString("level_achieved"))
@@ -114,6 +111,35 @@ public class SkinManagerGadget : MonoBehaviour
             default: // we shouldn't reach here
                 SceneManager.LoadScene("Level1");
                 break;
+        }
+    }
+
+    private IEnumerator AddGadget()
+    {
+        activeGadgets.Add(new ShortGadget(gadgetsToChoose[selectedSkin].gadget_id));
+        
+        PlayerPrefs.SetString("gadgets", JsonUtility.ToJson(new ShortGadgetList(activeGadgets)));
+
+        ChosenGadget chosenGadget = new ChosenGadget();
+        chosenGadget.gadget_id = gadgetsToChoose[selectedSkin].gadget_id;
+        chosenGadget.progress_id = PlayerPrefs.GetInt("id_progress");
+
+        string jsonNewGadget = JsonUtility.ToJson(chosenGadget);
+
+        string ep = ApiConstants.URL + "/gadget/addChosenGadget";
+
+        using (UnityWebRequest www = UnityWebRequest.Put(ep, jsonNewGadget))
+        {
+            //UnityWebRequest www = UnityWebRequest.Post(url + getUsersEP, form);
+            // Set the method later, and indicate the encoding is JSON
+            www.method = "POST";
+            www.SetRequestHeader("Content-Type", "application/json");
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success) 
+            {
+                Debug.Log("error adding a chosen gadget: " + www.error);
+            } 
         }
     }
 }
