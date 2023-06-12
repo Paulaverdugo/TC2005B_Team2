@@ -48,6 +48,7 @@ public class SkinManagerGadget : MonoBehaviour
 
             activeGadgets = shortGadgetList.gadgets;
 
+            if (activeGadgets.Count > 1) LoadNextLevel();
 
             foreach (ShortGadget activeGadget in activeGadgets)
             {
@@ -95,7 +96,10 @@ public class SkinManagerGadget : MonoBehaviour
     public void Select()
     {
         StartCoroutine(AddGadget());
-        
+    }
+
+    private void LoadNextLevel()
+    {
         // load the next level
         switch(PlayerPrefs.GetString("level_achieved"))
         {
@@ -138,5 +142,7 @@ public class SkinManagerGadget : MonoBehaviour
                 Debug.Log("error adding a chosen gadget: " + www.error);
             } 
         }
+
+        LoadNextLevel();
     }
 }
