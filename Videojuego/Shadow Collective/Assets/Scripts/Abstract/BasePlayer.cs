@@ -116,9 +116,9 @@ abstract public class BasePlayer : MonoBehaviour
         // with the player's input, calculate the speed
         if (movementDirection.magnitude > 0) // if we are moving
         {
-            AudioManager.instance.PlayMoveSound();
             animator.SetBool("isRunning", true);
             currentSpeed += acceleration * Time.deltaTime;
+            AudioManager.instance.PlayMoveSound();
         }
         else // not moving
         {

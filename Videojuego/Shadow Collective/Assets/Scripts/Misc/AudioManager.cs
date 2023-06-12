@@ -20,7 +20,6 @@ public class AudioManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -40,12 +39,15 @@ public class AudioManager : MonoBehaviour
 
     public void PlayShootSound()
     {
+        // Making up for bad timing
+        shootSource.time = 0.1f;
         shootSource.clip = shoot;
         shootSource.Play();
     }
 
     public void PlayMoveSound()
     {
+        moveSource.time = 0.3f;
         moveSource.clip = move;
         moveSource.Play();
     }
