@@ -118,7 +118,6 @@ abstract public class BasePlayer : MonoBehaviour
         {
             animator.SetBool("isRunning", true);
             currentSpeed += acceleration * Time.deltaTime;
-            AudioManager.instance.PlayMoveSound();
         }
         else // not moving
         {
@@ -129,6 +128,11 @@ abstract public class BasePlayer : MonoBehaviour
         currentSpeed = Mathf.Clamp(currentSpeed, 0, maxSpeed);
 
         rigidbody2d.velocity = currentSpeed * movementDirection.normalized;
+    }
+
+    private void PlayMoveSound()
+    {
+        AudioManager.instance.PlayMoveSound();
     }
 
     protected void Shoot()
