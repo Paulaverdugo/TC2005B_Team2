@@ -59,6 +59,11 @@ public class ProgressList
 [System.Serializable]
 public class ShortGadget
 {
+    public ShortGadget(int gadget_id)
+    {
+        this.gadget_id = gadget_id;
+    }
+    
     public int gadget_id;
 }
 

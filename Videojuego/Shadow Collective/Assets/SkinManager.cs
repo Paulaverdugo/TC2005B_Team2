@@ -60,6 +60,13 @@ public class SkinManager : MonoBehaviour
         }
 
         PlayerPrefs.SetInt("player_type_number", playerTypeNumber);
+        PlayerPrefs.SetString("level_achieved", "Level1");
+
+        // empty gadgets in player prefs
+        ShortGadgetList gadgets = new ShortGadgetList();
+        gadgets.gadgets = new List<ShortGadget>();
+        string jsonGadgets = JsonUtility.ToJson(gadgets);
+        PlayerPrefs.SetString("gadgets", jsonGadgets);
 
         // HERE IS WHERE WE CREATE A NEW PROGRESS THROUGH THE API
 

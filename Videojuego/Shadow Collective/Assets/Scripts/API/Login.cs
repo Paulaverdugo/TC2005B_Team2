@@ -115,15 +115,19 @@ public class Login : MonoBehaviour
                     switch (progress.level_achieved)
                     {
                         case 1:
+                            PlayerPrefs.SetString("level_achieved", "Level1");
                             SceneManager.LoadScene("Level1");
                             break;
                         case 2:
+                            PlayerPrefs.SetString("level_achieved", "Level2");
                             SceneManager.LoadScene("Level2");
                             break;
                         case 3:
+                            PlayerPrefs.SetString("level_achieved", "LevelB");
                             SceneManager.LoadScene("LevelB");
                             break;
                         default:
+                            PlayerPrefs.SetString("level_achieved", "Level1");
                             SceneManager.LoadScene("Selection");
                             break;
                     }
