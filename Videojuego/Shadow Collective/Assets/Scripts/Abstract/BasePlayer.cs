@@ -151,6 +151,11 @@ abstract public class BasePlayer : MonoBehaviour
         rigidbody2d.velocity = currentSpeed * movementDirection.normalized;
     }
 
+    private void PlayMoveSound()
+    {
+        AudioManager.instance.PlayMoveSound();
+    }
+
     protected void Shoot()
     {
         timeSinceLastShot += Time.deltaTime;
@@ -159,6 +164,7 @@ abstract public class BasePlayer : MonoBehaviour
         {
             if (!shootButtonPressed)
             {
+                AudioManager.instance.PlayShootSound();
                 timeSinceLastShot = 0;
                 animator.SetTrigger("shoot");
                 shootButtonPressed = true;
@@ -242,7 +248,7 @@ abstract public class BasePlayer : MonoBehaviour
         healthBar.SetHealth(health);
     }
 
-    protected IEnumerator GameOver() 
+    protected IEnumerator GameOver()
     {
         // Add a death to our stats
         StartCoroutine(AddDeath());
@@ -309,7 +315,7 @@ abstract public class BasePlayer : MonoBehaviour
                     }
                 }
             }
-        } 
+        }
     }
 
     protected IEnumerator AddDeath()
@@ -320,7 +326,7 @@ abstract public class BasePlayer : MonoBehaviour
         death.user_name = PlayerPrefs.GetString("user_name");
         death.player_type = PlayerPrefs.GetInt("player_type_number");
 
-        switch(SceneManager.GetActiveScene().name)
+        switch (SceneManager.GetActiveScene().name)
         {
             case "Level1":
                 death.level_death = 1;
