@@ -53,7 +53,10 @@ public class Codebreaker : BasePlayer
     {
         base.Update();
 
-        HackAbilityUpdate();
+        if (Time.timeScale != 0)
+        {
+            HackAbilityUpdate();
+        }
     }
 
     private void HackAbilityUpdate()
