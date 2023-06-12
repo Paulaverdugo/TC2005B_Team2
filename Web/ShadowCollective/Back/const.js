@@ -13,5 +13,5 @@ export const DEV = {
     database: "scollective",
  };
 
-export const ENV = DEV;
-export const PORT = 8000;
+export const ENV = PROD;
+export const PORT = process.env.PORT || 4000;

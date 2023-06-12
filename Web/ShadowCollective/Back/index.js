@@ -7,6 +7,7 @@ import {
     eventRouter,
     gadgetRouter,
 } from "./routes/index.js";
+import cors from "cors";
 
 import mysql from "mysql2/promise";
 import {ENV, PORT} from "./const.js";
@@ -15,10 +16,11 @@ import {ENV, PORT} from "./const.js";
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 //Ruta por defualt
 app.get("/", (req, res) => {
-    res.send("Servidor trabajando en el puerto 8000");
+    res.send(`Servidor trabajando en el puerto ${PORT}`);
 });
 
 // ----  Rutas ---- 
@@ -33,7 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.listen(PORT, () => {
-    console.log("Servidor iniciado en el puerto 8000");
+    console.log(`Servidor iniciado en el puerto ${PORT}`);
 });
 
 //Connect to DB
