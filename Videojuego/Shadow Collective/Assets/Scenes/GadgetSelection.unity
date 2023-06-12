@@ -207,8 +207,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SkinManager, Assembly-CSharp
+      - m_Target: {fileID: 1254798916}
+        m_TargetAssemblyTypeName: SkinManagerGadget, Assembly-CSharp
         m_MethodName: NextOption
         m_Mode: 1
         m_Arguments:
@@ -512,6 +512,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 460107223}
   m_CullTransparentMesh: 1
+--- !u!212 &655913341 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4625546917111276331, guid: e51c6b86ee5d84d078b472476d5801a1, type: 3}
+  m_PrefabInstance: {fileID: 4625546915282000993}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &862248441
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,7 +1101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef1f59df378d46c084ffba933647e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sr: {fileID: 0}
+  sr: {fileID: 655913341}
 --- !u!1 &1283007112
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,8 +1291,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SkinManager, Assembly-CSharp
+      - m_Target: {fileID: 1254798916}
+        m_TargetAssemblyTypeName: SkinManagerGadget, Assembly-CSharp
         m_MethodName: BackOption
         m_Mode: 1
         m_Arguments:
@@ -1552,7 +1557,7 @@ GameObject:
   - component: {fileID: 1802858551}
   - component: {fileID: 1802858550}
   m_Layer: 5
-  m_Name: playbutton
+  m_Name: selectbutton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1624,9 +1629,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SkinManager, Assembly-CSharp
-        m_MethodName: PlayGame
+      - m_Target: {fileID: 1254798916}
+        m_TargetAssemblyTypeName: SkinManagerGadget, Assembly-CSharp
+        m_MethodName: Select
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

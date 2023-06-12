@@ -48,19 +48,30 @@ public class SkinManagerGadget : MonoBehaviour
 
             activeGadgets = shortGadgetList.gadgets;
 
-            print("Active gadgets count: " + activeGadgets.Count);
 
-            foreach (ShortGadget gadget in activeGadgets)
+            foreach (ShortGadget activeGadget in activeGadgets)
             {
-                gadgetsToChoose.Remove(gadget);
+                print("ActiveGadget: " + activeGadget.gadget_id);
+                foreach (ShortGadget gadget in gadgetsToChoose)
+                {
+                    if (activeGadget.gadget_id == gadget.gadget_id)
+                    {
+                        gadgetsToChoose.Remove(gadget);
+                        break;
+                    }
+                }
             }
         }
 
+        // populate the skins list
         foreach (ShortGadget gadget in gadgetsToChoose)
         {
-            print("gadget id: " + gadget.gadget_id);
+            print("to chose: " + gadget.gadget_id);
+            skins.Add(Resources.Load<Sprite>("GadgetSprites/" + gadget.gadget_id));
         }
 
+        print("skins count: " + skins.Count); 
+        sr.sprite = skins[selectedSkin];
     }
 
     public void NextOption()
@@ -83,33 +94,26 @@ public class SkinManagerGadget : MonoBehaviour
         sr.sprite = skins[selectedSkin];
     }
     
-    public void PlayGame()
+    // function for select button -> should add the gadget to the player prefs and load the next level
+    public void Select()
     {
-        PlayerPrefs.SetString("player_type", skins[selectedSkin].name);
+        activeGadgets.Add(new ShortGadget(gadgetsToChoose[selectedSkin].gadget_id));
+        
+        PlayerPrefs.SetString("gadgets", JsonUtility.ToJson(new ShortGadgetList(activeGadgets)));
 
-        int playerTypeNumber = 0;
-
-        switch(skins[selectedSkin].name)
+        
+        // load the next level
+        switch(PlayerPrefs.GetString("level_achieved"))
         {
-            case "cybergladiator":
-                playerTypeNumber = 1;
+            case "Level2":
+                SceneManager.LoadScene("Level2");
                 break;
-            case "codebreaker":
-                playerTypeNumber = 2;
-                break;
-            case "ghostwalker":
-                playerTypeNumber = 3;
+            case "LevelB":
+                SceneManager.LoadScene("LevelB");
                 break;
             default: // we shouldn't reach here
-                playerTypeNumber = 0;
+                SceneManager.LoadScene("Level1");
                 break;
         }
-
-        PlayerPrefs.SetInt("player_type_number", playerTypeNumber);
-
-        // HERE IS WHERE WE CREATE A NEW PROGRESS THROUGH THE API
-
-        // StartCoroutine(CreateProgress());
-        SceneManager.LoadScene("Tutorial");
     }
 }
