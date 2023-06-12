@@ -51,7 +51,6 @@ public class SkinManagerGadget : MonoBehaviour
 
             foreach (ShortGadget activeGadget in activeGadgets)
             {
-                print("ActiveGadget: " + activeGadget.gadget_id);
                 foreach (ShortGadget gadget in gadgetsToChoose)
                 {
                     if (activeGadget.gadget_id == gadget.gadget_id)
@@ -66,11 +65,9 @@ public class SkinManagerGadget : MonoBehaviour
         // populate the skins list
         foreach (ShortGadget gadget in gadgetsToChoose)
         {
-            print("to chose: " + gadget.gadget_id);
             skins.Add(Resources.Load<Sprite>("GadgetSprites/" + gadget.gadget_id));
         }
 
-        print("skins count: " + skins.Count); 
         sr.sprite = skins[selectedSkin];
     }
 
