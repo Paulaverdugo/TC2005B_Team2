@@ -89,6 +89,7 @@ public class Login : MonoBehaviour
                 else
                 {
                     string jsonString = "{\"progresses\":" + www.downloadHandler.text + "}";
+                    print(jsonString);
                     ProgressList progressList = JsonUtility.FromJson<ProgressList>(jsonString);
                     Progress progress = progressList.progresses[0];
 
@@ -111,6 +112,8 @@ public class Login : MonoBehaviour
                     PlayerPrefs.SetInt("id_progress", progress.id_progress);
 
                     yield return StartCoroutine(GetGadgets());
+
+                    print("level achieved: " + progress.level_achieved + " | id_progress: " + progress.id_progress);
 
                     switch (progress.level_achieved)
                     {
