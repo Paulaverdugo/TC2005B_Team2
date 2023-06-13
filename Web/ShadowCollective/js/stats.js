@@ -56,10 +56,10 @@ try
                     labels: names,
                     datasets: [
                         {
-                            label: '',
+                            label: 'Wins',
                             data: wins,
-                            backgroundColor: ['rgba(255, 99, 132, 0.2)',],
-                            borderColor: ['rgba(255, 99, 132, 1)',],
+                            backgroundColor: ['rgba(58,93,201,255)'],
+                            borderColor: ['rgba(58,93,201,255)'],
                             borderWidth: 1
                         }
                     ]
@@ -92,8 +92,8 @@ try
                         {
                             label: '',
                             data: type_wins,
-                            backgroundColor: ['rgba(66, 106, 39)',],
-                            borderColor: ['rgba(120, 207, 59)',],
+                            backgroundColor: ['rgba(249,205,116,255)',],
+                            borderColor: ['rgba(1,1,1,1)',],
                             borderWidth: 1
                         }
                     ]
@@ -125,10 +125,10 @@ try
                     labels: dead_names,
                     datasets: [
                         {
-                            label: '',
+                            label: 'Deaths',
                             data: dead_type,
-                            backgroundColor: ['rgba(140, 64, 176)',],
-                            borderColor: ['rgba(140, 64, 176)',],
+                            backgroundColor: ['rgba(167,240,111,255)',],
+                            borderColor: ['rgba(167,240,111,255)',],
                             borderWidth: 1
                         }
                     ]
@@ -165,8 +165,8 @@ try
                         {
                             label: 'Wins',
                             data: gadget_frequency,
-                            backgroundColor: ['rgba(255, 99, 132, 0.2)',],
-                            borderColor: ['rgba(255, 99, 132, 1)',],
+                            backgroundColor: ['rgba(176,62,84,255)',],
+                            borderColor: ['rgba(1,1,1,1)',],
                             borderWidth: 1
                         }
                     ]
