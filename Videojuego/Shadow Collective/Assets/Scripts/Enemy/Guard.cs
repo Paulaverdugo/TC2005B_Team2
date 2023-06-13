@@ -54,8 +54,12 @@ public class Guard : BaseEnemy
     // when the guard is alerted, it can look farther away
     private float alertedVisionMultiplier = 2f;
 
+    // Initialize Audio
+    [SerializeField] AudioSource shootSource;
+    [SerializeField] AudioClip shootSound;
+
     override protected void Start()
-    {   
+    {
         // sprite renderer has to be initialized before base.Start() since it is used in update vision cone, to flip the sprite if necessary
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
@@ -66,10 +70,10 @@ public class Guard : BaseEnemy
 
         // Set the healthbar 
         enemyHealthBar.SetMaxHealth(health);
-        
+
         // make the sprite used to see the gameobject invisible, since we have animations
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        
+
 
         // Get the guardAI component
         guardAI = GetComponent<GuardAI>();
@@ -96,7 +100,7 @@ public class Guard : BaseEnemy
         {
             MoveToPlayer();
             Shoot();
-        } 
+        }
         else if (returningToStart)
         {
             Vector3 direction = startingPos - transform.position;
@@ -177,14 +181,23 @@ public class Guard : BaseEnemy
         UpdateVisionCone(direction);
     }
 
+    private void PlayShootSound()
+    {
+        // Making up for bad timing
+        shootSource.time = 0.1f;
+        shootSource.clip = shootSound;
+        shootSource.Play();
+    }
+
     void Shoot()
     {
         timeSinceLastShot += Time.deltaTime;
 
         // check if the player is in sight
         RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance * alertedVisionMultiplier, raycastLayer);
-        if(hit.collider != null && GameObject.ReferenceEquals(hit.collider.gameObject, player))
+        if (hit.collider != null && GameObject.ReferenceEquals(hit.collider.gameObject, player))
         {
+            PlayShootSound();
             // checking the visibility has to be done after checking if there is line of sight, since there is a gadget that can hack you when you make this call
             if (playerController.CheckVisibility(gameObject))
             {
@@ -206,7 +219,7 @@ public class Guard : BaseEnemy
 
                     // get the rotation of the bullet gameobject
                     float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                    
+
                     Instantiate(bulletPrefab, launchPosition, Quaternion.Euler(0f, 0f, rotZ));
                     // bullet.GetComponent<BulletBehaviour>().SetDamage(damage); -> to set the damage of the bullet (default 1)
                 }
@@ -223,7 +236,7 @@ public class Guard : BaseEnemy
         {
             Die();
         }
-        
+
         if (fromPlayer) AlertOthers(player.transform.position);
     }
 
@@ -285,9 +298,9 @@ public class Guard : BaseEnemy
 
         base.Hack(hackDuration_);
         guardAI.enabled = false;
-        
+
         // hold the guard in place
-        rb.velocity = Vector3.zero; 
+        rb.velocity = Vector3.zero;
         rb.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
 
         animator.SetBool("isRunning", false);
@@ -306,7 +319,8 @@ public class Guard : BaseEnemy
             if (isAlerted)
             {
                 guardAI.target = playerLastPos;
-            } else
+            }
+            else
             {
                 guardAI.target = startingPos;
                 returningToStart = true;

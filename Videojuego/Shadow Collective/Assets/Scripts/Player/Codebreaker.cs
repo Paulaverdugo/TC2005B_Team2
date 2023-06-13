@@ -74,7 +74,7 @@ public class Codebreaker : BasePlayer
                 if (enemy == null)
                 {
                     enemiesToDelete.Add(enemy);
-                } 
+                }
                 else
                 {
                     float distance = (enemy.transform.position - gameObject.transform.position).magnitude;
@@ -120,6 +120,7 @@ public class Codebreaker : BasePlayer
     public void Hack(GameObject enemy)
     {
         visualHackTargetAim.SetActive(false);
+        AudioManager.instance.PlayHackSound();
         StartCoroutine(HackCoroutine(enemy));
     }
 

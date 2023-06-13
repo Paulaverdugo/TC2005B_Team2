@@ -66,7 +66,7 @@ public class Cybergladiator : BasePlayer
         base.Update();
 
         if (Time.timeScale != 0)
-        {   
+        {
             ActivateShield();
         }
     }
@@ -76,6 +76,7 @@ public class Cybergladiator : BasePlayer
         // if player can be invisible again and they pressed space
         if (Input.GetKey(KeyCode.Space) && !shielding && cooldownTimer >= shieldCooldown)
         {
+            AudioManager.instance.PlayShieldSound();
             shieldAnimation.SetActive(true);
 
             shielding = true;
@@ -107,7 +108,7 @@ public class Cybergladiator : BasePlayer
 
     override public void GetDamaged(float damage)
     {
-        
+
         if (!shielding)
         {
             base.GetDamaged(damage);
