@@ -54,6 +54,10 @@ public class Guard : BaseEnemy
     // when the guard is alerted, it can look farther away
     private float alertedVisionMultiplier = 2f;
 
+    // Initialize Audio
+    [SerializeField] AudioSource shootSource;
+    [SerializeField] AudioClip shootSound;
+
     override protected void Start()
     {
         // sprite renderer has to be initialized before base.Start() since it is used in update vision cone, to flip the sprite if necessary
@@ -177,6 +181,14 @@ public class Guard : BaseEnemy
         UpdateVisionCone(direction);
     }
 
+    private void PlayShootSound()
+    {
+        // Making up for bad timing
+        shootSource.time = 0.1f;
+        shootSource.clip = shootSound;
+        shootSource.Play();
+    }
+
     void Shoot()
     {
         timeSinceLastShot += Time.deltaTime;
@@ -185,6 +197,7 @@ public class Guard : BaseEnemy
         RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, sightDistance * alertedVisionMultiplier, raycastLayer);
         if (hit.collider != null && GameObject.ReferenceEquals(hit.collider.gameObject, player))
         {
+            PlayShootSound();
             // checking the visibility has to be done after checking if there is line of sight, since there is a gadget that can hack you when you make this call
             if (playerController.CheckVisibility(gameObject))
             {

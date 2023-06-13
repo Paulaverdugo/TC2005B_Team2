@@ -68,25 +68,19 @@ public class AudioManager : MonoBehaviour
 
     public void PlayStealthSound()
     {
-        stealthSource.time = 0.3f;
         stealthSource.clip = stealth;
         stealthSource.Play();
-        stealthSource.Stop();
     }
 
     public void PlayHackSound()
     {
-        hackSource.time = 0.3f;
         hackSource.clip = hack;
         hackSource.Play();
-        hackSource.Stop();
     }
 
     public void PlayShieldSound()
     {
-        shieldSource.time = 0.3f;
         shieldSource.clip = shield;
         shieldSource.Play();
-        shieldSource.Stop();
     }
 }
