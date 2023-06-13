@@ -251,18 +251,27 @@ abstract public class BasePlayer : MonoBehaviour
     protected IEnumerator GameOver()
     {
         // Add a death to our stats
-        StartCoroutine(AddDeath());
+        yield return StartCoroutine(AddDeath());
 
         // Leave the player with only one gadget
         while (activeGadgets.Count > 1)
         {
             BaseGadget gadgetToDelete = activeGadgets[Random.Range(0, activeGadgets.Count - 1)];
-            StartCoroutine(RemoveGadget(gadgetToDelete));
+            yield return StartCoroutine(RemoveGadget(gadgetToDelete));
 
+            // remove them from player prefs
             activeGadgets.Remove(gadgetToDelete);
+
+            ShortGadgetList shortGadgetList = new ShortGadgetList();
+            foreach (BaseGadget baseGadget in activeGadgets)
+            {
+                shortGadgetList.gadgets.Add(new ShortGadget(baseGadget.gadget_id));
+            }
+
+            PlayerPrefs.SetString("gadgets", JsonUtility.ToJson(shortGadgetList));
         }
 
-        StartCoroutine(ResetLevelAchieved());
+        yield return StartCoroutine(ResetLevelAchieved());
 
         // Play death animation
         animator.SetTrigger("death");

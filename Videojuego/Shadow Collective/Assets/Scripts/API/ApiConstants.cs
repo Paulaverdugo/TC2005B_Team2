@@ -71,7 +71,11 @@ public class ShortGadget
 [System.Serializable]
 public class ShortGadgetList
 {
-    public ShortGadgetList() {}
+    public ShortGadgetList() 
+    {
+        this.gadgets = new List<ShortGadget>();
+    }
+
     public ShortGadgetList(List<ShortGadget> gadgets)
     {
         this.gadgets = gadgets;
