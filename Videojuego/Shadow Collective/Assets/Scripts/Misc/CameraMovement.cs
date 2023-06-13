@@ -5,6 +5,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class CameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        VideoPlayer videoPlayer = gameObject.GetComponent<VideoPlayer>();
+        videoPlayer.url = System.IO.Path.Combine (Application.streamingAssetsPath, "background_rain.mp4");
+        videoPlayer.Play();
+
         cam = GetComponent<Camera>();
     }
 
