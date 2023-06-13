@@ -64,6 +64,7 @@ public class Ghostwalker : BasePlayer
         // if player can be invisible again and they pressed space
         if (Input.GetKey(KeyCode.Space) && isVisible && cooldownTimer >= invisibilityCooldown)
         {
+            AudioManager.instance.PlayStealthSound();
             // make sprite transparent
             spriteRenderer.color = new Color(1, 1, 1, .5f);
             isVisible = false;
