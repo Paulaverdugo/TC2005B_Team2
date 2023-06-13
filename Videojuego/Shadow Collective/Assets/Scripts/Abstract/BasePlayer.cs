@@ -94,7 +94,7 @@ abstract public class BasePlayer : MonoBehaviour
     virtual protected void Update()
     {
         // skip current level for testing and showcasing
-        if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.O) && !skippingLevel)
+        if (Input.GetKey(KeyCode.J) && Input.GetKey(KeyCode.K) && !skippingLevel)
         {
             skippingLevel = true;
             Debug.Log("skipping level");
@@ -102,7 +102,7 @@ abstract public class BasePlayer : MonoBehaviour
         }
 
         // if esc is presed, pause the game
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             if (pauseMenu.activeSelf)
             {
