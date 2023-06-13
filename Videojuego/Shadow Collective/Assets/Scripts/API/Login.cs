@@ -61,6 +61,7 @@ public class Login : MonoBehaviour
                     errorMessage.GetComponent<TMP_Text>().text = "Incorrect username or password!";
                 }
             } else {
+                Debug.Log(www.error);
                 errorMessage.SetActive(true);
                 errorMessage.GetComponent<TMP_Text>().text = "Error! Please try again.";
             }
