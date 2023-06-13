@@ -7,10 +7,24 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
     [SerializeField] AudioMixer mixer;
+
+    // Main SFX
     [SerializeField] AudioSource shootSource;
     [SerializeField] AudioClip shoot;
     [SerializeField] AudioSource moveSource;
     [SerializeField] AudioClip move;
+
+    // Hack
+    [SerializeField] AudioSource hackSource;
+    [SerializeField] AudioClip hack;
+
+    // Shield
+    [SerializeField] AudioSource shieldSource;
+    [SerializeField] AudioClip shield;
+
+    // Stealth
+    [SerializeField] AudioSource stealthSource;
+    [SerializeField] AudioClip stealth;
 
     public const string MUSIC_KEY = "musicVolume";
     public const string SFX_KEY = "sfxVolume";
@@ -50,5 +64,29 @@ public class AudioManager : MonoBehaviour
         moveSource.time = 0.3f;
         moveSource.clip = move;
         moveSource.Play();
+    }
+
+    public void PlayStealthSound()
+    {
+        stealthSource.time = 0.3f;
+        stealthSource.clip = stealth;
+        stealthSource.Play();
+        stealthSource.Stop();
+    }
+
+    public void PlayHackSound()
+    {
+        hackSource.time = 0.3f;
+        hackSource.clip = hack;
+        hackSource.Play();
+        hackSource.Stop();
+    }
+
+    public void PlayShieldSound()
+    {
+        shieldSource.time = 0.3f;
+        shieldSource.clip = shield;
+        shieldSource.Play();
+        shieldSource.Stop();
     }
 }
