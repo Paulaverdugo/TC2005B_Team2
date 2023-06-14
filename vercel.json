@@ -1,5 +1,5 @@
 {
     "routes": [
-      { "source": "/", "destination": "/Web/ShadowCollective/home.html" }
+      { "src": "/", "dest": "/Web/ShadowCollective/home.html" }
     ]
 }
