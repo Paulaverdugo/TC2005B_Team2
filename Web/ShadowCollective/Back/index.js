@@ -20,7 +20,7 @@ app.use(cors());
 
 //Ruta por defualt
 app.get("/", (req, res) => {
-    res.send(`Servidor trabajando en el puerto ${PORT}`);
+    res.send(`Lo siento Octavio ya no tenemos el puerto expuesto 😈`);
 });
 
 // ----  Rutas ---- 
