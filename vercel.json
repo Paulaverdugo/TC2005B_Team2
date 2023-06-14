@@ -1,5 +1,0 @@
-{
-    "rewrites": [
-      { "source": "/", "destination": "/Web/ShadowCollective/index.html" }
-    ]
-}
