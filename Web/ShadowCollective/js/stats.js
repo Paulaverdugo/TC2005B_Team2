@@ -92,7 +92,7 @@ try
                         {
                             label: '',
                             data: type_wins,
-                            backgroundColor: ['rgba(249,205,116,255)',],
+                            backgroundColor: ['rgba(249, 205, 116, 1)', 'rgba(58,93,201,255)', 'rgba(167,240,111,255)'],
                             borderColor: ['rgba(1,1,1,1)',],
                             borderWidth: 1
                         }
@@ -141,39 +141,42 @@ try
 
 
 
-    if (gadget_response.ok) 
-    {
-
+    if (gadget_response.ok) {
         const results = await gadget_response.json();
-
         console.log(results);
-
+      
         const gadget_values = Object.values(results);
         console.log(gadget_values);
-
-        const gadget_names = gadget_values.map((value) => value.gadget_name);
-        const gadget_frequency = gadget_values.map((value) => value.most_gadget);
-
+      
+        const customOrder = ['Ghost Vision', 'Ghost Blade', 'Phantom Step', 'Cyber Dash', 'Overcharge', 'Shadow Veil', 'Circuit Breaker', 'Bio Stim', 'Phantom Signal'];
+      
+        const gadgetData = gadget_values.reduce((acc, value) => {
+          acc[value.gadget_name] = value.most_gadget;
+          return acc;
+        }, {});
+      
+        const orderedGadgetNames = customOrder.filter(gadget => gadgetData[gadget]);
+        const orderedGadgetFrequency = orderedGadgetNames.map(gadget => gadgetData[gadget]);
+      
         const ctx4 = document.getElementById('gadgetTypeChart').getContext('2d');
-
-        const chart4 = new Chart(ctx4, 
-            {
-                type: 'pie',
-                data: {
-                    labels: gadget_names,
-                    datasets: [
-                        {
-                            label: 'Wins',
-                            data: gadget_frequency,
-                            backgroundColor: ['rgba(176,62,84,255)',],
-                            borderColor: ['rgba(1,1,1,1)',],
-                            borderWidth: 1
-                        }
-                    ]
-            },
-        })
-    }
-
+      
+        const chart4 = new Chart(ctx4, {
+          type: 'pie',
+          data: {
+            labels: orderedGadgetNames,
+            datasets: [
+              {
+                label: 'Wins',
+                data: orderedGadgetFrequency,
+                backgroundColor: [ 'rgb(246,179,43)', 'rgb(249,205,116)', 'rgb(255,240,134)', 'rgba(58,93,201,255)', 'rgba(136,157,222)', 'rgb(195,206,238)', 'rgba(133,192,88)',  'rgba(133,192,88)', 'rgba(167,240,111,255)'],
+                borderColor: ['rgba(1,1,1,1)'],
+                borderWidth: 1
+              }
+            ]
+          }
+        });
+      }
+      
 
 } catch(e) {
     //Error
