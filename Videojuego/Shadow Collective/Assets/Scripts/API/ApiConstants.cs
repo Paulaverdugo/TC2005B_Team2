@@ -7,7 +7,8 @@ using System.Collections.Generic;
 
 public static class ApiConstants
 {
-    public static string URL = "http://localhost:4000";
+    // public static string URL = "http://localhost:4000"; // DEV
+    public static string URL = "https://tc2005bteam2-production.up.railway.app"; // PROD
 }
 
 [System.Serializable]
@@ -71,7 +72,11 @@ public class ShortGadget
 [System.Serializable]
 public class ShortGadgetList
 {
-    public ShortGadgetList() {}
+    public ShortGadgetList() 
+    {
+        this.gadgets = new List<ShortGadget>();
+    }
+
     public ShortGadgetList(List<ShortGadget> gadgets)
     {
         this.gadgets = gadgets;

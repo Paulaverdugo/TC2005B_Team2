@@ -61,8 +61,17 @@
   }
   .game {
     color: #fff;
-    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
+#unity-fullscreen-button {
+    float: right;
+    width: 38px;
+    height: 38px;
+    background: url('assets/fullscreen-button.png') no-repeat center
+}
   /*-- banner --*/
   /*-- header --*/
   .agileits-logo {

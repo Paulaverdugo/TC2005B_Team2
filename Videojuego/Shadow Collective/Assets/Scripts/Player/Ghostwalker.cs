@@ -92,4 +92,16 @@ public class Ghostwalker : BasePlayer
             }
         }
     }
+
+    override public void GetDamaged(float damage)
+    {
+        base.GetDamaged(damage);
+
+        if (!isVisible)
+        {
+            spriteRenderer.color = new Color(1, 1, 1, 1);
+            isVisible = true;
+            cooldownTimer = 0;
+        }
+    }
 }

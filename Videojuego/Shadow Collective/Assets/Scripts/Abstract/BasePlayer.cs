@@ -94,7 +94,7 @@ abstract public class BasePlayer : MonoBehaviour
     virtual protected void Update()
     {
         // skip current level for testing and showcasing
-        if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.O) && !skippingLevel)
+        if (Input.GetKey(KeyCode.J) && Input.GetKey(KeyCode.K) && !skippingLevel)
         {
             skippingLevel = true;
             Debug.Log("skipping level");
@@ -102,7 +102,7 @@ abstract public class BasePlayer : MonoBehaviour
         }
 
         // if esc is presed, pause the game
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             if (pauseMenu.activeSelf)
             {
@@ -251,18 +251,27 @@ abstract public class BasePlayer : MonoBehaviour
     protected IEnumerator GameOver()
     {
         // Add a death to our stats
-        StartCoroutine(AddDeath());
+        yield return StartCoroutine(AddDeath());
 
         // Leave the player with only one gadget
         while (activeGadgets.Count > 1)
         {
             BaseGadget gadgetToDelete = activeGadgets[Random.Range(0, activeGadgets.Count - 1)];
-            StartCoroutine(RemoveGadget(gadgetToDelete));
+            yield return StartCoroutine(RemoveGadget(gadgetToDelete));
 
+            // remove them from player prefs
             activeGadgets.Remove(gadgetToDelete);
+
+            ShortGadgetList shortGadgetList = new ShortGadgetList();
+            foreach (BaseGadget baseGadget in activeGadgets)
+            {
+                shortGadgetList.gadgets.Add(new ShortGadget(baseGadget.gadget_id));
+            }
+
+            PlayerPrefs.SetString("gadgets", JsonUtility.ToJson(shortGadgetList));
         }
 
-        StartCoroutine(ResetLevelAchieved());
+        yield return StartCoroutine(ResetLevelAchieved());
 
         // Play death animation
         animator.SetTrigger("death");
