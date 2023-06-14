@@ -28,7 +28,7 @@ public class DeathSceneController : MonoBehaviour
 
     private IEnumerator ShowCanvas()
     {
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(2f);
         canvas.SetActive(true);
         isCanvasActive = true;
     }

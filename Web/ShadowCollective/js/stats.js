@@ -56,7 +56,7 @@ try
                     labels: names,
                     datasets: [
                         {
-                            label: '',
+                            label: 'Wins',
                             data: wins,
                             backgroundColor: ['rgba(58,93,201,255)'],
                             borderColor: ['rgba(58,93,201,255)'],
@@ -125,7 +125,7 @@ try
                     labels: dead_names,
                     datasets: [
                         {
-                            label: '',
+                            label: 'Deaths',
                             data: dead_type,
                             backgroundColor: ['rgba(167,240,111,255)',],
                             borderColor: ['rgba(167,240,111,255)',],
