@@ -16,9 +16,7 @@ import {ENV, PORT} from "./const.js";
 const app = express();
 
 app.use(express.json());
-app.use(cors({
-       origin: "https://shadow-collective.vercel.app/"
-}));
+app.use(cors());
 
 //Ruta por defualt
 app.get("/", (req, res) => {
