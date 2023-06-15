@@ -46,7 +46,7 @@ In the year 2053, Nexus - an evil corporation led by a hyper-smart AI - conquere
 
 Shadow Collective will be a rogue-lite top-down RPG. The player will choose at the beginning one of three cyborg classes: Cybergladiator, Codebreaker, and Ghostwalker. The Cybergladiator class will give the player super-human strength and fighting skill. The Codebreaker class will give the player the ability to control some of the technology remotely. And finally, the Ghostwalker will have technology that allows them to go undetected.
 
-The gameplay will focus on the player inflitrating the Nexus building, a tall tower with the final boss in the top floor. Each floor will be a level with different objectives and mechanics. As the level progresses, or climbs the building, they will be given rewards like gadgets or upgrades from which they can choose and build their own character, simulating leveling-up. The boss will have different stages, with different mechanics, and the goal is to disconnect the power supply that keeps Nexus alive. (This gives a window for a sequel, since maybe before being disconnected, Nexus transfered itself into another computer). If the player dies, they will be allowed to keep their gadgets but they will have to start again from the first level.
+The gameplay will focus on the player inflitrating the Nexus building, a tall tower with the final boss on the top floor. Each floor will be a level with different objectives and mechanics. As the level progresses, or climbs the building, they will be given rewards like gadgets or upgrades from which they can choose and build their own character, simulating leveling-up. The boss will have different stages, with different mechanics, and the goal is to disconnect the power supply that keeps Nexus alive. (This gives a window for a sequel, since maybe before being disconnected, Nexus transfered itself into another computer). If the player dies, they will be allowed to keep their gadgets but they will have to start again from the first level.
 
 ### **Mindset**
 
@@ -119,11 +119,12 @@ Ghostwalker: Can go invisible for 5 seconds.
       1. Easy, interactive, intuitive
    2. Objects
       1. _Ambient_
-         1. Long aile
+         1. Small space
          2. Tech trash (obstacle)
       2. _Interactive_
          1. Cameras
          2. Guards
+         3. NPC 
 
 2. First Level
 
@@ -156,6 +157,7 @@ Ghostwalker: Can go invisible for 5 seconds.
       2. _Interactive_
          1. Guards
          2. Cameras
+         3. Damaging tiles
 
 4. Final Level
    1. Mood
@@ -169,9 +171,12 @@ Ghostwalker: Can go invisible for 5 seconds.
          5. Desks and chairs (obstacles)
          6. Tech trash (obstacles)
          7. Abandoned computers
+         8. Boss room 
       2. _Interactive_
          1. Guards
          2. Cameras
+         3. Damaging tiles
+         3. Damaging tiles
 
 ### **Game Flow**
 
@@ -194,7 +199,7 @@ FINAL LEVEL:
 1. Player starts at the entrance.
 2. Player gets to explore the map which divides into two sections.
 3. If the player chooses the first section, it will go through a path full of cameras.
-4. If the player chooses the second path they will have to fight lots of guards.
+4. If the player chooses the second path they will have to fight teh Boss guard.
 5. The player needs to find the winner's room.
 6. The player needs to enter the winner's room.
 
@@ -347,27 +352,27 @@ _Inspirations_
 _(define the main activities and the expected dates when they should be finished. This is only a reference, and can change as the project is developed)_
 
 1. WEEK ONE
-   1. Develop base classes
-   2. Develop characters
-      1. Cybergladiator
-      2. Codebreaker
-      3. GhostWalker
-      4. Guard
-      5. Camera
-2. WEEK TWO
-   1. Develop music
-   2. Develop sprites
-   3. Develop assets
-3. WEEK THREE
-   1. Develop levels
-      1. Level 0
-      2. Level 1
-      3. Level 2
-      4. Final Level
-4. WEEK FOUR
+   1. Create script for moving and shooting.
+   2. Create abstract classes for each player type.
+   3. Craete abstract classes and prefabs for enemies.
+   4. Create player animations.
 
-   1. Testing for Final Week
-   2. Error Modifications
+2. WEEK TWO
+   1. Create healthpoints.
+   2. Create pathfinding algorithm.
+   3. Create scripts for gadgets.
+
+3. WEEK THREE
+   1. Create cut scenes.
+   2. Create NPC.
+   3. Create first level.
+   4. Create second level.
+   5. Make the enemies follow the character. 
+
+4. WEEK FOUR
+   1. Create tutorial level.
+   2. Create boss level
+   3. Create music controller. 
 
 5. WEEK FIVE
    1. Presentation
