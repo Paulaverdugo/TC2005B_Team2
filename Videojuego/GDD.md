@@ -1,6 +1,8 @@
 # **Shadow Collective**
 
 ## _Game Design Document_
+## Created by Andrés Tarazona Solloa A01023332, Dulce García Ruiz A01748013, Mariel Gómez Gutiérrez A01275607, Paula Verdugo Marquez A01026218, Santiago Rodríguez Palomo A01025232
+
 
 ---
 
@@ -40,7 +42,7 @@
 
 ### **Summary**
 
-In the year 2053, Nexus - an evil corporation led by a hyper-smart AI - conquered the world. The shadow collective, a group of rebels, has been hiding in the shadows trying to overthrow Nexus' rule of surveillance and injustice, but to no avail. The world's last hope rests in the hands of our hero, a cyborg who wishes to use technology for the greater good.
+In the year 2047, Nexus - an evil corporation led by a hyper-smart AI - conquered the world. The shadow collective, a group of rebels, has been hiding in the shadows trying to overthrow Nexus' rule of surveillance and injustice, but to no avail. The world's last hope rests in the hands of our hero, a cyborg who wishes to use technology for the greater good.
 
 ### **Gameplay**
 
@@ -205,10 +207,12 @@ FINAL LEVEL:
 
 ### **Examples**
 
-![](https://i.imgur.com/uFxb48E.jpg)
-![](https://i.imgur.com/dN4BIHK.jpg)
-![](https://i.imgur.com/PNvEDPs.jpg)
-![](https://i.imgur.com/MtMbNyj.jpg)
+![](https://hackmd.io/_uploads/rycanftw2.jpg)
+![](https://hackmd.io/_uploads/H1To2ztD3.jpg)
+![](https://hackmd.io/_uploads/BkO23zKv2.jpg)
+![](https://hackmd.io/_uploads/HJBC2GKPn.jpg)
+
+
 
 ## _Development_
 
@@ -376,3 +380,4 @@ _(define the main activities and the expected dates when they should be finished
 
 5. WEEK FIVE
    1. Presentation
+   2. Final configurations.
