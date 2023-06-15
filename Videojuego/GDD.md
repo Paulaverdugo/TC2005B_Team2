@@ -1,6 +1,8 @@
 # **Shadow Collective**
 
 ## _Game Design Document_
+## Created by Andrés Tarazona Solloa A01023332, Dulce García Ruiz A01748013, Mariel Gómez Gutiérrez A01275607, Paula Verdugo Marquez A01026218, Santiago Rodríguez Palomo A01025232
+
 
 ---
 
